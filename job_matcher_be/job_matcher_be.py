@@ -17,7 +17,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uvicorn
-from typing import Union
+from typing import Union, List
 
 # ==================== THÊM KẾT NỐI MYSQL (CỔNG 3307) ====================
 from sqlalchemy import create_engine, Column, Integer, String, Text, JSON
@@ -36,6 +36,33 @@ engine = create_engine(
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+
+# ==================== THÊM MODEL CHO BẢNG crawl_runs ====================
+class CrawlRun(Base):
+    __tablename__ = "crawl_runs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    keyword = Column(String(255))
+    location = Column(String(255))
+    level = Column(String(255))
+    salary = Column(String(255))
+    search_range = Column(Integer)
+    jobs_data = Column(JSON)           # Danh sách job thô hoặc cleaned
+    result = Column(JSON, nullable=True)  # Kết quả matching CV, lưu dưới dạng JSON
+    created_at = Column(String(50))     # Hoặc dùng DateTime nếu muốn chuẩn hơn
+
+# Đảm bảo tạo table (nếu chưa có)
+Base.metadata.create_all(bind=engine)
+
+# Thêm model mới cho response của endpoint này (tùy chọn, để có docs rõ ràng hơn)
+class MatchWithJobsResult(BaseModel):
+    title: str
+    salary: str
+    experience: Union[int, str]
+    location: str
+    score: float
+    matching_skills: str
+    url: str
 
 # Định nghĩa model Job (sau này có thể dùng để lưu DB)
 class JobDB(Base):
@@ -446,5 +473,133 @@ async def get_jobs():
     jobs = load_jobs()
     return {"jobs_count": len(jobs), "jobs": jobs}
 
+@app.post("/match-with-jobs", response_model=List[MatchWithJobsResult])
+async def match_with_jobs(
+    cv_file: UploadFile = File(...),
+    jobs_data: str = Form(...),                  # Chuỗi JSON jobs từ client
+    run_id: int = Form(...),                     # THÊM: ID của crawl run để lưu kết quả
+    extra_skills: str = Form(""),
+    desired_position: str = Form("")
+):
+    """
+    Matching CV với danh sách job được truyền trực tiếp.
+    Đồng thời lưu kết quả matching vào cột result của bảng crawl_runs theo run_id.
+    """
+    db = SessionLocal()
+    try:
+        # Parse jobs_data
+        try:
+            jobs = json.loads(jobs_data)
+        except json.JSONDecodeError:
+            raise HTTPException(status_code=400, detail="jobs_data phải là chuỗi JSON hợp lệ.")
+
+        if not jobs or not isinstance(jobs, list):
+            raise HTTPException(status_code=400, detail="Danh sách job rỗng hoặc không hợp lệ.")
+
+        # Đọc và xử lý CV
+        content = await cv_file.read()
+        file_type = cv_file.content_type
+        raw_cv = extract_text_from_file(content, file_type)
+        
+        if not raw_cv.strip():
+            raise HTTPException(status_code=400, detail="Không đọc được nội dung CV!")
+
+        extra_text = f"\nKỹ năng bổ sung: {extra_skills}\nVị trí mong muốn: {desired_position}"
+        cv_text = clean_text(raw_cv + extra_text)
+        cv_emb = model.encode(cv_text, convert_to_tensor=True)
+        skills_cv = extract_skills(cv_text)
+
+        results = []
+
+        for job in jobs:
+            desc_list = []
+            req_list = []
+
+            if "job_description" in job and isinstance(job["job_description"], list):
+                desc_list.extend(job["job_description"])
+            elif "job_description" in job and isinstance(job["job_description"], str):
+                desc_list.append(job["job_description"])
+
+            if "requirements" in job and isinstance(job["requirements"], list):
+                req_list.extend(job["requirements"])
+            elif "requirements" in job and isinstance(job["requirements"], str):
+                req_list.append(job["requirements"])
+
+            full_desc = " ".join(desc_list + req_list)
+            if not full_desc.strip():
+                continue
+
+            jd_text = clean_text(full_desc)
+            jd_emb = model.encode(jd_text, convert_to_tensor=True)
+
+            cos_score = util.cos_sim(cv_emb, jd_emb).item() * 100
+
+            skills_jd = extract_skills(jd_text)
+            intersection = skills_cv & skills_jd
+            union = skills_cv | skills_jd
+            jaccard = len(intersection) / len(union) if union else 0
+
+            final_score = 0.7 * cos_score + 0.3 * (jaccard * 100)
+
+            # Xử lý lương
+            salary_data = job.get("salary", {})
+            if isinstance(salary_data, dict):
+                if salary_data.get("min") and salary_data.get("max"):
+                    salary_str = f"{salary_data['min']} - {salary_data['max']} triệu"
+                elif salary_data.get("max"):
+                    salary_str = f"Đến {salary_data['max']} triệu"
+                else:
+                    salary_str = "Thoả thuận"
+            else:
+                salary_str = job.get("salary_raw", "Thoả thuận") or "Thoả thuận"
+
+            # Xử lý kinh nghiệm
+            exp = job.get("experience", {})
+            if isinstance(exp, dict):
+                experience_val = exp.get("min_years", "Không yêu cầu")
+            else:
+                experience_val = job.get("experience", "Không yêu cầu")
+            
+            if isinstance(experience_val, int) or (isinstance(experience_val, str) and experience_val.isdigit()):
+                experience_str = int(experience_val)
+            else:
+                experience_str = experience_val
+
+            results.append({
+                "title": job.get("title", "Không rõ"),
+                "salary": salary_str,
+                "experience": experience_str,
+                "location": job.get("location", "Không xác định"),
+                "score": round(final_score, 1),
+                "matching_skills": ", ".join(sorted(intersection)) if intersection else "Không có",
+                "url": job.get("url", "#")
+            })
+
+        # Sắp xếp theo score giảm dần
+        results.sort(key=lambda x: x["score"], reverse=True)
+
+        # ==================== LƯU KẾT QUẢ VÀO DB ====================
+        try:
+            crawl_run = db.query(CrawlRun).filter(CrawlRun.id == run_id).first()
+            if not crawl_run:
+                raise HTTPException(status_code=404, detail=f"Không tìm thấy crawl run với id = {run_id}")
+
+            # Lưu toàn bộ danh sách kết quả matching vào cột result (dạng JSON)
+            crawl_run.result = results
+            db.commit()
+        except Exception as db_error:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=f"Lỗi khi lưu kết quả vào DB: {str(db_error)}")
+
+        # Trả về kết quả cho frontend
+        return results
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Lỗi không xác định: {str(e)}")
+    finally:
+        db.close()
+        
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

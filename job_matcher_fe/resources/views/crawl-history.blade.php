@@ -226,6 +226,14 @@
             display: none;
         }
 
+        .file-name-display {
+            margin-top: 16px;
+            font-size: 1rem;
+            color: #00ffaa;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
         .upload-btn {
             background: #00b4ff;
             color: #000;
@@ -246,7 +254,7 @@
             background: rgba(255, 255, 255, 0.05);
             padding: 16px;
             border-radius: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             border-left: 4px solid #00ffaa;
         }
 
@@ -256,27 +264,70 @@
             color: #00ffaa;
         }
 
-        .match-score {
-            font-size: 1.4rem;
+        /* Progress circle cho Matching Score */
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#00ffaa calc(var(--percent) * 1%), rgba(255, 255, 255, 0.1) 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 0 auto 12px;
+        }
+
+        .score-circle::before {
+            content: attr(data-score);
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            background: rgba(15, 15, 25, 0.98);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
             font-weight: 800;
             color: #00ffaa;
-            margin: 8px 0;
         }
 
-        .match-info {
-            opacity: 0.9;
-            font-size: 0.9rem;
-            line-height: 1.6;
+        /* Tag kỹ năng */
+        .skill-tags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        /* Tab JSON */
-        .modal-body pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 0.88rem;
-            line-height: 1.6;
-            color: #e0e0e0;
+        .skill-tag {
+            background: rgba(0, 180, 255, 0.2);
+            color: #00b4ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 180, 255, 0.4);
+        }
+
+        /* Nút xem chi tiết */
+        .view-btn {
+            margin-top: 16px;
+            background: #00b4ff;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .view-btn:hover {
+            background: #00d4ff;
+            transform: translateY(-2px);
         }
 
         .no-data {
@@ -290,6 +341,18 @@
             margin-top: 30px;
             display: flex;
             justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 992px) {
@@ -306,10 +369,42 @@
                 max-width: 150px;
             }
         }
+
+        @media (max-width: 768px) {
+            .match-item {
+                padding: 14px;
+            }
+
+            .score-circle {
+                width: 70px;
+                height: 70px;
+            }
+
+            .score-circle::before {
+                width: 56px;
+                height: 56px;
+                font-size: 1rem;
+            }
+        }
     </style>
 @endpush
 
 @section('content')
+    @if (session('success'))
+        <div id="successMessage"
+            style="background: rgba(0, 255, 150, 0.15);
+                border: 1px solid #00ffaa;
+                color: #00ffaa;
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 24px;
+                text-align: center;
+                font-weight: 600;
+                opacity: 1;
+                transition: opacity 1s ease-out;">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="container">
         <div class="header">
             <h1 style="font-size: 2.4rem; margin-bottom: 12px;">
@@ -370,9 +465,26 @@
                                         <button class="action-btn match" onclick="openModal({{ $run->id }}, 'match')">
                                             <i class="fas fa-search"></i> Tìm việc phù hợp
                                         </button>
-                                    @else
-                                        <span style="opacity: 0.5;">—</span>
+
+                                        @if (!empty($run->result) && count($run->result) > 0)
+                                            <button class="action-btn" style="border-color: #00ffaa; color: #00ffaa;"
+                                                onclick="openModal({{ $run->id }}, 'results')">
+                                                <i class="fas fa-trophy"></i> Kết quả
+                                            </button>
+                                        @endif
                                     @endif
+
+                                    {{-- Nút Xóa - luôn hiện nếu là chủ sở hữu --}}
+                                    <form action="{{ route('crawl-runs.destroy', $run->id) }}" method="POST"
+                                        style="display:inline;"
+                                        onsubmit="return confirm('Bạn có chắc chắn muốn xóa lần crawl này?\nDữ liệu JSON và kết quả matching sẽ bị xóa vĩnh viễn.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="action-btn"
+                                            style="border-color: #ff6b6b; color: #ff6b6b; margin-left: 6px;">
+                                            <i class="fas fa-trash-alt"></i> Xóa
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -405,6 +517,7 @@
         <div class="modal-tabs">
             <button class="tab-btn active" id="tab-json" onclick="switchTab('json')">Dữ liệu JSON</button>
             <button class="tab-btn" id="tab-match" onclick="switchTab('match')">Tìm việc phù hợp</button>
+            <button class="tab-btn" id="tab-results" onclick="switchTab('results')">Kết quả Matching</button>
         </div>
 
         <div class="modal-body">
@@ -425,6 +538,7 @@
                             <p style="opacity: 0.7; font-size: 0.9rem;">Hỗ trợ: PDF, DOCX, TXT (tối đa 10MB)</p>
                             <input type="file" id="cvFile" name="cv_file" accept=".pdf,.docx,.txt" required>
                         </div>
+                        <div id="fileNameDisplay" class="file-name-display" style="display: none;"></div>
                         <div style="margin-top: 20px;">
                             <input type="text" name="extra_skills" placeholder="Kỹ năng bổ sung (ví dụ: React, AWS)"
                                 style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: rgba(255,255,255,0.05); color: #fff; margin-bottom: 12px;">
@@ -435,12 +549,28 @@
                         <button type="submit" class="upload-btn">Tìm việc phù hợp ngay</button>
                     </form>
 
-                    <div id="matchResults" class="match-results" style="margin-top: 30px; display: none;"></div>
                     <div id="matchLoading" style="text-align: center; padding: 40px; display: none;">
                         <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #00b4ff;"></i>
                         <p style="margin-top: 16px;">Đang phân tích CV và tìm việc phù hợp...</p>
                     </div>
-                    <div id="matchError" style="color: #ff6b6b; text-align: center; display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Tab Kết quả Matching -->
+            <div id="tab-content-results" style="display: none;">
+                <div id="resultsLoading" style="text-align: center; padding: 60px; display: none;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #00b4ff;"></i>
+                    <p style="margin-top: 16px;">Đang tải kết quả matching...</p>
+                </div>
+
+                <div id="resultsContent">
+                    <div id="noResultsMessage" style="text-align: center; padding: 60px 20px; opacity: 0.7;">
+                        <p>Chưa có kết quả matching nào.<br>Hãy upload CV ở tab "Tìm việc phù hợp" để bắt đầu.</p>
+                    </div>
+
+                    <div id="matchList" class="match-results">
+                        <!-- Các job sẽ được render bằng JS -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -449,34 +579,55 @@
 
 @push('scripts')
     <script>
-        const crawlData = @json($crawlRuns->pluck('detail', 'id')->toArray());
-        let currentRunId = null;
+        /* ===============================
+                           DATA TỪ BACKEND
+                        =============================== */
 
-        // Route template với placeholder
+        const crawlData = @json($crawlData);
+
+        let currentRunId = null;
         const matchRouteTemplate = "{{ route('match.with.run', ':id') }}";
+
+        /* ===============================
+           MODAL CONTROL
+        =============================== */
 
         function openModal(runId, initialTab = 'json') {
             currentRunId = runId;
-            const jobs = crawlData[runId] || [];
 
-            document.getElementById('modalTitle').textContent = `Crawl #${runId} - ${jobs.length} công việc`;
+            const runData = crawlData[runId] || {};
+            const jobs = runData.detail || [];
+            const results = runData.result || [];
 
-            document.getElementById('jsonContent').textContent = JSON.stringify(jobs, null, 2);
+            // Title
+            document.getElementById('modalTitle').textContent =
+                `Crawl #${runId} - ${jobs.length} công việc`;
 
-            // Set form action đúng định dạng
+            // JSON tab
+            document.getElementById('jsonContent').textContent =
+                JSON.stringify(jobs, null, 2);
+
+            // Form action
             const form = document.getElementById('matchForm');
             form.action = matchRouteTemplate.replace(':id', runId);
-
-            // Reset trạng thái
             form.reset();
-            document.getElementById('matchResults').style.display = 'none';
-            document.getElementById('matchResults').innerHTML = '';
+
+            // Reset UI
+            document.getElementById('fileNameDisplay').style.display = 'none';
+            document.getElementById('fileNameDisplay').textContent = '';
             document.getElementById('matchLoading').style.display = 'none';
-            document.getElementById('matchError').style.display = 'none';
-            document.getElementById('matchError').innerHTML = '';
 
-            switchTab(initialTab);
+            // 🔥 RENDER RESULT TỪ DB
+            if (Array.isArray(results) && results.length > 0) {
+                renderMatchResults(results);
+                switchTab('results');
+            } else {
+                document.getElementById('matchList').innerHTML = '';
+                document.getElementById('noResultsMessage').style.display = 'block';
+                switchTab(initialTab);
+            }
 
+            // Open modal
             document.getElementById('overlay').classList.add('open');
             document.getElementById('mainModal').classList.add('open');
             document.body.style.overflow = 'hidden';
@@ -490,85 +641,125 @@
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn =>
+                btn.classList.remove('active')
+            );
             document.getElementById(`tab-${tab}`).classList.add('active');
 
-            document.getElementById('tab-content-json').style.display = tab === 'json' ? 'block' : 'none';
-            document.getElementById('tab-content-match').style.display = tab === 'match' ? 'block' : 'none';
+            document.getElementById('tab-content-json').style.display =
+                tab === 'json' ? 'block' : 'none';
+            document.getElementById('tab-content-match').style.display =
+                tab === 'match' ? 'block' : 'none';
+            document.getElementById('tab-content-results').style.display =
+                tab === 'results' ? 'block' : 'none';
         }
 
-        // Xử lý submit form - ĐÃ SỬA ĐỂ KHÔNG BỊ LỖI JSON
-        document.getElementById('matchForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        /* ===============================
+           RENDER MATCH RESULTS
+        =============================== */
 
-            const formData = new FormData(this);
+        function renderMatchResults(results) {
+            const container = document.getElementById('matchList');
+            const noResultsMessage = document.getElementById('noResultsMessage');
 
-            document.getElementById('matchLoading').style.display = 'block';
-            document.getElementById('matchResults').style.display = 'none';
-            document.getElementById('matchError').style.display = 'none';
+            if (!Array.isArray(results) || results.length === 0) {
+                container.innerHTML = '';
+                noResultsMessage.style.display = 'block';
+                return;
+            }
 
-            try {
-                const response = await fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // ← DÙNG TRỰC TIẾP TỪ BLADE, CHẮC CHẮN ĐÚNG
-                    }
-                });
+            noResultsMessage.style.display = 'none';
+            container.innerHTML = '';
 
-                const text = await response.text();
+            results.forEach((job, index) => {
+                const score = parseFloat(job['Matching Score (%)']) || 0;
 
-                let data;
-                try {
-                    data = JSON.parse(text);
-                } catch (parseError) {
-                    throw new Error(
-                        'Lỗi server (có thể do phiên đăng nhập hết hạn). Vui lòng reload trang (F5) và thử lại.'
-                        );
-                }
+                const skills = typeof job['Kỹ năng phù hợp'] === 'string' ?
+                    job['Kỹ năng phù hợp'].split(',').map(s => s.trim()) : [];
 
-                if (!response.ok) {
-                    const errorMsg = data.message || data.error || 'Lỗi không xác định từ server';
-                    throw new Error(errorMsg);
-                }
+                const itemHTML = `
+                <div class="match-item"
+                     style="animation: fadeIn 0.5s ease forwards;
+                            animation-delay: ${index * 0.1}s;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                        <div style="flex:1;">
+                            <div class="match-title">
+                                ${job['Vị trí'] || 'Không có tiêu đề'}
+                            </div>
 
-                // Hiển thị kết quả thành công
-                let html =
-                    `<h3 style="text-align:center; color:#00ffaa; margin-bottom:20px;">Top 10 công việc phù hợp nhất</h3>`;
-                if (data.match_results && data.match_results.length > 0) {
-                    data.match_results.forEach(job => {
-                        html += `
-                <div class="match-item">
-                    <div class="match-title">${job['Vị trí']}</div>
-                    <div class="match-score">${job['Matching Score (%)']}%</div>
-                    <div class="match-info">
-                        <strong>Lương:</strong> ${job['Mức lương']}<br>
-                        <strong>Kinh nghiệm:</strong> ${job['Kinh nghiệm']}<br>
-                        <strong>Địa điểm:</strong> ${job['Địa điểm']}<br>
-                        <strong>Kỹ năng phù hợp:</strong> ${job['Kỹ năng phù hợp']}<br>
-                        <a href="${job.url}" target="_blank" style="color:#00b4ff;">Xem chi tiết việc làm →</a>
+                            <div style="margin:8px 0;color:#aaa;font-size:0.9rem;">
+                                <strong>Lương:</strong> ${job['Mức lương'] || 'Thỏa thuận'}
+                                • <strong>Kinh nghiệm:</strong> ${job['Kinh nghiệm'] || 'Không yêu cầu'}
+                                • <strong>Địa điểm:</strong> ${job['Địa điểm'] || 'Không rõ'}
+                            </div>
+
+                            ${skills.length > 0 ? `
+                                                    <div class="skill-tags">
+                                                        ${skills.map(skill =>
+                                                            `<span class="skill-tag">${skill}</span>`
+                                                        ).join('')}
+                                                    </div>
+                                                ` : ''}
+                        </div>
+
+                        <div style="margin-left:20px;text-align:center;">
+                            <div class="score-circle"
+                                 data-score="${score.toFixed(1)}%"
+                                 style="--percent:${score};"></div>
+                            <div style="font-size:0.8rem;opacity:0.7;">
+                                Độ phù hợp
+                            </div>
+                        </div>
                     </div>
-                </div>`;
-                    });
-                } else {
-                    html +=
-                        '<p style="text-align:center; opacity:0.8;">Không tìm thấy công việc phù hợp nào trong lần crawl này.</p>';
-                }
 
-                document.getElementById('matchResults').innerHTML = html;
-                document.getElementById('matchResults').style.display = 'block';
+                    <a href="${job.url || '#'}"
+                       target="_blank"
+                       class="view-btn">
+                        Xem chi tiết trên TopCV ↗
+                    </a>
+                </div>
+            `;
 
-            } catch (err) {
-                document.getElementById('matchError').innerHTML = `<strong>Lỗi:</strong> ${err.message}`;
-                document.getElementById('matchError').style.display = 'block';
-            } finally {
-                document.getElementById('matchLoading').style.display = 'none';
+                container.insertAdjacentHTML('beforeend', itemHTML);
+            });
+        }
+
+        /* ===============================
+           FORM & UX
+        =============================== */
+
+        document.getElementById('cvFile').addEventListener('change', function() {
+            const display = document.getElementById('fileNameDisplay');
+            if (this.files && this.files.length > 0) {
+                display.textContent = 'Đã chọn: ' + this.files[0].name;
+                display.style.display = 'block';
+            } else {
+                display.style.display = 'none';
+                display.textContent = '';
             }
         });
 
-        document.addEventListener('keydown', (e) => {
+        document.getElementById('matchForm').addEventListener('submit', function() {
+            document.getElementById('matchLoading').style.display = 'block';
+        });
+
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeModal();
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                // Bắt đầu mờ dần sau 4 giây
+                setTimeout(() => {
+                    successMessage.style.opacity = '0';
+                }, 2000);
+
+                // Xóa hoàn toàn khỏi DOM sau khi mờ xong (1 giây transition)
+                setTimeout(() => {
+                    successMessage.remove();
+                }, 3000);
+            }
         });
     </script>
 @endpush

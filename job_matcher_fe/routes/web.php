@@ -38,3 +38,6 @@ Route::middleware(['web', 'auth'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/crawl-history', [JobMatcherController::class, 'crawlHistory'])->name('crawl.history');
 });
+Route::delete('/crawl-runs/{crawlRun}', [JobMatcherController::class, 'destroy'])
+     ->name('crawl-runs.destroy')
+     ->middleware(['auth']);

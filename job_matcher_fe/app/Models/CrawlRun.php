@@ -17,12 +17,14 @@ class CrawlRun extends Model
         'parameters',
         'jobs_crawled',
         'error_message',
-        'detail', // <-- Thêm mới
+        'detail',
+        'result',
     ];
 
     protected $casts = [
         'parameters' => 'array',
-        'detail'     => 'array', // Laravel sẽ tự json_decode khi lấy ra
+        'detail'     => 'array',
+        'result'     => 'array',
     ];
 
     public function user()

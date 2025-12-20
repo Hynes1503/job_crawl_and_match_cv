@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\CrawlRun;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class JobMatcherController extends Controller
@@ -66,7 +67,9 @@ class JobMatcherController extends Controller
             $results = $response->json();
 
             if (empty($results)) {
-                return redirect()->back()->with('error', 'Không tìm thấy công việc phù hợp nào.');
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Không tìm thấy công việc phù hợp nào.');
             }
 
             $topResults = array_slice($results, 0, 10);
@@ -80,13 +83,16 @@ class JobMatcherController extends Controller
                         : ($job['experience'] ?? 'Không yêu cầu'),
                     'Địa điểm' => $job['location'] ?? 'Không xác định',
                     'Matching Score (%)' => number_format($job['score'], 1),
-                    'Kỹ năng phù hợp' => $job['matching_skills'] ?? 'Không có',
+                    'Kỹ năng phù hợp' => is_array($job['matching_skills'] ?? null)
+                        ? implode(', ', $job['matching_skills'])
+                        : ($job['matching_skills'] ?? 'Không có'),
                     'url' => $job['url'] ?? '#',
                 ];
             }, $topResults);
 
-            return redirect()->back()->with('results', $formattedResults);
-
+            return redirect()->back()
+                ->withInput()
+                ->with('results', $formattedResults);
         } catch (\Exception $e) {
             Log::error('Lỗi kết nối FastAPI (match): ' . $e->getMessage());
             return redirect()->back()
@@ -109,7 +115,9 @@ class JobMatcherController extends Controller
         $crawlRun = CrawlRun::findOrFail($runId);
 
         if ($crawlRun->status !== 'completed' || !$crawlRun->detail || count($crawlRun->detail) == 0) {
-            return redirect()->back()->with('error', 'Lần crawl này không có dữ liệu hợp lệ để matching.');
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Lần crawl này không có dữ liệu hợp lệ để matching.');
         }
 
         $cvFile = $request->file('cv_file');
@@ -129,21 +137,28 @@ class JobMatcherController extends Controller
 
             if ($response->failed()) {
                 $error = $response->json('detail') ?? $response->body();
-                return redirect()->back()->with('error', 'Lỗi matching: ' . $error);
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Lỗi matching: ' . $error);
             }
 
             $results = $response->json();
 
             if (empty($results)) {
-                return redirect()->back()->with('info', 'Không tìm thấy công việc phù hợp nào trong lần crawl này.');
+                // Lưu kết quả rỗng để biết đã matching nhưng không có job phù hợp
+                $crawlRun->update([
+                    'result' => [],
+                ]);
+
+                return redirect()->back()
+                    ->withInput()
+                    ->with('info', 'Không tìm thấy công việc phù hợp nào trong lần crawl này.');
             }
 
             $topResults = array_slice($results, 0, 10);
 
             $formattedResults = array_map(function ($job) use ($crawlRun) {
                 return [
-                    'run_id' => $crawlRun->id,
-                    'run_date' => $crawlRun->created_at->format('d/m/Y H:i'),
                     'Vị trí' => $job['title'] ?? 'Không rõ',
                     'Mức lương' => $job['salary'] ?? 'Thoả thuận',
                     'Kinh nghiệm' => is_numeric($job['experience'])
@@ -156,13 +171,21 @@ class JobMatcherController extends Controller
                 ];
             }, $topResults);
 
+            // Lưu kết quả vào DB
+            $crawlRun->update([
+                'result' => $formattedResults,
+            ]);
+
             return redirect()->back()
+                ->withInput()
+                ->with('current_run_id', $crawlRun->id)
                 ->with('match_results', $formattedResults)
                 ->with('match_run_info', "Kết quả matching với dữ liệu crawl ngày {$crawlRun->created_at->format('d/m/Y H:i')}");
-
         } catch (\Exception $e) {
             Log::error("Lỗi match với run {$runId}: " . $e->getMessage());
-            return redirect()->back()->with('error', 'Không thể thực hiện matching với dữ liệu crawl này.');
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Không thể thực hiện matching với dữ liệu crawl này.');
         }
     }
 
@@ -237,7 +260,6 @@ class JobMatcherController extends Controller
             ]);
 
             return redirect()->back()->with('error', 'Crawl thất bại: ' . $errorDetail);
-
         } catch (\Throwable $e) {
             Log::error("Crawl error (Run ID: {$crawlRun->id}): " . $e->getMessage());
 
@@ -293,7 +315,33 @@ class JobMatcherController extends Controller
         } catch (\Exception $e) {
             Log::warning('Jobs count API unreachable: ' . $e->getMessage());
         }
+        $crawlData = $crawlRuns->mapWithKeys(function ($run) {
+            return [
+                $run->id => [
+                    'detail' => $run->detail ?? [],
+                    'result' => $run->result ?? [],
+                ],
+            ];
+        })->toArray();
 
-        return view('crawl-history', compact('crawlRuns', 'jobsCount'));
+        return view('crawl-history', compact(
+            'crawlRuns',
+            'jobsCount',
+            'crawlData'
+        ));
+    }
+
+    public function destroy(CrawlRun $crawlRun)
+    {
+        // Bảo vệ: chỉ cho phép người dùng xóa crawl run của chính mình
+        if ($crawlRun->user_id !== Auth::id()) {
+            abort(403, 'Bạn không có quyền xóa lần crawl này.');
+        }
+
+        // Xóa dữ liệu (detail và result là array lớn, nên xóa record luôn là sạch nhất)
+        $crawlRun->delete();
+
+        return redirect()->back()
+            ->with('success', 'Đã xóa lần crawl thành công.');
     }
 }
