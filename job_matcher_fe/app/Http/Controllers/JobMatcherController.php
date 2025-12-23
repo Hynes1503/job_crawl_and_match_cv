@@ -130,6 +130,7 @@ class JobMatcherController extends Controller
                     $cvFile->getClientOriginalName()
                 )
                 ->post("{$this->apiBaseUrl}/match-with-jobs", [
+                    'run_id' => $crawlRun->id,
                     'jobs_data' => json_encode($crawlRun->detail),
                     'extra_skills' => $request->input('extra_skills', ''),
                     'desired_position' => $request->input('desired_position', ''),

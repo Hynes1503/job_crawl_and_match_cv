@@ -18,6 +18,8 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uvicorn
 from typing import Union, List
+from datetime import datetime
+from sqlalchemy import Column, Integer, String, Text, JSON, DateTime
 
 # ==================== THÊM KẾT NỐI MYSQL (CỔNG 3307) ====================
 from sqlalchemy import create_engine, Column, Integer, String, Text, JSON
@@ -42,14 +44,17 @@ class CrawlRun(Base):
     __tablename__ = "crawl_runs"
 
     id = Column(Integer, primary_key=True, index=True)
-    keyword = Column(String(255))
-    location = Column(String(255))
-    level = Column(String(255))
-    salary = Column(String(255))
-    search_range = Column(Integer)
-    jobs_data = Column(JSON)           # Danh sách job thô hoặc cleaned
-    result = Column(JSON, nullable=True)  # Kết quả matching CV, lưu dưới dạng JSON
-    created_at = Column(String(50))     # Hoặc dùng DateTime nếu muốn chuẩn hơn
+    user_id = Column(Integer, nullable=True)
+    group_id = Column(Integer, nullable=True)
+    source = Column(String(100), nullable=True)          # ví dụ: "topcv"
+    status = Column(String(50), default="running")       # running, completed, failed
+    parameters = Column(JSON, nullable=True)             # chứa keyword, location, ...
+    jobs_crawled = Column(Integer, default=0)
+    error_message = Column(Text, nullable=True)
+    detail = Column(Text, nullable=True)
+    result = Column(JSON, nullable=True)                  # kết quả matching CV
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 # Đảm bảo tạo table (nếu chưa có)
 Base.metadata.create_all(bind=engine)
