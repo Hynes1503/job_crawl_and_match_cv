@@ -23,8 +23,8 @@
         </div>
 
         <div style="display: flex; gap: 32px; align-items: center;">
-            <a href="{{ route('dashboard') ?? '/' }}" style="color: #fff; text-decoration: none; font-weight: 600; opacity: .9; transition: opacity .3s;">Dashboard</a>
-            <a href="{{ route('crawl.form') ?? '/crawl' }}" style="color: #fff; text-decoration: none; font-weight: 600; opacity: .9; transition: opacity .3s;">Crawl Jobs</a>
+            <a href="{{ route('cv.form')}}" style="color: #fff; text-decoration: none; font-weight: 600; opacity: .9; transition: opacity .3s;">CV</a>
+            <a href="{{ route('dashboard')}}" style="color: #fff; text-decoration: none; font-weight: 600; opacity: .9; transition: opacity .3s;">Crawl Jobs</a>
             <a href="{{ route('crawl.history') }}" style="color: #00b4ff; text-decoration: none; font-weight: 700; transition: color .3s;">Lịch sử Crawl</a>
 
             @auth

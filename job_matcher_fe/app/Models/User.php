@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CrawlRun::class, 'user_id');
     }
+
+    public function cvs()
+    {
+        return $this->hasMany(Cv::class);
+    }
 }

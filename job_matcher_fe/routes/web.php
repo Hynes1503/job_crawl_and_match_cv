@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\JobMatcherController;
+use App\Http\Controllers\CvController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::view('/login', 'auth.login')->name('login');
 Route::view('/register', 'auth.register')->name('register');
@@ -39,5 +40,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/crawl-history', [JobMatcherController::class, 'crawlHistory'])->name('crawl.history');
 });
 Route::delete('/crawl-runs/{crawlRun}', [JobMatcherController::class, 'destroy'])
-     ->name('crawl-runs.destroy')
-     ->middleware(['auth']);
+    ->name('crawl-runs.destroy')
+    ->middleware(['auth']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/cv', [CvController::class, 'index'])->name('cv.form');
+    Route::post('/cv', [CvController::class, 'store'])->name('cv.store');
+    Route::delete('/cv/{cv}', [CvController::class, 'destroy'])->name('cv.destroy');
+});
