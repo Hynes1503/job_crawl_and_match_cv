@@ -245,9 +245,27 @@
             margin-top: 20px;
         }
 
-        /* Tab Kết quả Matching */
-        .match-results {
-            margin-top: 10px;
+        .cv-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cv-select:focus {
+            outline: none;
+            border-color: #00b4ff;
+            box-shadow: 0 0 0 2px rgba(0, 180, 255, 0.2);
+        }
+
+        .cv-select option {
+            background: #333;
+            color: #fff;
+        }
         }
 
         .match-item {
@@ -531,6 +549,18 @@
                 <div class="upload-form">
                     <form id="matchForm" action="" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <div style="margin-bottom: 20px;">
+                            <label for="existing_cv" style="display: block; margin-bottom: 8px; font-weight: 600; color: #fff;">
+                                <i class="fas fa-file-alt" style="margin-right: 8px; color: #00b4ff;"></i>
+                                Chọn CV có sẵn (tùy chọn)
+                            </label>
+                            <select name="existing_cv" id="existing_cv" class="cv-select">
+                                <option value="">-- Không chọn, upload CV mới --</option>
+                                @foreach($userCvs as $cv)
+                                    <option value="{{ $cv->id }}">{{ $cv->original_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="upload-area" onclick="document.getElementById('cvFile').click()">
                             <i class="fas fa-cloud-upload-alt"
                                 style="font-size: 3rem; color: #00b4ff; margin-bottom: 16px;"></i>
@@ -611,6 +641,10 @@
             const form = document.getElementById('matchForm');
             form.action = matchRouteTemplate.replace(':id', runId);
             form.reset();
+
+            // Reset existing_cv select
+            document.getElementById('existing_cv').value = '';
+            document.getElementById('existing_cv').dispatchEvent(new Event('change'));
 
             // Reset UI
             document.getElementById('fileNameDisplay').style.display = 'none';
@@ -736,6 +770,24 @@
             } else {
                 display.style.display = 'none';
                 display.textContent = '';
+            }
+        });
+
+        document.getElementById('existing_cv').addEventListener('change', function() {
+            const uploadArea = document.querySelector('.upload-area');
+            const cvFile = document.getElementById('cvFile');
+            if (this.value) {
+                // Selected existing CV, disable upload
+                uploadArea.style.opacity = '0.5';
+                uploadArea.style.pointerEvents = 'none';
+                cvFile.required = false;
+                cvFile.value = '';
+                document.getElementById('fileNameDisplay').style.display = 'none';
+            } else {
+                // No selection, enable upload
+                uploadArea.style.opacity = '1';
+                uploadArea.style.pointerEvents = 'auto';
+                cvFile.required = true;
             }
         });
 

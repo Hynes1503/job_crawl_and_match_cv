@@ -1,67 +1,67 @@
 [
   {
-    "title": "Frontend Team Lead (ReactJS/NextJS/React Native)",
-    "salary_raw": "2,700 - 3,300 USD",
-    "location": "Hà Nội",
-    "experience": "Trên 5 năm",
-    "job_description": [
-      ""
-    ],
-    "requirements": [
-      "Qualifications Education: Bachelor’s or Master’s degree in Computer Science, Software Engineering, or related fields.\nTechnical Knowledge & Expertise\n● Good English proficiency.\n● Advanced knowledge of JavaScript frameworks: ReactJS, NextJS, React Native, Redux.\n● Strong command of HTML, CSS, JavaScript, React, and TypeScript for building modern, responsive applications.\n● Experience with Git-based version control platforms such as GitHub or Bitbucket.\n● Knowledge of publishing applications on both iOS and Android.\n● Familiarity with MS Office, Jira, and Slack is a plus.\n● Solid understanding of full application development lifecycle: ideation, planning, documentation, and leading large-scale projects.\n● Ability to write clean, maintainable, and well-structured code.\nExperience\n● 7+ years of software development experience, and;\n● At least 2 years of experience in a FE technical lead or supervisory role\nSoft Skills\n● Strong communication and interpersonal skills.\n● Excellent problem-solving and analytical thinking.\n● Effective time management and ability to prioritize.\n● Positive, proactive “can-do” mindset.\n● Ability to explain design and technical decisions clearly and confidently.\n● High sense of responsibility and ownership over team deliverables.\n● Adaptability and openness to new technologies, tools, and methodologies.\n● Strong teamwork and collaboration capabilities."
-    ],
-    "url": "https://www.topcv.vn/viec-lam/frontend-team-lead-reactjs-nextjs-react-native/1990648.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "Front End Developer (ReactJS, VueJS, HTML) - Tại Hà Nội",
-    "salary_raw": "Thoả thuận",
+    "title": "Senior Developer With AI Skill (Java/ C++/ Python/ C#) - Thu Nhập Từ 15-30 Triệu [Hà Nội]",
+    "salary_raw": "15 - 30 triệu",
     "location": "Hà Nội",
     "experience": "3 năm",
     "job_description": [
-      "Design, develop, and maintain user interfaces for web applications.\nCollaborate with UX/UI Designers to ensure intuitive and user-friendly interfaces.\nIntegrate APIs and back-end services to deliver full features.\nOptimize interface performance (loading speed, cross-device compatibility).\nWrite clean, reusable, and maintainable code.\nAnalyze and troubleshoot front-end issues.\nStay updated and apply the latest technologies and frameworks."
+      "Nghiên cứu và đánh giá tính khả thi về mặt kỹ thuật của các giải pháp liên quan đến AI (Machine Learning / Deep Learning / Generative AI).\nXây dựng prototype (chủ yếu trên nền tảng web) để kiểm chứng ý tưởng và giải pháp AI.\nTham gia trao đổi, thảo luận kỹ thuật và báo cáo tiến độ với Manager.\nPhối hợp trao đổi, giải thích giải pháp và đề xuất kỹ thuật với khách hàng khi cần.\nThực hiện Design, Coding, Code Review, Unit test, Fix bugs;\nNội dung công việc chi tiết sẽ được trao đổi khi phỏng vấn."
     ],
     "requirements": [
-      "[Required]\nHave at least 3 years of experience (Prioritize high experience)\nExperienced web / mobile application development\nCan develop HTML, CSS, Javascript, jQuery\nCan develop based on React.js or Vue.js, Vuex\nExperienced with collaboration tools like Git, Jira and Confluence\nUnderstand and use CI/CD\nEnglish speaking on average (or TOEIC on 550)\n[Preferred]\nUnderstand Back-end\nUse Typescript\nExperienced with Node.js\nExperienced with javascript charts (Echarts, Chart.js, d3js, etc.)\nExperience using Tailwind, MUI\nOAuth development experience\nKorean communication\nTeam management experience"
+      "Tốt nghiệp ĐH chuyên ngành CNTT/Các trung tâm lập trình từ 3 năm trở lên\nCó tối thiểu 1 năm kinh nghiệm thực tế về AI, bao gồm: Machine Learning / Deep Learning, Generative AI (GenAI)\nCó tối thiểu 2 năm kinh nghiệm phát triển ứng dụng với ít nhất một trong các ngôn ngữ/framework sau: Java, C#, C++, Python, ReactJS, VueJS\nCó khả năng:\n+ Phân tích bài toán\n+ Thiết kế và triển khai thuật toán để giải quyết vấn đề thực tế\nTư duy logic tốt, cẩn thận, chủ động học hỏi, yêu thích nghiên cứu công nghệ mới.\nCó khả năng trao đổi, trình bày và đề xuất giải pháp kỹ thuật cho khách hàng.\nCó khả năng tự điều tra, xử lý tình huống tốt, có trách nhiệm và chịu được áp lực công việc;\nOptional:\nCó kinh nghiệm về cloud(Azure, AWS, GCP);\nCó kinh nghiệm sử dụng hoặc triển khai CI/CD;\nCó kinh nghiệm phát triển hoặc xây dựng các hệ thống DWH;\nCó kinh nghiệm thiết kế hệ thống, đảm bảo security;\nCó kinh nghiệm làm việc trong môi trường Nhật."
     ],
-    "url": "https://www.topcv.vn/viec-lam/front-end-developer-reactjs-vuejs-html-tai-ha-noi/1575383.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/senior-developer-with-ai-skill-java-c-python-c-thu-nhap-tu-15-30-trieu-ha-noi/1914882.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Fullstack Developer (Node.Js, TypeScript, Và React JS-Từ 3 Năm Kinh Nghiệm)",
+    "title": "Data Engineer (ETL Developer - Java/Python)",
     "salary_raw": "Thoả thuận",
     "location": "Hà Nội",
-    "experience": "3 năm",
+    "experience": "2 năm",
     "job_description": [
-      "Phát triển và duy trì các ứng dụng web sử dụng Node.js, TypeScript, và React JS.\nThiết kế giao diện người dùng (UI) responsive và tối ưu trải nghiệm người dùng (UX) với Tailwind CSS.\nLàm việc với cơ sở dữ liệu MySQL và MongoDB để xây dựng và tối ưu hóa các truy vấn dữ liệu.\nTham gia vào toàn bộ vòng đời phát triển phần mềm, từ phân tích yêu cầu, thiết kế, coding, đến kiểm thử và triển khai.\nPhối hợp với các thành viên trong nhóm (Frontend, Backend, QA) để đảm bảo chất lượng sản phẩm.\nĐề xuất và triển khai các cải tiến kỹ thuật để nâng cao hiệu suất và khả năng mở rộng của ứng dụng.\nViết mã sạch, dễ bảo trì và tuân thủ các tiêu chuẩn coding tốt nhất.\nTham gia review code và hỗ trợ các thành viên khác trong nhóm.\nThực hiện các công việc khác theo yêu cầu của lãnh đạo."
+      "Phát triển và quản lý thu thập dữ liệu lớn (Big Data ingestion queues) và các dịch vụ làm giàu dữ liệu trong môi trường phân tán.\nThiết kế và triển khai các topology bền vững và hiệu suất cao.\nXây dựng các mô hình dữ liệu hiệu quả và toàn diện cho cả tìm kiếm dạng đồ thị (graph) và không đồ thị (non-graph).\nTạo các mô hình dữ liệu logic thể hiện mối quan hệ giữa các thực thể dữ liệu và thuộc tính khác nhau.\nHợp tác với các đội ngũ kỹ thuật của khách hàng để hỗ trợ nỗ lực tích hợp và triển khai tại địa điểm khách hàng."
     ],
     "requirements": [
-      "Tốt nghiệp đại học chuyên ngành Công nghệ Thông tin, Khoa học Máy tính hoặc các lĩnh vực liên quan.\nCó từ 3 năm kinh nghiệm làm việc thực tế với Node.js, TypeScript, và React JS.\nThành thạo Tailwind CSS để xây dựng giao diện responsive và hiện đại.\nCó kinh nghiệm làm việc với cơ sở dữ liệu MySQL và MongoDB, bao gồm thiết kế schema và tối ưu hóa truy vấn.\nHiểu biết tốt về các khái niệm phát triển web như RESTful API, asynchronous programming, và state management trong React.\nCó khả năng làm việc nhóm tốt, giao tiếp hiệu quả và sẵn sàng học hỏi công nghệ mới.\nKỹ năng giải quyết vấn đề và tư duy logic tốt.\nƯu tiên ứng viên có kinh nghiệm với các công cụ như Git, Docker, hoặc CI/CD pipelines.\nCó kinh nghiệm làm việc trong môi trường Agile/Scrum là một lợi thế."
+      "Ít nhất từ 2 năm kinh nghiệm lập trình Java/Python.\nKinh nghiệm với Docker và Kubernetes.\nHiểu biết về kiến trúc đa luồng (multithreaded architecture).\nThành thạo các hệ thống cơ sở dữ liệu (SQL và NoSQL).\nKỹ năng giao tiếp tốt, thành thạo tiếng Anh nói và viết.\nƯu tiên:\nKinh nghiệm với kiến trúc Big Data và các nền tảng xử lý luồng (streaming platforms) như Kafka, Flink, v.v.\nHiểu biết về các công cụ ETL (ví dụ: Apache NiFi, v.v.)."
     ],
-    "url": "https://www.topcv.vn/viec-lam/fullstack-developer-node-js-typescript-va-react-js-tu-3-nam-kinh-nghiem/1993311.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/data-engineer-etl-developer-java-python/1987295.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Full Stack Developer (Java, Springboot, React)",
+    "title": "Backend Developer (Python)",
     "salary_raw": "Thoả thuận",
+    "location": "Hồ Chí Minh (mới)",
+    "experience": "1 năm",
+    "job_description": [
+      "- Thiết kế, phát triển & tối ưu hóa platform Bigdata, AI\n- Xây dựng API, hệ thống phân quyền người dùng & đảm bảo bảo mật dữ liệu tối ưu\n- Phát triển pipeline tiền xử lý, tổng hợp dữ liệu dữ liệu RealTime/Batch phục vụ BigData và AI (NLP)\n- Tích hợp các dịch vụ/API bên thứ ba"
+    ],
+    "requirements": [
+      "- Có ít nhất 1 năm kinh nghiệm làm việc back-end trong phát triển ứng dụng.\n- Bắt buộc có kinh nghiệm làm việc với Python, Nodejs, biết framework Django, Flask\n- Có kinh nghiệm với RESTful APIs và tích hợp API bên ngoài.\n- Kinh nghiệm làm việc với MySQL, ElasticSearch, MongoDB, Kafka, Redis\n- Có khả năng phân tích, giải quyết vấn đề và tối ưu hóa hệ thống.\n- Kinh nghiệm làm việc với các công cụ Devops: Gitlab CI/CD, Docker, K8S là lợi thế"
+    ],
+    "url": "https://www.topcv.vn/viec-lam/backend-developer-python/1980205.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fullstack Developer (.Net,Python,NodeJS, ReactJS)",
+    "salary_raw": "15 - 45 triệu",
     "location": "Hà Nội",
     "experience": "1 năm",
     "job_description": [
-      "LG CNS is looking for full stack developers for cloud domain project\nDevelop and maintain fullstack web applications using Java (Spring Boot) on backend and React.js on frontend.\nParticipate in the entire software development lifecycle, from requirements gathering, analysis, design to deployment and maintenance.\nConduct unit testing and support integration testing.\nEnsure code quality, performance, and scalability.\nMaintain technical documentation and follow coding standards."
+      "Chịu trách nhiệm phát triển Backend & Frontend cho các ứng dụng trong lĩnh vực Logistic, Fintech, E-Learning,... sử dụng công nghệ .Net, Python, JavaScript, TypeScript, bao gồm:\nDựng khung cho ứng dụng Backend, Frontend đảm bảo yếu tố dễ maintain và tái sử dụng cho nhiều dự án (với vị trí Senior hoặc Middle)\nDựng UI cho ứng dụng theo thiết kế UI/UX/Wireframes\nViết API cho các ứng dụng frontend (web, mobile) theo chuẩn RESTful, GraphQL\nXây dựng ứng dụng responsive, tương thích với đa trình duyệt, SEO-Friendly, tối ưu hóa về mặt băng thông và bộ nhớ\nViết tài liệu mô tả chức năng\nViết Unit tests\nĐảm bảo các công việc được giao thực hiện đúng thời hạn và chất lượng tốt.\nPhối hợp, hỗ trợ thành viên trong dự án hoàn thành công việc chung của dự án.\nNghiên cứu các công nghệ theo hướng dẫn của trưởng nhóm"
     ],
     "requirements": [
-      "[Required]\nBachelor's degree of Information Technology or higher\nHave working experience and excellent knowledge at software developing using Java, Spring boot\nHave working experience and excellent knowledge at software developing using React, HTML, JavaScript\nGood knowledge about AI (Azure OpenAI and GenAI)\nGood knowledge about public cloud (Azure, AWS,)\nDatabase: MariaDB (or MySQL).\n[Preferred]\nHaving experience with Python and Google cloud"
+      "Có tối thiểu 1 năm kinh nghiệm phát triển Backend bằng . Net hoặc Python\nCó tối thiểu 1 năm kinh nghiệm phát triển Frontend bằng ReactJS hoặc VueJS\nCó hiểu biết về giao thức TCP/IP, cơ chế giao tiếp Backend - Frontend\nCó hiểu biết về kiến trúc Microservices\nNắm vững kiến thức lập trình hướng đối tượng, kiến thức cơ bản về Cấu trúc dữ liệu & Giải thuật\nNắm vững kiến thức cơ bản về lập trình SQL và hiểu biết về SQL Server, NoSQL (MongoDB, DynamoDB)\nCó hiểu biết về Redis, RabbitMQ\nThành thạo Html5/ CSS/ Bootstrap\nCó kinh nghiệm phát triển ứng dụng responsive, xử lý các vấn đề tương thích đa trình duyệt\nCó kỹ năng triển khai ứng dụng frontend & backend trên Docker\nCó khả năng đọc hiểu tài liệu Tiếng Anh\nCó kinh nghiệm làm việc với Git và các hệ thống source control\nChủ động & trách nhiệm với công việc\nCó tư duy logic tốt & làm việc nhóm hiệu quả\nCó kỹ năng quản lý thời gian tốt, giao tiếp & kỹ năng xử lý vấn đề tốt\nYếu tố lợi thế:\nĐam mê công nghệ, sẵn sàng thử thách làm các công nghệ khác nhau\nCó kinh nghiệm làm việc với abp. io framework, Entity Framework hoặc Python\nCó kinh nghiệm với NodeJS và AngularJS\nCó kinh nghiệm làm việc trên nhiều môi trường server: Windows server, Linux server\nCó kinh nghiệm triển khai dự án dùng dịch vụ AWS, Azure\nCó khả năng giao tiếp Tiếng Anh với Khách hàng nước ngoài\nCó kỹ năng leadership với ứng viên Senior"
     ],
-    "url": "https://www.topcv.vn/viec-lam/full-stack-developer-java-springboot-react/1783213.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/fullstack-developer-net-python-nodejs-reactjs/1508986.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Internship - PHP/React Native Developer",
-    "salary_raw": "Thoả thuận",
-    "location": "Hồ Chí Minh (mới)",
-    "experience": "Dưới 1 năm",
+    "title": "Lập Trình Viên Python + Angular Up To 2000 USD",
+    "salary_raw": "1,500 - 2,000 USD",
+    "location": "Hà Nội",
+    "experience": "3 năm",
     "job_description": [
-      "Tham gia xây dựng và phát triển hệ thống phần mềm quản lý của công ty, gồm các hệ thống quản lý kho vận, nhân sự, kế toán, chăm sóc khách hàng…;\nTham gia xây dựng và phát triển ứng dụng Android và IOS trên nền tảng React Native\nLập trình các module phần mềm theo yêu cầu và chỉ dẫn của cấp trên và theo nhu cầu của các phòng ban;\nTìm hiểu nghiệp vụ, đề xuất giải pháp và lập trình các module, phần mềm theo dự án được giao;\nThực hiện sửa các lỗi phát hiện trong quá trình phát triển hệ thống;"
+      "About the Role\nWe are looking for a skilled Python + Angular Developer to join our engineering team and lead the development of our Warehouse Management System (WMS). You will be responsible for designing, building, and maintaining core WMS modules including inventory control, task orchestration, AMR/AGF integration, warehouse workflows, and real-time dashboards.\nThis role is ideal for someone who is strong in backend and frontend development, understands logistics/warehouse operations, and can translate business requirements into scalable software solutions.\nKey Responsibilities\n1. WMS Architecture & Development\nDevelop, enhance, and maintain WMS modules using Python (backend) and Angular (frontend).\nDesign scalable APIs and microservices for warehouse workflows.\nImplement inventory tracking, order management, task allocation, user roles, and reporting modules.\nIntegrate WMS with robotics systems (AMRs, AGFs), ERP systems, and automation equipment where needed.\n\n2. Database & System Design\nDesign and optimize relational database schemas (PostgreSQL/MySQL).\nImplement efficient data models for inventory, bin locations, SKU attributes, order flows, and task queues.\nEnsure transactional accuracy and concurrency safety for warehouse operations.\n\n3. Robotics & Automation Integration\nDevelop APIs and middleware to connect WMS with our AMRs, fleet manager, and navigation system (TVC NAV).\nSupport message protocols (REST, WebSocket, MQTT, OPC UA, etc.) for real-time task execution.\n\n4. UI/UX & Frontend Development\nBuild intuitive, responsive Angular interfaces for warehouse staff, supervisors, and administrators.\nDevelop dashboards for tracking orders, stock levels, AMR jobs, and warehouse KPIs.\nImplement role-based access control and user workflows.\n\n5. Testing, QA & Documentation\nWrite unit tests, integration tests, and conduct code reviews.\nDocument system design, APIs, workflows, and deployment processes.\n\n6. Collaboration & Agile Delivery\nWork closely with product managers, warehouse consultants, robotics engineers, and QA teams.\nParticipate in sprint planning, technical discussions, and architecture reviews.\nTranslate warehouse operational processes into software logic."
     ],
     "requirements": [
-      "Sinh viên năm 3, năm 4 hoặc mới tốt nghiệp.\nHiểu biết về PHP, Javascript , HTML\nHiểu biết về database (MYSQL,MS SQL, Oracle ...)\nHiểu biết về React Native."
+      "Technical Skills\nStrong proficiency in Python (FastAPI, Django, Flask, or similar frameworks).\nStrong experience in Angular for frontend development.\nSolid understanding of REST API design, microservices, and asynchronous processing.\nExperience with SQL databases (PostgreSQL/MySQL).\nFamiliarity with Git, CI/CD pipelines, and cloud deployment (AWS/GCP/Azure).\nUnderstanding of message queues (RabbitMQ, Kafka, Redis) is a plus.\nExperience integrating with hardware, robots, IoT, or automation is a significant advantage.\n\nDomain Knowledge (Preferred but Not Required)\nExperience in warehouse management systems, logistics, or supply chain software.\nKnowledge of warehouse processes: inbound, outbound, put-away, picking, cycle counting, task management.\nSoft Skills\nStrong analytical and problem-solving skills.\nAbility to work in a fast-paced environment with evolving requirements.\nGood communication skills and ability to collaborate cross-functionally.\nOwnership mentality and ability to deliver end-to-end solutions."
     ],
-    "url": "https://www.topcv.vn/viec-lam/internship-php-react-native-developer/1981426.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/lap-trinh-vien-python-angular-up-to-2000-usd/1980328.html?ta_source=ITJobs_LinkDetail"
   }
 ]

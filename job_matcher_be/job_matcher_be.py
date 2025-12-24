@@ -21,13 +21,13 @@ from typing import Union, List
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, JSON, DateTime
 
-# ==================== THÊM KẾT NỐI MYSQL (CỔNG 3307) ====================
+# ==================== THÊM KẾT NỐI MYSQL (CỔNG 3306) ====================
 from sqlalchemy import create_engine, Column, Integer, String, Text, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # THAY ĐỔI THÔNG TIN NÀY THEO MÁY BẠN
-DATABASE_URL = "mysql+pymysql://root:@localhost:3307/job_matcher"
+DATABASE_URL = "mysql+pymysql://root:@localhost:3306/job_matcher"
 
 engine = create_engine(
     DATABASE_URL,

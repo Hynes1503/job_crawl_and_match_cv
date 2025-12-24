@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log;
 use App\Models\CrawlRun;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Models\Cv;
+use Illuminate\Support\Facades\Storage;
 
 class JobMatcherController extends Controller
 {
@@ -107,7 +109,8 @@ class JobMatcherController extends Controller
     public function matchWithRun(Request $request, $runId)
     {
         $request->validate([
-            'cv_file' => 'required|file|mimes:pdf,docx,txt|max:10240',
+            'existing_cv' => 'nullable|exists:cvs,id',
+            'cv_file' => 'required_without:existing_cv|file|mimes:pdf,docx,txt|max:10240',
             'extra_skills' => 'nullable|string|max:500',
             'desired_position' => 'nullable|string|max:255',
         ]);
@@ -120,14 +123,26 @@ class JobMatcherController extends Controller
                 ->with('error', 'Lần crawl này không có dữ liệu hợp lệ để matching.');
         }
 
-        $cvFile = $request->file('cv_file');
+        // Xử lý CV
+        if ($request->filled('existing_cv')) {
+            $cv = Cv::findOrFail($request->existing_cv);
+            if ($cv->user_id !== Auth::id()) {
+                abort(403, 'Bạn không có quyền sử dụng CV này.');
+            }
+            $cvContent = \Illuminate\Support\Facades\Storage::disk('public')->get($cv->file_path);
+            $cvName = $cv->original_name;
+        } else {
+            $cvFile = $request->file('cv_file');
+            $cvContent = file_get_contents($cvFile->path());
+            $cvName = $cvFile->getClientOriginalName();
+        }
 
         try {
             $response = Http::timeout(60)
                 ->attach(
                     'cv_file',
-                    file_get_contents($cvFile->path()),
-                    $cvFile->getClientOriginalName()
+                    $cvContent,
+                    $cvName
                 )
                 ->post("{$this->apiBaseUrl}/match-with-jobs", [
                     'run_id' => $crawlRun->id,
@@ -301,7 +316,7 @@ class JobMatcherController extends Controller
             return redirect()->route('login')
                 ->with('error', 'Bạn cần đăng nhập để xem lịch sử crawl.');
         }
-
+        $userCvs = auth()->user()->cvs()->latest()->get();
         $crawlRuns = auth()->user()
             ->crawlRuns()
             ->orderByDesc('created_at')
@@ -328,7 +343,8 @@ class JobMatcherController extends Controller
         return view('crawl-history', compact(
             'crawlRuns',
             'jobsCount',
-            'crawlData'
+            'crawlData',
+            'userCvs'
         ));
     }
 
