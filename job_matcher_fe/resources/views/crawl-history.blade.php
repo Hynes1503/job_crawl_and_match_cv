@@ -40,6 +40,7 @@
             font-size: 0.92rem;
             font-weight: 600;
             opacity: .9;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         td {
@@ -47,6 +48,8 @@
             border-top: 1px solid rgba(255, 255, 255, .08);
             font-size: 0.88rem;
             vertical-align: middle;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .status {
@@ -266,7 +269,6 @@
             background: #333;
             color: #fff;
         }
-        }
 
         .match-item {
             background: rgba(255, 255, 255, 0.05);
@@ -280,6 +282,23 @@
             font-weight: 700;
             font-size: 1.1rem;
             color: #00ffaa;
+            margin-bottom: 12px;
+        }
+
+        .match-details {
+            margin: 8px 0 12px 0;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .skill-tags {
+            margin-bottom: 16px;
+        }
+
+        .score-container {
+            margin-left: 20px;
+            text-align: center;
+            margin-bottom: 16px;
         }
 
         /* Progress circle cho Matching Score */
@@ -403,6 +422,19 @@
                 height: 56px;
                 font-size: 1rem;
             }
+
+            .score-container {
+                margin-left: 15px;
+                margin-bottom: 12px;
+            }
+
+            .match-title {
+                font-size: 1rem;
+            }
+
+            .match-details {
+                font-size: 0.85rem;
+            }
         }
     </style>
 @endpush
@@ -450,7 +482,8 @@
                             <th>Crawl được</th>
                             <th>Trạng thái</th>
                             <th>Ghi chú</th>
-                            <th>Hành động</th>
+                            <th>Matching</th>
+                            <th>Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -481,7 +514,7 @@
                                             <i class="fas fa-code"></i> JSON
                                         </button>
                                         <button class="action-btn match" onclick="openModal({{ $run->id }}, 'match')">
-                                            <i class="fas fa-search"></i> Tìm việc phù hợp
+                                            <i class="fas fa-search"></i> Tìm việc
                                         </button>
 
                                         @if (!empty($run->result) && count($run->result) > 0)
@@ -491,7 +524,8 @@
                                             </button>
                                         @endif
                                     @endif
-
+                                </td>
+                                <td>
                                     {{-- Nút Xóa - luôn hiện nếu là chủ sở hữu --}}
                                     <form action="{{ route('crawl-runs.destroy', $run->id) }}" method="POST"
                                         style="display:inline;"
@@ -499,7 +533,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="action-btn"
-                                            style="border-color: #ff6b6b; color: #ff6b6b; margin-left: 6px;">
+                                            style="border-color: #ff6b6b; color: #ff6b6b;">
                                             <i class="fas fa-trash-alt"></i> Xóa
                                         </button>
                                     </form>
@@ -557,9 +591,17 @@
                             <select name="existing_cv" id="existing_cv" class="cv-select">
                                 <option value="">-- Không chọn, upload CV mới --</option>
                                 @foreach($userCvs as $cv)
-                                    <option value="{{ $cv->id }}">{{ $cv->original_name }}</option>
+                                    <option value="{{ $cv->id }}" data-url="{{ $cv->url }}" data-mime="{{ $cv->mime_type }}">{{ $cv->original_name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <!-- CV Preview Area -->
+                        <div id="cv-preview" style="display: none; margin-bottom: 20px; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                            <h4 style="color: #00b4ff; margin-bottom: 12px; font-size: 1rem;">
+                                <i class="fas fa-eye" style="margin-right: 8px;"></i>Preview CV
+                            </h4>
+                            <div id="cv-preview-content"></div>
                         </div>
                         <div class="upload-area" onclick="document.getElementById('cvFile').click()">
                             <i class="fas fa-cloud-upload-alt"
@@ -721,7 +763,7 @@
                                 ${job['Vị trí'] || 'Không có tiêu đề'}
                             </div>
 
-                            <div style="margin:8px 0;color:#aaa;font-size:0.9rem;">
+                            <div class="match-details">
                                 <strong>Lương:</strong> ${job['Mức lương'] || 'Thỏa thuận'}
                                 • <strong>Kinh nghiệm:</strong> ${job['Kinh nghiệm'] || 'Không yêu cầu'}
                                 • <strong>Địa điểm:</strong> ${job['Địa điểm'] || 'Không rõ'}
@@ -736,7 +778,7 @@
                                                 ` : ''}
                         </div>
 
-                        <div style="margin-left:20px;text-align:center;">
+                        <div class="score-container">
                             <div class="score-circle"
                                  data-score="${score.toFixed(1)}%"
                                  style="--percent:${score};"></div>
@@ -774,6 +816,8 @@
         });
 
         document.getElementById('existing_cv').addEventListener('change', function() {
+            const previewDiv = document.getElementById('cv-preview');
+            const contentDiv = document.getElementById('cv-preview-content');
             const uploadArea = document.querySelector('.upload-area');
             const cvFile = document.getElementById('cvFile');
             if (this.value) {
@@ -783,11 +827,46 @@
                 cvFile.required = false;
                 cvFile.value = '';
                 document.getElementById('fileNameDisplay').style.display = 'none';
+
+                // Show preview
+                const selectedOption = this.options[this.selectedIndex];
+                const fileName = selectedOption.text;
+                const url = selectedOption.getAttribute('data-url');
+                const mime = selectedOption.getAttribute('data-mime');
+                const extension = fileName.split('.').pop().toLowerCase();
+
+                contentDiv.innerHTML = `<p style="margin-bottom: 12px;"><strong>Tên file:</strong> ${fileName}</p>`;
+
+                if (mime === 'application/pdf' || extension === 'pdf') {
+                    contentDiv.innerHTML += `
+                        <iframe src="${url}" width="100%" height="400px" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;"></iframe>
+                        <p style="margin-top: 8px; font-size: 0.9rem; opacity: 0.8;">Preview PDF - <a href="${url}" target="_blank" style="color: #00ffaa;">Mở trong tab mới</a></p>
+                    `;
+                } else if (mime === 'text/plain' || extension === 'txt') {
+                    // For text files, we might need to fetch content, but for now just show download link
+                    contentDiv.innerHTML += `
+                        <p>Loại file: TEXT</p>
+                        <a href="${url}" download style="color: #00ffaa; text-decoration: none;">
+                            <i class="fas fa-download" style="margin-right: 8px;"></i>Tải xuống để xem
+                        </a>
+                    `;
+                } else {
+                    // For DOC, DOCX, etc.
+                    contentDiv.innerHTML += `
+                        <p>Loại file: ${extension.toUpperCase()}</p>
+                        <a href="${url}" download style="color: #00ffaa; text-decoration: none;">
+                            <i class="fas fa-download" style="margin-right: 8px;"></i>Tải xuống để xem
+                        </a>
+                    `;
+                }
+
+                previewDiv.style.display = 'block';
             } else {
                 // No selection, enable upload
                 uploadArea.style.opacity = '1';
                 uploadArea.style.pointerEvents = 'auto';
                 cvFile.required = true;
+                previewDiv.style.display = 'none';
             }
         });
 
