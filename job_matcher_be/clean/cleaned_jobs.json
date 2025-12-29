@@ -1,86 +1,66 @@
 [
   {
-    "title": "Senior Developer With AI Skill (Java/ C++/ Python/ C#) - Thu Nhập Từ 15-30 Triệu [Hà Nội]",
+    "title": ".Net Developer (At Least 2 Years )",
     "job_description": [
-      "Nghiên cứu và đánh giá tính khả thi về mặt kỹ thuật của các giải pháp liên quan đến AI (Machine Learning / Deep Learning / Generative AI).\nXây dựng prototype (chủ yếu trên nền tảng web) để kiểm chứng ý tưởng và giải pháp AI.\nTham gia trao đổi, thảo luận kỹ thuật và báo cáo tiến độ với Manager.\nPhối hợp trao đổi, giải thích giải pháp và đề xuất kỹ thuật với khách hàng khi cần.\nThực hiện Design, Coding, Code Review, Unit test, Fix bugs;\nNội dung công việc chi tiết sẽ được trao đổi khi phỏng vấn."
+      "- Collaborate with clients and teams to gather requirements and plan tasks.\n- Develop applications, optimize systems, and contribute innovative ideas.\n- Write code, test, and maintain technical documentation.\n- Explore new technologies and propose performance improvements.\n- Opportunity to lead your own project/module.\n- Gain hands-on experience across the full software development lifecycle."
     ],
     "requirements": [
-      "Tốt nghiệp ĐH chuyên ngành CNTT/Các trung tâm lập trình từ 3 năm trở lên\nCó tối thiểu 1 năm kinh nghiệm thực tế về AI, bao gồm: Machine Learning / Deep Learning, Generative AI (GenAI)\nCó tối thiểu 2 năm kinh nghiệm phát triển ứng dụng với ít nhất một trong các ngôn ngữ/framework sau: Java, C#, C++, Python, ReactJS, VueJS\nCó khả năng:\n+ Phân tích bài toán\n+ Thiết kế và triển khai thuật toán để giải quyết vấn đề thực tế\nTư duy logic tốt, cẩn thận, chủ động học hỏi, yêu thích nghiên cứu công nghệ mới.\nCó khả năng trao đổi, trình bày và đề xuất giải pháp kỹ thuật cho khách hàng.\nCó khả năng tự điều tra, xử lý tình huống tốt, có trách nhiệm và chịu được áp lực công việc;\nOptional:\nCó kinh nghiệm về cloud(Azure, AWS, GCP);\nCó kinh nghiệm sử dụng hoặc triển khai CI/CD;\nCó kinh nghiệm phát triển hoặc xây dựng các hệ thống DWH;\nCó kinh nghiệm thiết kế hệ thống, đảm bảo security;\nCó kinh nghiệm làm việc trong môi trường Nhật."
-    ],
-    "salary": {
-      "min": 15,
-      "max": 30
-    },
-    "location": "Hà Nội",
-    "experience": {
-      "min_years": 3
-    },
-    "url": "https://www.topcv.vn/viec-lam/senior-developer-with-ai-skill-java-c-python-c-thu-nhap-tu-15-30-trieu-ha-noi/1914882.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "Data Engineer (ETL Developer - Java/Python)",
-    "job_description": [
-      "Phát triển và quản lý thu thập dữ liệu lớn (Big Data ingestion queues) và các dịch vụ làm giàu dữ liệu trong môi trường phân tán.\nThiết kế và triển khai các topology bền vững và hiệu suất cao.\nXây dựng các mô hình dữ liệu hiệu quả và toàn diện cho cả tìm kiếm dạng đồ thị (graph) và không đồ thị (non-graph).\nTạo các mô hình dữ liệu logic thể hiện mối quan hệ giữa các thực thể dữ liệu và thuộc tính khác nhau.\nHợp tác với các đội ngũ kỹ thuật của khách hàng để hỗ trợ nỗ lực tích hợp và triển khai tại địa điểm khách hàng."
-    ],
-    "requirements": [
-      "Ít nhất từ 2 năm kinh nghiệm lập trình Java/Python.\nKinh nghiệm với Docker và Kubernetes.\nHiểu biết về kiến trúc đa luồng (multithreaded architecture).\nThành thạo các hệ thống cơ sở dữ liệu (SQL và NoSQL).\nKỹ năng giao tiếp tốt, thành thạo tiếng Anh nói và viết.\nƯu tiên:\nKinh nghiệm với kiến trúc Big Data và các nền tảng xử lý luồng (streaming platforms) như Kafka, Flink, v.v.\nHiểu biết về các công cụ ETL (ví dụ: Apache NiFi, v.v.)."
+      "- Bachelor’s degree in Information Technology, Computer Science, or a related field.\n- At least 2 years of backend software development experience using .NET technologies.\n- Solid experience in requirements analysis, software design, and application architecture.\n- Proficient in Golang, .NET, ASP.NET Core, MVC, Web API, and Entity Framework Core.\n- Technical foundation in SQL Server/PostgreSQL, frontend basics (HTML, CSS, Bootstrap, JavaScript), and knowledge of server-side systems (microservices, WebSocket)\n- Experience in requirements analysis, software design, and application architecture.\n- Proactive, creative, good communication skills, and able to work well in a team\nYou will stand out if you have:\n- Experience with Agile/Scrum, CI/CD, and deploying critical software\n- Experience with payment applications, peripheral devices (NFC, printers, cameras), or eKYC platforms (face detection, liveness, image processing)\n- Strong skills in analysis, problem-solving, design, coding, and debugging applications\n- Reading and writing English skills sufficient for work purposes"
     ],
     "salary": {},
     "location": "Hà Nội",
     "experience": {
       "min_years": 2
     },
-    "url": "https://www.topcv.vn/viec-lam/data-engineer-etl-developer-java-python/1987295.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/net-developer-at-least-2-years/1989199.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Backend Developer (Python)",
+    "title": "Senior .NET (C#) Developer (Factory Management System) - Từ 3 Năm Kinh Nghiệm - Upto 1.500 - Đi Làm Ngay",
     "job_description": [
-      "- Thiết kế, phát triển & tối ưu hóa platform Bigdata, AI\n- Xây dựng API, hệ thống phân quyền người dùng & đảm bảo bảo mật dữ liệu tối ưu\n- Phát triển pipeline tiền xử lý, tổng hợp dữ liệu dữ liệu RealTime/Batch phục vụ BigData và AI (NLP)\n- Tích hợp các dịch vụ/API bên thứ ba"
+      "Thiết kế, phát triển và tối ưu hệ thống quản lý nhà máy sử dụng C# (WinForms/WPF) trên .NET Framework / .NET 6/7/8.\nTham gia toàn bộ vòng đời phát triển phần mềm: phân tích yêu cầu – thiết kế – coding – testing – release.\nLàm việc với dữ liệu lớn, tối ưu SQL Server (query, indexing, performance, memory).\nXây dựng và duy trì Unit Test / Integration Test / E2E Test, tích hợp vào CI pipeline.\nThực hiện code review, xây dựng coding standard và mentoring kỹ thuật cho team.\nHỗ trợ vận hành production: monitoring, phân tích log, xử lý sự cố, exception tracking, RCA.\nTham gia xây dựng CI/CD (Azure DevOps, GitHub Actions, Jenkins), hỗ trợ Docker khi cần.\nPhối hợp với PM, QC và khách hàng Nhật/Anh để phân tích yêu cầu và đảm bảo chất lượng bàn giao.\nĐề xuất cải tiến kỹ thuật: hiệu năng, bảo mật, hiện đại hóa hệ thống (.NET migration), tự động hóa workflow (bao gồm AI)."
     ],
     "requirements": [
-      "- Có ít nhất 1 năm kinh nghiệm làm việc back-end trong phát triển ứng dụng.\n- Bắt buộc có kinh nghiệm làm việc với Python, Nodejs, biết framework Django, Flask\n- Có kinh nghiệm với RESTful APIs và tích hợp API bên ngoài.\n- Kinh nghiệm làm việc với MySQL, ElasticSearch, MongoDB, Kafka, Redis\n- Có khả năng phân tích, giải quyết vấn đề và tối ưu hóa hệ thống.\n- Kinh nghiệm làm việc với các công cụ Devops: Gitlab CI/CD, Docker, K8S là lợi thế"
-    ],
-    "salary": {},
-    "location": "Hồ Chí Minh (mới)",
-    "experience": {
-      "min_years": 1
-    },
-    "url": "https://www.topcv.vn/viec-lam/backend-developer-python/1980205.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "Fullstack Developer (.Net,Python,NodeJS, ReactJS)",
-    "job_description": [
-      "Chịu trách nhiệm phát triển Backend & Frontend cho các ứng dụng trong lĩnh vực Logistic, Fintech, E-Learning,... sử dụng công nghệ .Net, Python, JavaScript, TypeScript, bao gồm:\nDựng khung cho ứng dụng Backend, Frontend đảm bảo yếu tố dễ maintain và tái sử dụng cho nhiều dự án (với vị trí Senior hoặc Middle)\nDựng UI cho ứng dụng theo thiết kế UI/UX/Wireframes\nViết API cho các ứng dụng frontend (web, mobile) theo chuẩn RESTful, GraphQL\nXây dựng ứng dụng responsive, tương thích với đa trình duyệt, SEO-Friendly, tối ưu hóa về mặt băng thông và bộ nhớ\nViết tài liệu mô tả chức năng\nViết Unit tests\nĐảm bảo các công việc được giao thực hiện đúng thời hạn và chất lượng tốt.\nPhối hợp, hỗ trợ thành viên trong dự án hoàn thành công việc chung của dự án.\nNghiên cứu các công nghệ theo hướng dẫn của trưởng nhóm"
-    ],
-    "requirements": [
-      "Có tối thiểu 1 năm kinh nghiệm phát triển Backend bằng . Net hoặc Python\nCó tối thiểu 1 năm kinh nghiệm phát triển Frontend bằng ReactJS hoặc VueJS\nCó hiểu biết về giao thức TCP/IP, cơ chế giao tiếp Backend - Frontend\nCó hiểu biết về kiến trúc Microservices\nNắm vững kiến thức lập trình hướng đối tượng, kiến thức cơ bản về Cấu trúc dữ liệu & Giải thuật\nNắm vững kiến thức cơ bản về lập trình SQL và hiểu biết về SQL Server, NoSQL (MongoDB, DynamoDB)\nCó hiểu biết về Redis, RabbitMQ\nThành thạo Html5/ CSS/ Bootstrap\nCó kinh nghiệm phát triển ứng dụng responsive, xử lý các vấn đề tương thích đa trình duyệt\nCó kỹ năng triển khai ứng dụng frontend & backend trên Docker\nCó khả năng đọc hiểu tài liệu Tiếng Anh\nCó kinh nghiệm làm việc với Git và các hệ thống source control\nChủ động & trách nhiệm với công việc\nCó tư duy logic tốt & làm việc nhóm hiệu quả\nCó kỹ năng quản lý thời gian tốt, giao tiếp & kỹ năng xử lý vấn đề tốt\nYếu tố lợi thế:\nĐam mê công nghệ, sẵn sàng thử thách làm các công nghệ khác nhau\nCó kinh nghiệm làm việc với abp. io framework, Entity Framework hoặc Python\nCó kinh nghiệm với NodeJS và AngularJS\nCó kinh nghiệm làm việc trên nhiều môi trường server: Windows server, Linux server\nCó kinh nghiệm triển khai dự án dùng dịch vụ AWS, Azure\nCó khả năng giao tiếp Tiếng Anh với Khách hàng nước ngoài\nCó kỹ năng leadership với ứng viên Senior"
+      "Bắt buộc:\nTối thiểu 3 - 4 năm kinh nghiệm .NET (ưu tiên 5+ năm với hệ thống lớn).\nThành thạo C#, .NET Framework / .NET 6+, WinForms hoặc WPF.\nCó kinh nghiệm Backend/API: ASP.NET MVC, Web API.\nThành thạo SQL Server, ORM (Entity Framework / Dapper).\nCó kinh nghiệm unit/integration testing và làm việc với CI pipeline.\nHiểu và có kinh nghiệm tối ưu hiệu năng (CPU, memory, I/O).\nKỹ năng giải quyết vấn đề, giao tiếp và ra quyết định kỹ thuật tốt.\nNên có:\nKinh nghiệm với MES / ERP / Factory System.\nSử dụng ActiveReports hoặc công cụ reporting tương đương.\nKinh nghiệm hoặc chứng chỉ AWS / Azure.\nHiểu biết DDD, CQRS, Event-driven Architecture.\nCó kinh nghiệm áp dụng AI / Automation trong phát triển phần mềm.\nQuen thuộc với môi trường làm việc và văn hóa Nhật Bản.\nKINH NGHIỆM AI (ĐÁNH GIÁ CAO)\nĐã sử dụng GitHub Copilot, ChatGPT, Claude, Azure AI trong công việc.\nỨng dụng AI để tự động hóa workflow (sinh unit test, code template, phân tích log, tài liệu).\nCó kinh nghiệm tích hợp AI API (OpenAI / Azure OpenAI) vào hệ thống.\nTư duy chủ động sử dụng AI để nâng cao năng suất và chất lượng code."
     ],
     "salary": {
-      "min": 15,
-      "max": 45
-    },
-    "location": "Hà Nội",
-    "experience": {
-      "min_years": 1
-    },
-    "url": "https://www.topcv.vn/viec-lam/fullstack-developer-net-python-nodejs-reactjs/1508986.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "Lập Trình Viên Python + Angular Up To 2000 USD",
-    "job_description": [
-      "About the Role\nWe are looking for a skilled Python + Angular Developer to join our engineering team and lead the development of our Warehouse Management System (WMS). You will be responsible for designing, building, and maintaining core WMS modules including inventory control, task orchestration, AMR/AGF integration, warehouse workflows, and real-time dashboards.\nThis role is ideal for someone who is strong in backend and frontend development, understands logistics/warehouse operations, and can translate business requirements into scalable software solutions.\nKey Responsibilities\n1. WMS Architecture & Development\nDevelop, enhance, and maintain WMS modules using Python (backend) and Angular (frontend).\nDesign scalable APIs and microservices for warehouse workflows.\nImplement inventory tracking, order management, task allocation, user roles, and reporting modules.\nIntegrate WMS with robotics systems (AMRs, AGFs), ERP systems, and automation equipment where needed.\n\n2. Database & System Design\nDesign and optimize relational database schemas (PostgreSQL/MySQL).\nImplement efficient data models for inventory, bin locations, SKU attributes, order flows, and task queues.\nEnsure transactional accuracy and concurrency safety for warehouse operations.\n\n3. Robotics & Automation Integration\nDevelop APIs and middleware to connect WMS with our AMRs, fleet manager, and navigation system (TVC NAV).\nSupport message protocols (REST, WebSocket, MQTT, OPC UA, etc.) for real-time task execution.\n\n4. UI/UX & Frontend Development\nBuild intuitive, responsive Angular interfaces for warehouse staff, supervisors, and administrators.\nDevelop dashboards for tracking orders, stock levels, AMR jobs, and warehouse KPIs.\nImplement role-based access control and user workflows.\n\n5. Testing, QA & Documentation\nWrite unit tests, integration tests, and conduct code reviews.\nDocument system design, APIs, workflows, and deployment processes.\n\n6. Collaboration & Agile Delivery\nWork closely with product managers, warehouse consultants, robotics engineers, and QA teams.\nParticipate in sprint planning, technical discussions, and architecture reviews.\nTranslate warehouse operational processes into software logic."
-    ],
-    "requirements": [
-      "Technical Skills\nStrong proficiency in Python (FastAPI, Django, Flask, or similar frameworks).\nStrong experience in Angular for frontend development.\nSolid understanding of REST API design, microservices, and asynchronous processing.\nExperience with SQL databases (PostgreSQL/MySQL).\nFamiliarity with Git, CI/CD pipelines, and cloud deployment (AWS/GCP/Azure).\nUnderstanding of message queues (RabbitMQ, Kafka, Redis) is a plus.\nExperience integrating with hardware, robots, IoT, or automation is a significant advantage.\n\nDomain Knowledge (Preferred but Not Required)\nExperience in warehouse management systems, logistics, or supply chain software.\nKnowledge of warehouse processes: inbound, outbound, put-away, picking, cycle counting, task management.\nSoft Skills\nStrong analytical and problem-solving skills.\nAbility to work in a fast-paced environment with evolving requirements.\nGood communication skills and ability to collaborate cross-functionally.\nOwnership mentality and ability to deliver end-to-end solutions."
-    ],
-    "salary": {
-      "min": 1500,
-      "max": 2000
+      "max": 1500
     },
     "location": "Hà Nội",
     "experience": {
       "min_years": 3
     },
-    "url": "https://www.topcv.vn/viec-lam/lap-trinh-vien-python-angular-up-to-2000-usd/1980328.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/senior-net-c-developer-factory-management-system-tu-3-nam-kinh-nghiem-upto-1-500-di-lam-ngay/1993438.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Thực Tập Sinh Software (.Net)",
+    "job_description": [
+      "Chúng tôi chờ đón các bạn sinh viên với đam mê công nghệ và bản lĩnh chinh phục những “bài toán khó”, cùng ELCOM góp mình vào sứ mệnh mang công nghệ kiến tạo cuộc sống thông minh và nhân văn hơn cho người Việt.\n\nCác bạn sẽ được tham gia nghiên cứu và phát triển các dự án công nghệ thực tế thuộc những lĩnh vực chiến lược của ELCOM, đồng thời được định hướng để nâng cao kỹ năng chuyên môn, kỹ năng mềm và tư duy công nghệ. Sau thời gian tham gia chương trình, các bạn có cơ hội trở thành nhân viên chính thức tại ELCOM – Top 10 Doanh nghiệp Công nghệ thông tin hàng đầu Việt Nam, với mức đãi ngộ cạnh tranh và lộ trình phát triển rõ ràng."
+    ],
+    "requirements": [
+      "Sinh viên năm cuối Đại học các ngành: Kỹ thuật máy tính, Công nghệ thông tin, hoặc các chuyên ngành liên quan.\nĐiểm trung bình tích lũy từ 3.2/4.0 trở lên\nCó khả năng làm việc fulltime hoặc parttime tối thiểu 70% số buổi/tuần(28 giờ/ tuần)\nCó hiểu biết về design patterns\nCó hiểu biết về một trong các js framework là một lợi thế.\nƯu tiên ứng viên đã sử dụng một trong các CSDL quan hệ (Mysql, Oracle).\nTiếng Anh đọc hiểu tài liệu Kỹ thuật.\nYêu thích công nghệ, sẵn sàng học hỏi, tư duy logic tốt, trách nhiệm với công việc."
+    ],
+    "salary": {},
+    "location": "",
+    "experience": {
+      "min_years": "Không yêu cầu"
+    },
+    "url": "https://www.topcv.vn/viec-lam/thuc-tap-sinh-software-net/1988748.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fresher Web Developer (C#, .NET)",
+    "job_description": [
+      "Lộ trình đào tạo Fullstack và cơ hội trở thành nhân viên của MISA chỉ sau 1 tháng: học và thực hành, làm bài tập, đánh giá về về các kiến thức nền tảng, kỹ thuật Debug với Vue, UI Convention, ngôn ngữ C#, .Netcore, Config, dựng Sever với ASP.NET Core,..."
+    ],
+    "requirements": [
+      "- Sinh viên cuối năm 3, năm 4 hoặc tốt nghiệp ĐH trở lên các chuyên ngành: Công nghệ thông tin, công nghệ phần mềm, kỹ thuật phần mềm, khoa học máy tính\n- Thời gian làm việc: Yêu cầu fulltime\n- Đã có kinh nghiệm thực tập hoặc có các project cá nhân về mảng web\n- Điểm tích lũy GPA từ 3.0 trở lên\n- Có kiến thức về OOP, HTML, CSS. JS, Database\n- Sử dụng ít nhất 1 hệ quản trị CSDL như MySQL, SQL Server.\n- Biết sử dụng Vue, Angular, React là một lợi thế."
+    ],
+    "salary": {
+      "max": 4
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": "Không yêu cầu"
+    },
+    "url": "https://www.topcv.vn/viec-lam/fresher-web-developer-c-net/1992413.html?ta_source=ITJobs_LinkDetail"
   }
 ]

@@ -289,7 +289,7 @@
     <div class="content-container">
         <div class="crawl-panel">
             <h2 class="panel-title">
-                <span class="animated-text">Quản Lý</span><br> CV Của Bạn
+                <span class="animated-text">Quản Lý CV</span>
             </h2>
             <p class="panel-desc">Xem trước và quản lý CV để hệ thống tìm việc làm IT phù hợp nhất cho bạn.</p>
 

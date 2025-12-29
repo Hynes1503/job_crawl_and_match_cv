@@ -330,8 +330,8 @@
 
                     <div class="slider-container">
                         <label>Số lượng công việc muốn crawl</label>
-                        <input type="range" name="search_range" min="5" max="50"
-                            value="{{ old('search_range', 20) }}"
+                        <input type="range" name="search_range" min="1" max="50"
+                            value="{{ old('search_range', 10) }}"
                             oninput="this.nextElementSibling.textContent = this.value + ' công việc'">
                         <div class="slider-value">{{ old('search_range', 20) }} công việc</div>
                     </div>

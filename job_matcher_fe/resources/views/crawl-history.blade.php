@@ -463,9 +463,9 @@
                     Lịch Sử Crawl
                 </span>
             </h1>
-            <div class="stats">
+            {{-- <div class="stats">
                 Tổng cộng có <strong>{{ number_format($jobsCount) }}</strong> công việc hiện tại trong hệ thống
-            </div>
+            </div> --}}
         </div>
 
         @if ($crawlRuns->count() > 0)

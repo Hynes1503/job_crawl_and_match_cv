@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\JobMatcherController;
 use App\Http\Controllers\CvController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,4 +49,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/cv', [CvController::class, 'index'])->name('cv.form');
     Route::post('/cv', [CvController::class, 'store'])->name('cv.store');
     Route::delete('/cv/{cv}', [CvController::class, 'destroy'])->name('cv.destroy');
+});
+
+// Routes cho Admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    // Thêm routes quản lý users
+    Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.users');
+    Route::put('/admin/users/{user}', [AdminController::class, 'updateUserRole'])->name('admin.users.update');
+});
+
+// Routes cho User
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user.dashboard');
 });
