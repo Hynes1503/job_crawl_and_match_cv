@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\Cv;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Log as ActivityLog;
+use App\Models\DeletedCrawl;
 
 class JobMatcherController extends Controller
 {
@@ -101,7 +103,13 @@ class JobMatcherController extends Controller
                 ->withInput()
                 ->with('error', 'Không thể kết nối đến AI Engine. Vui lòng kiểm tra server FastAPI đang chạy.');
         }
-    }
+        // Ghi log sau khi matching thành công
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'match_cv',
+            'description' => 'Matched CV with latest jobs data',
+            'ip_address' => request()->ip(),
+        ]);    }
 
     /**
      * Matching CV với một lần crawl cụ thể (từ lịch sử)
@@ -197,6 +205,14 @@ class JobMatcherController extends Controller
                 ->with('current_run_id', $crawlRun->id)
                 ->with('match_results', $formattedResults)
                 ->with('match_run_info', "Kết quả matching với dữ liệu crawl ngày {$crawlRun->created_at->format('d/m/Y H:i')}");
+
+            // Ghi log sau khi matching với run thành công
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'action' => 'match_cv_with_run',
+                'description' => "Matched CV with crawl run ID {$crawlRun->id}",
+                'ip_address' => request()->ip(),
+            ]);
         } catch (\Exception $e) {
             Log::error("Lỗi match với run {$runId}: " . $e->getMessage());
             return redirect()->back()
@@ -263,6 +279,14 @@ class JobMatcherController extends Controller
                     'status'       => 'completed',
                     'jobs_crawled' => $jobsCount,
                     'detail'       => $cleanedJobs,
+                ]);
+
+                // Ghi log sau khi crawl thành công
+                ActivityLog::create([
+                    'user_id' => $userId,
+                    'action' => 'crawl_jobs',
+                    'description' => "Crawled {$jobsCount} jobs with parameters: " . json_encode($request->only(['keyword', 'location', 'level', 'salary', 'search_range'])),
+                    'ip_address' => request()->ip(),
                 ]);
 
                 return redirect()->back()->with('success', "Crawl thành công! Đã thu thập {$jobsCount} công việc.");
@@ -355,8 +379,33 @@ class JobMatcherController extends Controller
             abort(403, 'Bạn không có quyền xóa lần crawl này.');
         }
 
-        // Xóa dữ liệu (detail và result là array lớn, nên xóa record luôn là sạch nhất)
+        // Sao chép dữ liệu vào bảng deleted_crawls trước khi xóa
+        DeletedCrawl::create([
+            'user_id' => $crawlRun->user_id,
+            'group_id' => $crawlRun->group_id,
+            'source' => $crawlRun->source,
+            'status' => $crawlRun->status,
+            'parameters' => $crawlRun->parameters,
+            'jobs_crawled' => $crawlRun->jobs_crawled,
+            'error_message' => $crawlRun->error_message,
+            'detail' => $crawlRun->detail,
+            'result' => $crawlRun->result,
+            'deleted_by' => Auth::id(),
+            'deleted_at' => now(),
+            'created_at' => $crawlRun->created_at,
+            'updated_at' => $crawlRun->updated_at,
+        ]);
+
+        // Xóa record từ crawl_runs
         $crawlRun->delete();
+
+        // Ghi log sau khi xóa crawl run
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'delete_crawl_run',
+            'description' => "đã xóa crawl run ID {$crawlRun->id}",
+            'ip_address' => request()->ip(),
+        ]);
 
         return redirect()->back()
             ->with('success', 'Đã xóa lần crawl thành công.');

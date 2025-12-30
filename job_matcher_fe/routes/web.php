@@ -7,6 +7,7 @@ use App\Http\Controllers\JobMatcherController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LogController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,6 +58,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Thêm routes quản lý users
     Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.users');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUserRole'])->name('admin.users.update');
+    // Routes cho logs
+    Route::resource('admin/logs', LogController::class)->names([
+        'index' => 'admin.logs.index',
+        'show' => 'admin.logs.show',
+    ]);
+    // Routes cho deleted crawls
+    Route::get('/admin/deleted-crawls', [AdminController::class, 'deletedCrawls'])->name('admin.deleted.crawls');
+    Route::get('/admin/deleted-crawls/{deletedCrawl}', [AdminController::class, 'showDeletedCrawl'])->name('admin.deleted.crawls.show');
 });
 
 // Routes cho User

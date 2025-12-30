@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Log;
 
 class AuthController extends Controller
 {
@@ -21,6 +22,20 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            // Ghi log đăng nhập thành công
+            Log::create([
+                'user_id' => $user->id,
+                'action' => 'login',
+                'description' => 'User logged in successfully',
+                'ip_address' => request()->ip(),
+            ]);
+
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin');
+            }
 
             return redirect()->intended('/dashboard');
         }
@@ -49,6 +64,14 @@ class AuthController extends Controller
 
         Auth::login($user);
 
+        // Ghi log đăng ký
+        Log::create([
+            'user_id' => $user->id,
+            'action' => 'register',
+            'description' => 'User registered successfully',
+            'ip_address' => request()->ip(),
+        ]);
+
         return redirect('/dashboard');
     }
 
@@ -57,10 +80,22 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        $userId = Auth::id();
+
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Ghi log đăng xuất
+        if ($userId) {
+            Log::create([
+                'user_id' => $userId,
+                'action' => 'logout',
+                'description' => 'User logged out',
+                'ip_address' => request()->ip(),
+            ]);
+        }
 
         return redirect('/');
     }

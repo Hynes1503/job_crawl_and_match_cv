@@ -9,36 +9,134 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('styles')
     <style>
+        /* Dark theme tổng thể */
+        body {
+            background-color: #0f0f1a;
+            color: #e0e0ff;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
             height: 100vh;
             width: 250px;
+            background: linear-gradient(180deg, #1a1a2e, #16213e);
+            border-right: 1px solid #2a2a40;
             z-index: 1000;
             transition: transform 0.3s ease;
+            overflow-y: auto;
         }
+
         .sidebar.collapsed {
             transform: translateX(-250px);
         }
+
         .main-content {
             margin-left: 250px;
+            min-height: 100vh;
+            background-color: #0f0f1a;
             transition: margin-left 0.3s ease;
         }
+
         .main-content.expanded {
             margin-left: 0;
         }
-        .toggle-btn {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1010;
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
+
+        /* Header với toggle và tiêu đề trang */
+        .admin-header {
+            background: #1a1a2e;
+            border-bottom: 1px solid #2a2a40;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
         }
+
+        .toggle-btn {
+            background: #00b4ff;
+            color: #000;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 180, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .toggle-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.active i {
+            transform: rotate(90deg);
+        }
+
+        /* Sidebar menu items */
+        .nav-link.text-white {
+            color: #bbd0ff !important;
+            padding: 14px 20px;
+            border-radius: 10px;
+            margin: 4px 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link.text-white i {
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-link.text-white:hover,
+        .nav-link.text-white.active {
+            background: rgba(0, 180, 255, 0.25);
+            color: #00d4ff !important;
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(0, 180, 255, 0.2);
+        }
+
+        .navbar-brand.text-white {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        /* Alert */
+        .alert-success {
+            background-color: rgba(0, 255, 150, 0.15);
+            border: 1px solid #00ffaa;
+            color: #00ffaa;
+            border-radius: 12px;
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            background-color: #1a1a2e;
+            border: 1px solid #2a2a40;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-item {
+            color: #bbd0ff;
+            padding: 10px 16px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(0, 180, 255, 0.2);
+            color: #00d4ff;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-250px);
@@ -46,84 +144,139 @@
             .main-content {
                 margin-left: 0;
             }
+            .admin-header {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
-<body class="bg-light">
-    <button class="toggle-btn" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <nav class="sidebar bg-primary" id="sidebar">
-        <div class="p-3">
-            <a class="navbar-brand text-white" href="{{ route('admin.dashboard') }}">
-                <i class="fas fa-cogs"></i> Admin Panel
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="p-4 text-center border-bottom border-2" style="border-color: #2a2a40 !important;">
+            <a class="navbar-brand text-white d-inline-block" href="{{ route('admin.dashboard') }}">
+                <i class="fas fa-cogs fa-lg me-2"></i> Admin Panel
             </a>
         </div>
-        <ul class="nav flex-column p-3">
+
+        <ul class="nav flex-column px-3 py-3">
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('admin.dashboard') }}">
+                <a class="nav-link text-white {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+                   href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('admin.users') }}">
-                    <i class="fas fa-users"></i> Manage Users
+                <a class="nav-link text-white {{ request()->routeIs('admin.users*') ? 'active' : '' }}"
+                   href="{{ route('admin.users') }}">
+                    <i class="fas fa-users"></i> Quản Lý Người Dùng
                 </a>
             </li>
-            <!-- Thêm menu khác nếu cần -->
-            <li class="nav-item mt-auto">
+
+            <li class="nav-item">
+                <a class="nav-link text-white {{ request()->routeIs('admin.logs*') ? 'active' : '' }}"
+                   href="{{ route('admin.logs.index') }}">
+                    <i class="fas fa-history"></i> Nhật Ký Hệ Thống
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {{ request()->routeIs('admin.deleted.crawls*') ? 'active' : '' }}"
+                   href="{{ route('admin.deleted.crawls') }}">
+                    <i class="fas fa-trash-restore"></i> Crawl Đã Xóa
+                </a>
+            </li>
+
+            <!-- Phần user dropdown ở dưới cùng -->
+            <li class="nav-item mt-auto mb-4">
                 <div class="dropdown">
-                    <a class="nav-link text-white dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-user"></i> {{ auth()->user()->name }}
+                    <a class="nav-link text-white dropdown-toggle d-flex align-items-center px-3" 
+                       href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-lg"></i>
+                        <div class="ms-3 text-start">
+                            <div class="fw-semibold">{{ auth()->user()->name }}</div>
+                            <small style="opacity: 0.7;">{{ ucfirst(auth()->user()->role) }}</small>
+                        </div>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="{{ route('dashboard') }}">
-                            <i class="fas fa-user"></i> User Dashboard
+                            <i class="fas fa-home me-2"></i> Trang Người Dùng
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="dropdown-item">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </button>
-                        </form></li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Đăng Xuất
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </li>
         </ul>
     </nav>
 
+    <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <div class="container-fluid">
-            <div class="row">
-                <main class="col px-md-4">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">@yield('page-title', 'Dashboard')</h1>
-                    </div>
-
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
-
-                    @yield('content')
-                </main>
+        <!-- Header với toggle và tiêu đề trang -->
+        <header class="admin-header d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <button class="toggle-btn me-4" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="h4 mb-0 text-white fw-semibold">@yield('page-title', 'Dashboard')</h1>
             </div>
+        </header>
+
+        <!-- Nội dung chính -->
+        <div class="container-fluid py-4 px-4 px-md-5">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @yield('content')
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const toggleBtn = document.getElementById('sidebarToggle');
+        const toggleIcon = toggleBtn.querySelector('i');
+
+        toggleBtn.addEventListener('click', function() {
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('expanded');
+            toggleBtn.classList.toggle('active');
+
+            // Đổi icon bars ↔ times
+            if (sidebar.classList.contains('collapsed')) {
+                toggleIcon.classList.replace('fa-times', 'fa-bars');
+            } else {
+                toggleIcon.classList.replace('fa-bars', 'fa-times');
+            }
+        });
+
+        // Tự động đóng sidebar trên mobile khi click menu
+        document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('collapsed');
+                    mainContent.classList.add('expanded');
+                    toggleBtn.classList.remove('active');
+                    toggleIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
         });
     </script>
+
     @stack('scripts')
 </body>
 </html>

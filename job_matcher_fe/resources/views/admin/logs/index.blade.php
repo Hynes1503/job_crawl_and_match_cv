@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Manage Users')
+@section('page-title', 'System Logs')
 
 @section('content')
 <div class="container-fluid">
@@ -11,73 +11,65 @@
                          animation: textGradient 6s ease infinite;
                          -webkit-background-clip: text;
                          -webkit-text-fill-color: transparent;">
-                Quản Lý Người Dùng
+                Nhật Ký Hoạt Động
             </span>
         </h1>
+        <p class="stats opacity-85">Tổng cộng <strong>{{ $logs->total() }}</strong> bản ghi hoạt động</p>
     </div>
 
-    @if($users->count() > 0)
+    @if($logs->count() > 0)
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên Người Dùng</th>
-                        <th>Email</th>
-                        <th>Vai Trò</th>
-                        <th>Ngày Tạo</th>
+                        <th>Người Dùng</th>
                         <th>Hành Động</th>
+                        <th>Mô Tả</th>
+                        <th>Địa Chỉ IP</th>
+                        <th>Thời Gian</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($logs as $log)
                         <tr>
-                            <td class="fw-bold">#{{ $user->id }}</td>
+                            <td class="fw-bold">#{{ $log->id }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #00b4ff, #00ffaa); color: #000; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-right: 12px;">
-                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                        {{ $log->user ? strtoupper(substr($log->user->name, 0, 1)) : 'N' }}
                                     </div>
                                     <div>
-                                        <div style="font-weight: 600;">{{ $user->name }}</div>
-                                        <div style="font-size: 0.82rem; opacity: 0.7;">ID: {{ $user->id }}</div>
+                                        <div style="font-weight: 600;">{{ $log->user ? $log->user->name : 'N/A' }}</div>
+                                        <div style="font-size: 0.82rem; opacity: 0.7;">ID: {{ $log->user_id ?? '-' }}</div>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <span style="opacity: 0.9;">{{ $user->email }}</span>
-                            </td>
-                            <td>
-                                <span class="status {{ $user->role == 'admin' ? 'status-admin' : 'status-user' }}">
-                                    <i class="fas {{ $user->role == 'admin' ? 'fa-crown' : 'fa-user' }}"></i>
-                                    {{ ucfirst($user->role) }}
+                                <span class="status status-action">
+                                    {{ ucfirst(str_replace('_', ' ', $log->action)) }}
                                 </span>
                             </td>
-                            <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
-                            <td>
-                                <form action="{{ route('admin.users.update', $user) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="d-flex align-items-center gap-2">
-                                        <select name="role" class="form-select form-select-sm" style="min-width: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff;">
-                                            <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
-                                            <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                                        </select>
-                                        <button type="submit" class="action-btn save-btn">
-                                            <i class="fas fa-save"></i>
-                                        </button>
-                                    </div>
-                                </form>
+                            <td class="message">
+                                {{ $log->description }}
                             </td>
+                            <td>
+                                <span style="font-family: monospace;">{{ $log->ip_address }}</span>
+                            </td>
+                            <td>{{ $log->created_at->format('d/m/Y H:i:s') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+
+        <div class="pagination mt-4">
+            {{ $logs->links() }}
+        </div>
     @else
         <div class="no-data">
-            <i class="fas fa-users fa-4x mb-4" style="opacity: 0.4;"></i>
-            <p>Chưa có người dùng nào trong hệ thống.</p>
+            <i class="fas fa-history fa-4x mb-4" style="opacity: 0.4;"></i>
+            <p>Chưa có hoạt động nào được ghi nhận.</p>
         </div>
     @endif
 </div>
@@ -102,7 +94,6 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        margin: 0;
     }
 
     th {
@@ -131,47 +122,20 @@
         border-radius: 999px;
         font-size: 0.85rem;
         font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
+        display: inline-block;
     }
 
-    .status-admin {
-        background: rgba(255, 100, 100, .2);
-        color: #ff6b6b;
-        border: 1px solid rgba(255, 100, 100, 0.4);
-    }
-
-    .status-user {
-        background: rgba(0, 180, 255, .2);
-        color: #00b4ff;
-        border: 1px solid rgba(0, 180, 255, 0.4);
-    }
-
-    .action-btn {
-        background: none;
-        border: 1px solid #00ffaa;
-        color: #00ffaa;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-    }
-
-    .action-btn:hover {
-        background: rgba(0, 255, 150, .15);
-        color: #00ffdd;
-        transform: translateY(-2px);
-    }
-
-    .save-btn {
-        border-color: #00ffaa;
-        color: #00ffaa;
-    }
-
-    .save-btn:hover {
+    .status-action {
         background: rgba(0, 255, 150, .2);
+        color: #00ffaa;
+        border: 1px solid rgba(0, 255, 150, 0.4);
+    }
+
+    .message {
+        max-width: 400px;
+        word-break: break-word;
+        opacity: .85;
+        font-size: 0.88rem;
     }
 
     .pagination {
@@ -193,7 +157,7 @@
 
     .no-data {
         text-align: center;
-        padding: 100px 20px;
+        padding: 120px 20px;
         opacity: .6;
         font-size: 1.3rem;
     }
@@ -207,7 +171,6 @@
 
 @push('scripts')
 <script>
-    // Optional: Hiệu ứng fade-in khi load trang
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('tr').forEach((row, index) => {
             row.style.animation = `fadeIn 0.6s ease forwards`;

@@ -7,6 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\Log;
 
 class SocialAuthController extends Controller
 {
@@ -46,6 +47,14 @@ class SocialAuthController extends Controller
         }
 
         Auth::login($user);
+
+        // Ghi log đăng nhập qua social
+        Log::create([
+            'user_id' => $user->id,
+            'action' => 'login_social',
+            'description' => "Logged in via {$provider}",
+            'ip_address' => request()->ip(),
+        ]);
 
         return redirect('/dashboard');
     }

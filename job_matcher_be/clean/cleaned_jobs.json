@@ -1,66 +1,497 @@
 [
   {
-    "title": ".Net Developer (At Least 2 Years )",
+    "title": "Middle/Senior Frontend Engineer(ReactJS,Fullstack)",
     "job_description": [
-      "- Collaborate with clients and teams to gather requirements and plan tasks.\n- Develop applications, optimize systems, and contribute innovative ideas.\n- Write code, test, and maintain technical documentation.\n- Explore new technologies and propose performance improvements.\n- Opportunity to lead your own project/module.\n- Gain hands-on experience across the full software development lifecycle."
+      "Job brief\nWe are looking for a Middle/ Senior Frontend Developer to manage the software development life cycle, from planning and prioritizing to testing and release.\nMiddle/ Senior Developer responsibilities include gathering system and user requirements, building modules and testing features before release. If you have hands-on experience developing software with agile methodologies and are ready to lead our junior developers, we’d like to meet you.\nUltimately, you will deploy and maintain functional, secure and high-quality applications.\nYour responsibilities\nIdentify and analyze user requirements.\nImplement our applications, services and products.\nWrite well-designed, efficient code.\nReview, test and debug team members’ code.\nRelease and maintain our products/ services in production environments.\nEnsure our applications are secure and up to date."
     ],
     "requirements": [
-      "- Bachelor’s degree in Information Technology, Computer Science, or a related field.\n- At least 2 years of backend software development experience using .NET technologies.\n- Solid experience in requirements analysis, software design, and application architecture.\n- Proficient in Golang, .NET, ASP.NET Core, MVC, Web API, and Entity Framework Core.\n- Technical foundation in SQL Server/PostgreSQL, frontend basics (HTML, CSS, Bootstrap, JavaScript), and knowledge of server-side systems (microservices, WebSocket)\n- Experience in requirements analysis, software design, and application architecture.\n- Proactive, creative, good communication skills, and able to work well in a team\nYou will stand out if you have:\n- Experience with Agile/Scrum, CI/CD, and deploying critical software\n- Experience with payment applications, peripheral devices (NFC, printers, cameras), or eKYC platforms (face detection, liveness, image processing)\n- Strong skills in analysis, problem-solving, design, coding, and debugging applications\n- Reading and writing English skills sufficient for work purposes"
+      "Your skills and experience\nWork experience as a Middle/ Senior Frontend Developer or similar role.\nExperience in designing, implementing, and testing applications using technologies such as ReactJS, NextJS, NodeJS.\nProficiency in one of the following: Javascript, Typescript.\nGood knowledge of SQL, MySQL or similar databases.\nExperience with Object-Oriented Design (OOD).\nExperience with Test-Driven Development (TDD).\nStrong delegation and time management skills, problem-solving abilities, teamwork skills.\nEnglish: Intermediate to Upper intermediate level.\nBachelor’s degree in Computer Science, Information Technology, Engineering or relevant field.\nNice to have\nExperience with Fullstack, PHP, Docker, Jenkins, AWS, Cloud and SaaS will be a plus.\nProficiency in Japanese will be a significant advantage."
+    ],
+    "salary": {
+      "min": 1000,
+      "max": 3000
+    },
+    "location": "Hồ Chí Minh (mới)",
+    "experience": {
+      "min_years": 4
+    },
+    "url": "https://www.topcv.vn/viec-lam/middle-senior-frontend-engineerreactjs-fullstack/1935112.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Front End Developer (ReactJS, VueJS, HTML) - Tại Hà Nội",
+    "job_description": [
+      "Design, develop, and maintain user interfaces for web applications.\nCollaborate with UX/UI Designers to ensure intuitive and user-friendly interfaces.\nIntegrate APIs and back-end services to deliver full features.\nOptimize interface performance (loading speed, cross-device compatibility).\nWrite clean, reusable, and maintainable code.\nAnalyze and troubleshoot front-end issues.\nStay updated and apply the latest technologies and frameworks."
+    ],
+    "requirements": [
+      "[Required]\nHave at least 3 years of experience (Prioritize high experience)\nExperienced web / mobile application development\nCan develop HTML, CSS, Javascript, jQuery\nCan develop based on React.js or Vue.js, Vuex\nExperienced with collaboration tools like Git, Jira and Confluence\nUnderstand and use CI/CD\nEnglish speaking on average (or TOEIC on 550)\n[Preferred]\nUnderstand Back-end\nUse Typescript\nExperienced with Node.js\nExperienced with javascript charts (Echarts, Chart.js, d3js, etc.)\nExperience using Tailwind, MUI\nOAuth development experience\nKorean communication\nTeam management experience"
     ],
     "salary": {},
     "location": "Hà Nội",
     "experience": {
-      "min_years": 2
+      "min_years": 3
     },
-    "url": "https://www.topcv.vn/viec-lam/net-developer-at-least-2-years/1989199.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/front-end-developer-reactjs-vuejs-html-tai-ha-noi/1575383.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Senior .NET (C#) Developer (Factory Management System) - Từ 3 Năm Kinh Nghiệm - Upto 1.500 - Đi Làm Ngay",
+    "title": "Frontend Reactjs Developer",
     "job_description": [
-      "Thiết kế, phát triển và tối ưu hệ thống quản lý nhà máy sử dụng C# (WinForms/WPF) trên .NET Framework / .NET 6/7/8.\nTham gia toàn bộ vòng đời phát triển phần mềm: phân tích yêu cầu – thiết kế – coding – testing – release.\nLàm việc với dữ liệu lớn, tối ưu SQL Server (query, indexing, performance, memory).\nXây dựng và duy trì Unit Test / Integration Test / E2E Test, tích hợp vào CI pipeline.\nThực hiện code review, xây dựng coding standard và mentoring kỹ thuật cho team.\nHỗ trợ vận hành production: monitoring, phân tích log, xử lý sự cố, exception tracking, RCA.\nTham gia xây dựng CI/CD (Azure DevOps, GitHub Actions, Jenkins), hỗ trợ Docker khi cần.\nPhối hợp với PM, QC và khách hàng Nhật/Anh để phân tích yêu cầu và đảm bảo chất lượng bàn giao.\nĐề xuất cải tiến kỹ thuật: hiệu năng, bảo mật, hiện đại hóa hệ thống (.NET migration), tự động hóa workflow (bao gồm AI)."
+      "Leading the way in financial IT service market in Korea, we now seek to expand our expertise to the APAC\nParticipation in R&D AI Agent development Project Solution Development\nFrontend Development\nRequirements analysis and design\nEnsuring own program quality"
     ],
     "requirements": [
-      "Bắt buộc:\nTối thiểu 3 - 4 năm kinh nghiệm .NET (ưu tiên 5+ năm với hệ thống lớn).\nThành thạo C#, .NET Framework / .NET 6+, WinForms hoặc WPF.\nCó kinh nghiệm Backend/API: ASP.NET MVC, Web API.\nThành thạo SQL Server, ORM (Entity Framework / Dapper).\nCó kinh nghiệm unit/integration testing và làm việc với CI pipeline.\nHiểu và có kinh nghiệm tối ưu hiệu năng (CPU, memory, I/O).\nKỹ năng giải quyết vấn đề, giao tiếp và ra quyết định kỹ thuật tốt.\nNên có:\nKinh nghiệm với MES / ERP / Factory System.\nSử dụng ActiveReports hoặc công cụ reporting tương đương.\nKinh nghiệm hoặc chứng chỉ AWS / Azure.\nHiểu biết DDD, CQRS, Event-driven Architecture.\nCó kinh nghiệm áp dụng AI / Automation trong phát triển phần mềm.\nQuen thuộc với môi trường làm việc và văn hóa Nhật Bản.\nKINH NGHIỆM AI (ĐÁNH GIÁ CAO)\nĐã sử dụng GitHub Copilot, ChatGPT, Claude, Azure AI trong công việc.\nỨng dụng AI để tự động hóa workflow (sinh unit test, code template, phân tích log, tài liệu).\nCó kinh nghiệm tích hợp AI API (OpenAI / Azure OpenAI) vào hệ thống.\nTư duy chủ động sử dụng AI để nâng cao năng suất và chất lượng code."
+      "Experience in other SPAs (Vue, TypeScript, etc)\nHybrid app experience\nCommunicate in English at an average level\nWeb application development experience (4 years or more)\nReact experience\nCan develop HTML, CSS, Javascript, jQuery\nExperience with collaboration tools such as Git, Jira and Confluence"
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 4
+    },
+    "url": "https://www.topcv.vn/viec-lam/frontend-reactjs-developer/1997056.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fullstack Developer (Node.Js, TypeScript, Và React JS-Từ 3 Năm Kinh Nghiệm)",
+    "job_description": [
+      "Phát triển và duy trì các ứng dụng web sử dụng Node.js, TypeScript, và React JS.\nThiết kế giao diện người dùng (UI) responsive và tối ưu trải nghiệm người dùng (UX) với Tailwind CSS.\nLàm việc với cơ sở dữ liệu MySQL và MongoDB để xây dựng và tối ưu hóa các truy vấn dữ liệu.\nTham gia vào toàn bộ vòng đời phát triển phần mềm, từ phân tích yêu cầu, thiết kế, coding, đến kiểm thử và triển khai.\nPhối hợp với các thành viên trong nhóm (Frontend, Backend, QA) để đảm bảo chất lượng sản phẩm.\nĐề xuất và triển khai các cải tiến kỹ thuật để nâng cao hiệu suất và khả năng mở rộng của ứng dụng.\nViết mã sạch, dễ bảo trì và tuân thủ các tiêu chuẩn coding tốt nhất.\nTham gia review code và hỗ trợ các thành viên khác trong nhóm.\nThực hiện các công việc khác theo yêu cầu của lãnh đạo."
+    ],
+    "requirements": [
+      "Tốt nghiệp đại học chuyên ngành Công nghệ Thông tin, Khoa học Máy tính hoặc các lĩnh vực liên quan.\nCó từ 3 năm kinh nghiệm làm việc thực tế với Node.js, TypeScript, và React JS.\nThành thạo Tailwind CSS để xây dựng giao diện responsive và hiện đại.\nCó kinh nghiệm làm việc với cơ sở dữ liệu MySQL và MongoDB, bao gồm thiết kế schema và tối ưu hóa truy vấn.\nHiểu biết tốt về các khái niệm phát triển web như RESTful API, asynchronous programming, và state management trong React.\nCó khả năng làm việc nhóm tốt, giao tiếp hiệu quả và sẵn sàng học hỏi công nghệ mới.\nKỹ năng giải quyết vấn đề và tư duy logic tốt.\nƯu tiên ứng viên có kinh nghiệm với các công cụ như Git, Docker, hoặc CI/CD pipelines.\nCó kinh nghiệm làm việc trong môi trường Agile/Scrum là một lợi thế."
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/fullstack-developer-node-js-typescript-va-react-js-tu-3-nam-kinh-nghiem/1993311.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Full Stack Developer (Java, Springboot, React)",
+    "job_description": [
+      "LG CNS is looking for full stack developers for cloud domain project\nDevelop and maintain fullstack web applications using Java (Spring Boot) on backend and React.js on frontend.\nParticipate in the entire software development lifecycle, from requirements gathering, analysis, design to deployment and maintenance.\nConduct unit testing and support integration testing.\nEnsure code quality, performance, and scalability.\nMaintain technical documentation and follow coding standards."
+    ],
+    "requirements": [
+      "[Required]\nBachelor's degree of Information Technology or higher\nHave working experience and excellent knowledge at software developing using Java, Spring boot\nHave working experience and excellent knowledge at software developing using React, HTML, JavaScript\nGood knowledge about AI (Azure OpenAI and GenAI)\nGood knowledge about public cloud (Azure, AWS,)\nDatabase: MariaDB (or MySQL).\n[Preferred]\nHaving experience with Python and Google cloud"
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 1
+    },
+    "url": "https://www.topcv.vn/viec-lam/full-stack-developer-java-springboot-react/1783213.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Software Engineer (Fullstack Java/Reactjs)",
+    "job_description": [
+      "Phát triển phần mềm, thực hiện kiểm thử nội bộ, viết tài liệu kỹ thuật và triển khai ứng dụng trên các môi trường khác nhau\nPhân tích nguyên nhân sự cố, tối ưu từ người dùng hoặc các ứng dụng tích hợp của đối tác, đề xuất phương án xử lý tối ưu.\nTham gia phân tích, thiết kế và đưa ra giải pháp kỹ thuật dựa trên tài liệu yêu cầu nghiệp vụ.\nXác định và rà soát các vấn đề thường xuyên phát sinh lỗi, xây dựng phương án khắc phục triệt để và giám sát thực thi.\nPhối hợp với các thành viên trong đội dự án (BA, QA, DevOps, Product Owner,…) để hoàn thiện sản phẩm."
+    ],
+    "requirements": [
+      "Thành thạo HTML, CSS, JavaScript/TypeScript.\nCó kinh nghiệm với một hoặc nhiều framework: ReactJS, Angular, VueJS.\nCó kinh nghiệm backend với Java\nHiểu biết cơ bản về RESTful API, WebSocket.\nCó khả năng thiết kế và tối ưu cơ sở dữ liệu.\nƯu tiên ứng viên có hiểu biết hoặc kinh nghiệm làm việc với Docker, Gitlab CI/CD, hoặc cloud platform (AWS, GCP, Azure)."
     ],
     "salary": {
-      "max": 1500
+      "max": 1200
     },
     "location": "Hà Nội",
     "experience": {
       "min_years": 3
     },
-    "url": "https://www.topcv.vn/viec-lam/senior-net-c-developer-factory-management-system-tu-3-nam-kinh-nghiem-upto-1-500-di-lam-ngay/1993438.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/software-engineer-fullstack-java-reactjs/1919008.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Thực Tập Sinh Software (.Net)",
+    "title": "Fullstack Developer (Thành Thạo NodeJS & ReactJS)",
     "job_description": [
-      "Chúng tôi chờ đón các bạn sinh viên với đam mê công nghệ và bản lĩnh chinh phục những “bài toán khó”, cùng ELCOM góp mình vào sứ mệnh mang công nghệ kiến tạo cuộc sống thông minh và nhân văn hơn cho người Việt.\n\nCác bạn sẽ được tham gia nghiên cứu và phát triển các dự án công nghệ thực tế thuộc những lĩnh vực chiến lược của ELCOM, đồng thời được định hướng để nâng cao kỹ năng chuyên môn, kỹ năng mềm và tư duy công nghệ. Sau thời gian tham gia chương trình, các bạn có cơ hội trở thành nhân viên chính thức tại ELCOM – Top 10 Doanh nghiệp Công nghệ thông tin hàng đầu Việt Nam, với mức đãi ngộ cạnh tranh và lộ trình phát triển rõ ràng."
+      "Phát triển các sản phẩm phần mềm của công ty (thành thạo NodeJS API & ReactJS)\nXác định lỗi và cập nhật sản phẩm liên tục\nPhối hợp cùng đội ngũ và các vị trí khác như tester & designer để hoàn thiện sản phẩm đáp ứng nhu cầu của khách hàng\nBáo cáo công việc trực tiếp cho TBP, cơ hội thăng tiến cao\nQuy trình phỏng vấn: 01 vòng"
     ],
     "requirements": [
-      "Sinh viên năm cuối Đại học các ngành: Kỹ thuật máy tính, Công nghệ thông tin, hoặc các chuyên ngành liên quan.\nĐiểm trung bình tích lũy từ 3.2/4.0 trở lên\nCó khả năng làm việc fulltime hoặc parttime tối thiểu 70% số buổi/tuần(28 giờ/ tuần)\nCó hiểu biết về design patterns\nCó hiểu biết về một trong các js framework là một lợi thế.\nƯu tiên ứng viên đã sử dụng một trong các CSDL quan hệ (Mysql, Oracle).\nTiếng Anh đọc hiểu tài liệu Kỹ thuật.\nYêu thích công nghệ, sẵn sàng học hỏi, tư duy logic tốt, trách nhiệm với công việc."
-    ],
-    "salary": {},
-    "location": "",
-    "experience": {
-      "min_years": "Không yêu cầu"
-    },
-    "url": "https://www.topcv.vn/viec-lam/thuc-tap-sinh-software-net/1988748.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "Fresher Web Developer (C#, .NET)",
-    "job_description": [
-      "Lộ trình đào tạo Fullstack và cơ hội trở thành nhân viên của MISA chỉ sau 1 tháng: học và thực hành, làm bài tập, đánh giá về về các kiến thức nền tảng, kỹ thuật Debug với Vue, UI Convention, ngôn ngữ C#, .Netcore, Config, dựng Sever với ASP.NET Core,..."
-    ],
-    "requirements": [
-      "- Sinh viên cuối năm 3, năm 4 hoặc tốt nghiệp ĐH trở lên các chuyên ngành: Công nghệ thông tin, công nghệ phần mềm, kỹ thuật phần mềm, khoa học máy tính\n- Thời gian làm việc: Yêu cầu fulltime\n- Đã có kinh nghiệm thực tập hoặc có các project cá nhân về mảng web\n- Điểm tích lũy GPA từ 3.0 trở lên\n- Có kiến thức về OOP, HTML, CSS. JS, Database\n- Sử dụng ít nhất 1 hệ quản trị CSDL như MySQL, SQL Server.\n- Biết sử dụng Vue, Angular, React là một lợi thế."
+      "Thành thạo thành thạo NodeJS API & ReactJS là bắt buộc\nỨng viên nam, sinh năm 2000 trở về trước & Tốt nghiệp đại học chuyên ngành CNTT hoặc liên quan (bằng khá trở lên)\nKinh nghiệm ở vị trí tương đương tối thiểu 2 năm trong công ty product\nCó laptop để làm việc"
     ],
     "salary": {
+      "min": 15,
+      "max": 35
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 2
+    },
+    "url": "https://www.topcv.vn/viec-lam/fullstack-developer-thanh-thao-nodejs-reactjs/1996599.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "FULLSTACK DEVELOPER (NodeJS & ReactJS)",
+    "job_description": [
+      "Tham gia phát triển các dự án quy mô lớn, bạn sẽ:\nThiết kế, phát triển, kiểm thử và triển khai các tính năng theo mục tiêu dự án.\nThực hiện code review, phối hợp và hỗ trợ team trong quá trình phát triển.\nChủ động đề xuất giải pháp, cải tiến sản phẩm và tham gia vào toàn bộ vòng đời tính năng (proposal → development → release)."
+    ],
+    "requirements": [
+      "Tối thiểu 3 năm kinh nghiệm phát triển Fullstack.\nFrontend: Thành thạo HTML/CSS/JS, ReactJS/VueJS, responsive layout, tối ưu UX/UI.\nBackend: NodeJS, thiết kế RESTful API, hiểu biết về design patterns & kiến trúc phần mềm.\nThành thạo PostgreSQL, Redis; biết Docker là lợi thế.\nTư duy hệ thống tốt, trách nhiệm cao với chất lượng & độ ổn định của sản phẩm."
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/fullstack-developer-nodejs-reactjs/1996955.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Intern Fullstack ReactJS, NextJS, NodeJS",
+    "job_description": [
+      "Phát triển Frontend:\nTham gia xây dựng giao diện người dùng (UI) sử dụng ReactJS hoặc Next.js.\nChuyển đổi thiết kế từ Figma/Adobe XD sang code HTML/CSS/JS (hoặc TypeScript) đảm bảo tính Responsive.\nTối ưu hóa trải nghiệm người dùng (UX) và tốc độ tải trang.\nPhát triển Backend:\nHỗ trợ xây dựng RESTful API hoặc GraphQL sử dụng Node.js (ExpressJS, NestJS...).\nLàm việc với cơ sở dữ liệu (MongoDB, MySQL, hoặc PostgreSQL). Ưu tiên các ứng viên quen thuộc với các giải pháp PaaS hoặc BaaS\nCác công việc khác:\nPhối hợp với team để tích hợp API giữa Frontend và Backend.\nQuen thuộc với các hệ thống quản lý mã nguồn trên git. Ưu tiên các ứng viên có khả năng setup CI/CD\nTham gia fix bugs, review code và viết tài liệu kỹ thuật cơ bản.\nNghiên cứu các công nghệ mới theo định hướng của công ty."
+    ],
+    "requirements": [
+      "Là sinh viên năm 3 – 4 chuyên ngành CNTT, Phần mềm hoặc các ngành liên quan.\nNắm vững kiến thức cơ bản về HTML, CSS, JavaScript (ES6+).\nCó kiến thức cơ bản với ReactJS hoặc Next.js.\nHiểu biết cơ bản về Node.js và cách hoạt động của API.\nTư duy logic tốt, yêu thích lập trình và giải quyết vấn đề.\nĐọc tài liệu tiếng Anh tốt hoặc TOEIC 500+\nChủ động, ham học hỏi và có trách nhiệm với công việc được giao."
+    ],
+    "salary": {
+      "min": 2,
       "max": 4
     },
     "location": "Hà Nội",
     "experience": {
       "min_years": "Không yêu cầu"
     },
-    "url": "https://www.topcv.vn/viec-lam/fresher-web-developer-c-net/1992413.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/intern-fullstack-reactjs-nextjs-nodejs/1978371.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Thực Tập Sinh React Native Thu Nhập Upto 9 Triệu",
+    "job_description": [
+      "Tham gia phát triển ứng dụng mobile bằng React Native (ưu tiên chính).\nHỗ trợ phát triển một số module web/admin bằng ReactJS khi cần.\nXây dựng UI theo thiết kế (Figma), đảm bảo đúng layout, mượt và nhất quán trên iOS/Android.\nTích hợp API (REST), xử lý data, loading/error, form & validation cơ bản.\nHỗ trợ fix bug, viết code theo guideline, tham gia code review.\nTham gia daily/weekly meeting, cập nhật tiến độ, phối hợp cùng BA/QA/Designer.\nTrao đổi công việc bằng tiếng Anh (chat/meeting) khi dự án yêu cầu."
+    ],
+    "requirements": [
+      "Nền tảng tốt về JavaScript (ES6+), HTML/CSS cơ bản.\nĐã làm qua React Native (project cá nhân/đồ án đều được); biết cơ bản React (component, props/state, hooks).\nCó hiểu biết về: navigation, fetch API/axios, async/await.\nBiết dùng Git (commit/branch/pull request).\nChủ động học, tinh thần teamwork, chịu khó debug.\nEnglish good: đọc hiểu tài liệu tốt và có khả năng giao tiếp tiếng Anh (chat/meeting cơ bản).\nĐiểm cộng:\nBiết TypeScript, Redux Toolkit/Zustand, React Query.\nCó trải nghiệm build app (Android/iOS), hoặc từng dùng Expo/EAS.\nBiết cơ bản về performance (memo, list optimization), clean architecture.\nBiết testing (Jest) là lợi thế."
+    ],
+    "salary": {
+      "min": 3,
+      "max": 9
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 1
+    },
+    "url": "https://www.topcv.vn/viec-lam/thuc-tap-sinh-react-native-thu-nhap-upto-9-trieu/1984022.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Senior React Native Developer Thu Nhập Upto 45 Triệu",
+    "job_description": [
+      "Scope of Work: You will be responsible for delivering high-performance hybrid mobile applications and maintaining robust backend services on AWS. You will act as a key technical bridge between mobile frontend and cloud backend. Key responsibilities include:\n\nMobile App Development:\n- Architect and build high-quality, scalable mobile applications for both iOS and Android using React Native.\n- Develop advanced UI/UX features with smooth performance (60fps), animations, and intuitive interactions.\n- Bridge native modules when necessary (integrating Swift/Objective-C for iOS and Java/Kotlin for Android).\n\nBackend & Cloud Engineering:\n- Design and develop secure backend services/APIs using Python (Django/FastAPI/Flask).\n- Deploy and manage serverless or containerized applications on AWS Cloud (Lambda, API Gateway, EC2, ECS, RDS/DynamoDB).\n\nProduct Lifecycle & Collaboration:\n- Work closely with PMO, Product Owners, and Business Users to gather requirements and translate them into technical specifications.\n- Participate in the full SDLC: design, coding, testing, and deployment.\n\nMaintenance & Security:\n- Provide L3 software support, troubleshooting critical production issues.\n- Implement and maintain security standards (OWASP Mobile Top 10) for both mobile apps and backend APIs.\n- Conduct unit testing, integration testing, and performance profiling.\nType of work: Full-time / Onsite."
+    ],
+    "requirements": [
+      "Technical Skills – MUST HAVE:\n5+ years of software development experience, with at least 3+ years of strong hands-on experience in React Native.\nMobile Expertise:\n- Deep understanding of React Native core concepts, Bridge/JSI, and component lifecycle.\n- Solid experience in publishing apps on App Store and Google Play Store.\n- Experience with Native platforms: familiar with Xcode and Android Studio, able to debug native issues (Gradle, Pods, signing config).\n- Strong proficiency in JavaScript (ES6+), TypeScript, and State Management (Redux Toolkit, Zustand, or MobX).\nBackend & Cloud Expertise:\n- Proficient in Python programming language for backend development.\n- Hands-on experience with AWS Cloud services (Computing, Storage, Database, Networking).\n- Experience designing RESTful APIs or GraphQL.\nEngineering Practices:\n- Strong debugging and problem-solving ability (using Flipper, Reactotron, AWS CloudWatch).\n- Strong using GIT and proper branching strategies (Gitflow).\n- Experience with Testing frameworks (Jest, Detox, PyTest).\nBonus Skills:\nExperience with CI/CD pipelines for Mobile (Fastlane, Bitrise, App Center) and Backend (GitHub Actions, Jenkins).\nKnowledge of mobile app security best practices (Obfuscation, SSL Pinning, Keychain/Keystore).\nAWS Certifications (Solutions Architect or Developer Associate).\nExperience with Infrastructure as Code (Terraform, CloudFormation).\nSoft Skills:\nAbility to work collaboratively in cross-functional teams (PMO, PO, Business Users).\nGood English communication (written & verbal).\nSelf-learning, proactive mindset, willingness to research new technologies.\nStrong ownership and accountability for the product quality."
+    ],
+    "salary": {
+      "min": 30,
+      "max": 45
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 5
+    },
+    "url": "https://www.topcv.vn/viec-lam/senior-react-native-developer-thu-nhap-upto-45-trieu/1983747.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fullstack Developer (.Net,Python,NodeJS, ReactJS)",
+    "job_description": [
+      "Chịu trách nhiệm phát triển Backend & Frontend cho các ứng dụng trong lĩnh vực Logistic, Fintech, E-Learning,... sử dụng công nghệ .Net, Python, JavaScript, TypeScript, bao gồm:\nDựng khung cho ứng dụng Backend, Frontend đảm bảo yếu tố dễ maintain và tái sử dụng cho nhiều dự án (với vị trí Senior hoặc Middle)\nDựng UI cho ứng dụng theo thiết kế UI/UX/Wireframes\nViết API cho các ứng dụng frontend (web, mobile) theo chuẩn RESTful, GraphQL\nXây dựng ứng dụng responsive, tương thích với đa trình duyệt, SEO-Friendly, tối ưu hóa về mặt băng thông và bộ nhớ\nViết tài liệu mô tả chức năng\nViết Unit tests\nĐảm bảo các công việc được giao thực hiện đúng thời hạn và chất lượng tốt.\nPhối hợp, hỗ trợ thành viên trong dự án hoàn thành công việc chung của dự án.\nNghiên cứu các công nghệ theo hướng dẫn của trưởng nhóm"
+    ],
+    "requirements": [
+      "Có tối thiểu 1 năm kinh nghiệm phát triển Backend bằng . Net hoặc Python\nCó tối thiểu 1 năm kinh nghiệm phát triển Frontend bằng ReactJS hoặc VueJS\nCó hiểu biết về giao thức TCP/IP, cơ chế giao tiếp Backend - Frontend\nCó hiểu biết về kiến trúc Microservices\nNắm vững kiến thức lập trình hướng đối tượng, kiến thức cơ bản về Cấu trúc dữ liệu & Giải thuật\nNắm vững kiến thức cơ bản về lập trình SQL và hiểu biết về SQL Server, NoSQL (MongoDB, DynamoDB)\nCó hiểu biết về Redis, RabbitMQ\nThành thạo Html5/ CSS/ Bootstrap\nCó kinh nghiệm phát triển ứng dụng responsive, xử lý các vấn đề tương thích đa trình duyệt\nCó kỹ năng triển khai ứng dụng frontend & backend trên Docker\nCó khả năng đọc hiểu tài liệu Tiếng Anh\nCó kinh nghiệm làm việc với Git và các hệ thống source control\nChủ động & trách nhiệm với công việc\nCó tư duy logic tốt & làm việc nhóm hiệu quả\nCó kỹ năng quản lý thời gian tốt, giao tiếp & kỹ năng xử lý vấn đề tốt\nYếu tố lợi thế:\nĐam mê công nghệ, sẵn sàng thử thách làm các công nghệ khác nhau\nCó kinh nghiệm làm việc với abp. io framework, Entity Framework hoặc Python\nCó kinh nghiệm với NodeJS và AngularJS\nCó kinh nghiệm làm việc trên nhiều môi trường server: Windows server, Linux server\nCó kinh nghiệm triển khai dự án dùng dịch vụ AWS, Azure\nCó khả năng giao tiếp Tiếng Anh với Khách hàng nước ngoài\nCó kỹ năng leadership với ứng viên Senior"
+    ],
+    "salary": {
+      "min": 15,
+      "max": 45
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 1
+    },
+    "url": "https://www.topcv.vn/viec-lam/fullstack-developer-net-python-nodejs-reactjs/1508986.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Senior Software Engineer (Golang/ReactJS)",
+    "job_description": [
+      "Thiết kế, phát triển và triển khai các dịch vụ backend sử dụng Golang.\nSẵn sàng học hỏi công nghệ mới, cụ thể là ReactJS trong thời gian ngắn để gia phát triển frontend cho các sản phẩm web nội bộ hoặc người dùng cuối.\nĐề xuất và hiện thực hóa các giải pháp kỹ thuật tối ưu, đảm bảo hệ thống hoạt động ổn định, hiệu quả và dễ mở rộng.\nPhối hợp chặt chẽ với các team Product, DevOps, UI/UX để phát triển sản phẩm hoàn chỉnh, trải nghiệm người dùng tốt.\nTham gia review code, mentor junior developer, và định hướng kỹ thuật trong team.\nGiải quyết các bài toán về hiệu năng, xử lý dữ liệu lớn, hệ thống phân tán."
+    ],
+    "requirements": [
+      "Từ 3–5 năm kinh nghiệm phát triển phần mềm.\nTối thiểu 2 năm sử dụng Golang để xây dựng backend.\nThành thạo RESTful API, gRPC, message queue (Kafka, RabbitMQ...).\nKinh nghiệm làm việc với cơ sở dữ liệu: PostgreSQL / MySQL / Redis / MongoDB.\nHiểu rõ về Docker, CI/CD, git workflow.\nKỹ năng tư duy logic, trách nhiệm cao, giải quyết vấn đề và làm việc nhóm tốt.\nƯu tiên\nĐã từng xây dựng hệ thống theo kiến trúc microservices hoặc serverless.\nCó khả năng ứng dụng AI vào công việc: dùng ChatGPT, Copilot, HuggingFace, LangChain… để viết code, sinh test case, phân tích hành vi user...\nCó kỹ năng prompting tốt khi sử dụng các công cụ AI hỗ trợ lập trình."
+    ],
+    "salary": {},
+    "location": "Hồ Chí Minh (mới)",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/senior-software-engineer-golang-reactjs/1982328.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Reactjs Developer",
+    "job_description": [
+      "Analysis and Design: Collaborate in analyzing project requirements and contributing to the design of frontend architecture to ensure products align with business objectives and meet customer requirements.\nSoftware Development: Design, develop, and maintain scalable web applications using ReactJS, modern JavaScript (ES6+), and related frontend technologies.\nTesting and Troubleshooting: Apply testing methodologies, unit testing frameworks, and debugging tools to ensure software quality and efficiently resolve issues.\nPerformance Optimization: Optimize React components, code structure, and rendering performance to ensure applications remain responsive and efficient.\nTechnical Assistance: Provide technical support to other teams in integrating APIs and frontend components, promoting effective collaboration across functions."
+    ],
+    "requirements": [
+      "Bachelor’s degree in Information Technology or a related field\nMinimum 4 years of experience in frontend development.\nProficient in React and TypeScript.\nHands-on experience with node-based UI libraries (preferably XYFlow).\nSkilled in building drag-and-drop interfaces and handling real-time data updates.\nOther Skills:\nKnowledge of source code management (Git or other version control systems).\nStrong problem-solving skills with attention to detail.\nAdditional Requirements:\nAbility to work onsite directly with the project team."
+    ],
+    "salary": {
+      "min": 22,
+      "max": 45
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 4
+    },
+    "url": "https://www.topcv.vn/viec-lam/reactjs-developer/1881490.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fullstack Web Developer (Reactjs & Nodejs) Onsite",
+    "job_description": [
+      "● Tham gia trực tiếp vào các dự án về thanh toán trực tuyến, ví điện tử, Loyalty, mobile banking, Digital lending...\n● Sử dụng và phát triển Framework nội bộ của công ty để triển khai sản phẩm cho khách hàng.\n● Nghiên cứu, cập nhật công nghệ mới nhằm nâng cao hiệu quả công việc.\n● Đóng góp ý kiến cải tiến sản phẩm và quy trình làm việc.\n● Hỗ trợ, kiểm tra, xử lý các vấn đề phát sinh trong quá trình phát triển, bao gồm lỗi được báo cáo từ QA, khách hàng hoặc các bộ phận liên quan."
+    ],
+    "requirements": [
+      "1. Kiến thức & Kinh nghiệm:\n● Tốt nghiệp đại học hoặc cao đẳng chuyên ngành Kỹ thuật phần mềm, CNTT.\n● Sinh viên năm cuối có thể làm FULLTIME hoặc có tối thiểu 6 tháng kinh nghiệm thực tế với các ngôn ngữ lập trình như Java, JavaScript, Python (Ưu tiên ứng viên thành thạo Node.js, React.js, JavaScript).\n● Ưu tiên ứng viên đang ở khu vực Long Biên hoặc Gia Lâm và có thể linh hoạt onsite tại văn phòng khách hàng ở Gia Lâm trong khoảng 1 tháng.63\n● Có kinh nghiệm phát triển giao diện web tương thích trên nhiều thiết bị, tối ưu trải nghiệm người dùng (UX).\n● Ưu tiên ứng viên có khả năng sử dụng tiếng Anh trong công việc.\n2. Kỹ năng làm việc\n● Có tư duy tốt, tinh thần ham học hỏi, năng động\n● Có khả năng làm việc nhóm\n● Chịu được áp lực công việc"
+    ],
+    "salary": {
+      "min": 10,
+      "max": 14
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 1
+    },
+    "url": "https://www.topcv.vn/viec-lam/fullstack-web-developer-reactjs-nodejs-onsite/1974217.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Lập Trình Fullstack (Laravel+React.JS)",
+    "job_description": [
+      "• Phát triển và mở rộng các hệ thống web sử dụng Laravel (Backend) và ReactJS (Frontend) cho các dự án outsourcing và product của công ty.\n• Phối hợp cùng các thành viên trong team để phân tích yêu cầu, đề xuất giải pháp kỹ thuật và triển khai theo kế hoạch dự án.\n• Chủ động xử lý các task backend – frontend trong phạm vi được phân công, đảm bảo tiến độ và chất lượng sản phẩm."
+    ],
+    "requirements": [
+      "• Có kiến thức nền tảng tốt về lập trình (OOP, cấu trúc dữ liệu và giải thuật…).\n• Có kiến thức nền tảng tốt về cơ sở dữ liệu quan hệ (thiết kế, sử dụng…).\n• Có kiến thức nền tảng tốt về hệ điều hành linux, cấu hình, triển khai web server.\n• Từ 2 năm kinh nghiệm lập trình sử dụng ngôn ngữ PHP trên các FrameWork như Laravel, CakePHP....\n• Từ 2 năm kinh nghiệm lập trình Frontend sử dụng HTML/CSS/Javascript, TypeScript trên các framework như Reactjs…\n• Có kinh nghiệm lập trình trên môi trường cloud đặc biệt là AWS (Ec2, lambda…) là điểm cộng\n• Có khả năng tìm hiểu, thích ứng tốt với công nghệ mới.\n• Có kinh nghiệm đảm nhiệm các vị trí project team leader là điểm cộng.\n• Nhiệt tình, teamwork tốt, sẵn sàng học hỏi các công nghệ mới để đáp ứng công việc.\n• Có tư duy hệ thống, tư duy logic tốt, có khả năng đề xuất vấn đề và giải quyết vấn đề."
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 2
+    },
+    "url": "https://www.topcv.vn/viec-lam/lap-trinh-fullstack-laravel-react-js/1988241.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "ReactJS Developer",
+    "job_description": [
+      "Phát triển, bảo trì và tối ưu các ứng dụng web sử dụng ReactJS.\nPhối hợp chặt chẽ với team Backend, Design và QA để triển khai các tính năng chất lượng cao.\nViết code sạch, hiệu quả, có thể tái sử dụng, tuân thủ các best practices.\nĐảm bảo hiệu năng, khả năng responsive và tương thích đa trình duyệt của ứng dụng.\nTham gia review code và đóng góp ý kiến trong các buổi thảo luận kỹ thuật.\nXử lý lỗi, debug và nâng cấp các ứng dụng hiện có."
+    ],
+    "requirements": [
+      "3 năm kinh nghiệm phát triển Frontend với ReactJS.\nNắm vững JavaScript (ES6+), HTML5, CSS3.\nCó kinh nghiệm làm việc với các thư viện quản lý state (Redux, Context API, …).\nHiểu và làm việc tốt với RESTful API và xử lý request bất đồng bộ.\nBiết TypeScript là một lợi thế.\nCó kinh nghiệm sử dụng Git và làm việc theo mô hình Agile.\nKỹ năng giải quyết vấn đề tốt, tinh thần làm việc nhóm cao.\nTiếng Anh là lợi thế (đọc hiểu tài liệu, giao tiếp cơ bản)."
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/reactjs-developer/1989121.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "ReactJS Developer",
+    "job_description": [
+      "Phát triển, tối ưu và bảo trì giao diện web sử dụng ReactJS / NextJS.\nPhối hợp với backend team để tích hợp API và đảm bảo tính nhất quán dữ liệu.\nXây dựng component tái sử dụng, đảm bảo khả năng mở rộng và bảo trì.\nTối ưu hiệu năng, tốc độ tải trang và khả năng hiển thị trên các thiết bị khác nhau.\nViết code rõ ràng, dễ đọc, tuân thủ chuẩn code convention.\nTham gia review code, đề xuất cải tiến về UI/UX và quy trình phát triển.\nNghiên cứu, cập nhật công nghệ frontend mới để nâng cao chất lượng sản phẩm."
+    ],
+    "requirements": [
+      "Có từ 3-5 năm kinh nghiệm phát triển frontend với ReactJS.\nThành thạo JavaScript (ES6+) và TypeScript.\nCó kinh nghiệm làm việc với React Hooks, Redux / Zustand / React Query hoặc các thư viện quản lý state tương tự.\nHiểu rõ HTML5, CSS3, SCSS, và các framework CSS như TailwindCSS / Material UI / Ant Design.\nKinh nghiệm gọi API (RESTful / GraphQL) và xử lý dữ liệu phía client.\nKiến thức tốt về responsive design, cross-browser compatibility, performance optimization.\nThành thạo Git, có kinh nghiệm làm việc nhóm với quy trình Agile/Scrum.\nƯu tiên ứng viên có kinh nghiệm trong lĩnh vực y tế."
+    ],
+    "salary": {
+      "max": 40
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/reactjs-developer/1988514.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "CREATIVE WEB3 FRONTEND ENGINEER (ReactJS/Next.Js)",
+    "job_description": [
+      "Phát triển Dapp & Web3 Integration:\nXây dựng và tối ưu hóa giao diện người dùng (UI/UX) cho các sản phẩm Dapp sử dụng Next.js/ReactJS và TypeScript.\nTích hợp ví (Wallet Connect, MetaMask...) và xử lý tương tác với Smart Contract thông qua các thư viện Web3 (Wagmi, Viem, Ethers.js). Hỗ trợ multi-chain và xử lý chain switching\nXử lý các trạng thái giao dịch phức tạp (Transaction states), đảm bảo tính phản hồi nhanh và chính xác của dữ liệu on-chain.\nXử lý Đồ họa & Hiệu ứng:\nHiện thực hóa các concept UI phức tạp, yêu cầu tính tương tác cao và chuyển động mượt mà (Animations).\nSử dụng Three.js (React Three Fiber) hoặc PixiJS để xây dựng các thành phần 3D/2D trực quan trên trình duyệt (Ví dụ: Hiển thị vật phẩm NFT 3D, Bản đồ tương tác, Hiệu ứng Particle...).\nTối ưu hóa hiệu năng render (FPS, Memory) trên WebGL/Canvas để đảm bảo trải nghiệm mượt mà trên đa nền tảng.\nHợp tác & Nghiên cứu:\nLàm việc chặt chẽ với UI/UX Designer để đảm bảo tính khả thi về mặt kỹ thuật của các thiết kế đồ họa.\nPhối hợp với Blockchain Dev để thống nhất cấu trúc dữ liệu và logic tích hợp.\nCó khả năng nghiên cứu độc lập, giải quyết vấn đề"
+    ],
+    "requirements": [
+      "Kỹ năng Bắt buộc:\nCó ít nhất [2-3] năm kinh nghiệm chuyên sâu với ReactJS hoặc Next.js.\nThành thạo TypeScript, HTML5, CSS3 (TailwindCSS/Styled-components).\nCó kinh nghiệm thực tế tích hợp Web3 (kết nối ví, gọi hàm Smart Contract, xử lý sự kiện) sử dụng Wagmi, Viem hoặc Ethers.js.\nHiểu rõ về State Management (Zustand, Redux, hoặc TanStack Query).\nCó kiến thức về responsive design\nViết unit tests và integration tests\nKinh nghiệm làm việc Agile/Scrum\nĐiểm cộng lớn - Ưu tiên thu nhập cao:\nThành thạo thư viện đồ họa: Có kinh nghiệm làm việc với Three.js / React Three Fiber (R3F) cho 3D hoặc PixiJS cho 2D.\nHiệu ứng: Sử dụng tốt các thư viện animation như GSAP, Framer Motion.\nKỹ thuật chuyên sâu: Hiểu biết về WebGL, Canvas API hoặc có khả năng viết GLSL Shaders để tạo hiệu ứng visual độc đáo.\nCó tư duy tốt về \"Creative Coding\" và tối ưu hóa trải nghiệm người dùng (UX).\nKinh nghiệm với CI/CD pipelines\nHiểu biết về Web3 security best practices: signature validation, phishing protection, domain verification."
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 2
+    },
+    "url": "https://www.topcv.vn/viec-lam/creative-web3-frontend-engineer-reactjs-next-js/1985965.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Lập Trình Fullstack (Python/Reactjs)",
+    "job_description": [
+      "• Tham gia phát triển website và các tính năng theo yêu cầu của khách hàng Nhật, Âu, Mỹ.\n• Hợp tác và trao đổi công việc với Team Member, Team Leader.\n• Tham gia phát triển các công đoạn phân tích yêu cầu, Coding, viết tài liệu API, Unit\nTest sử dụng Python và React.JS\n• Tham gia thiết kế cơ sở dữ liệu, thiết kế kiến trúc dự án.\n• Có thể đảm nhận các công việc phát triển cả backend, frontend."
+    ],
+    "requirements": [
+      "• Có kiến thức nền tảng tốt về lập trình (OOP, cấu trúc dữ liệu và giải thuật…).\n• Có kiến thức nền tảng tốt về cơ sở dữ liệu quan hệ (thiết kế, sử dụng…).\n• Có kiến thức nền tảng tốt về hệ điều hành linux, cấu hình, triển khai web server.\n• Từ 3 năm kinh nghiệm lập trình sử dụng ngôn ngữ Python trên các FrameWork như Django, FastAPI....\n• Từ 1 năm kinh nghiệm lập trình Frontend sử dụng HTML/CSS/Javascript, TypeScript trên các framework như Reactjs, Vuejs…\n• Có kinh nghiệm lập trình trên môi trường cloud đặc biệt là AWS (Ec2, lambda…) là điểm cộng\n• Có khả năng tìm hiểu, thích ứng tốt với công nghệ mới.\n• Có kinh nghiệm đảm nhiệm các vị trí project team leader là điểm cộng.\n• Nhiệt tình, teamwork tốt, sẵn sàng học hỏi các công nghệ mới để đáp ứng công việc.\n• Có tư duy hệ thống, tư duy logic tốt, có khả năng đề xuất vấn đề và giải quyết vấn đề."
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/lap-trinh-fullstack-python-reactjs/1984780.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Technical Leader (ReactJs- NodeJs) -Hybrid Working",
+    "job_description": [
+      "Lead & Build: Develop and mentor a high-performing engineering team, driving talent growth and performance excellence.\nDesign & Architect: Create robust, scalable, and secure systems to support business expansion.\nEnsure Code Excellence: Enforce best practices, conduct thorough code reviews, and optimize system performance.\nInnovate & Optimize: Continuously enhance system reliability, automation, and scalability.\nCollaborate & Align: Partner with cross-functional teams to build impactful solutions.\nMonitor & Maintain: Oversee system health, troubleshoot critical issues, and ensure seamless operations."
+    ],
+    "requirements": [
+      "6+ years of experience in software development, with at least 2+ years as a Tech Lead.\nStrong experience in Frontend (React, Vue, Angular) & Backend (Node.js, Java, Python, Go).\nDeep knowledge of cloud infrastructure (AWS/GCP), DevOps, CI/CD, and microservices.\nExperience with high-traffic systems, real-time processing, and database optimization (PostgreSQL, MongoDB, Redis).\nLeadership & Problem-Solving:\nStrong critical thinking & analytical skills to tackle complex technical challenges.\nPassion for mentorship & team development.\nBusiness Mindset:\nAbility to align tech solutions with business goals and drive impact.\nUnderstanding of product lifecycle & agile methodologies."
+    ],
+    "salary": {},
+    "location": "Hồ Chí Minh (mới)",
+    "experience": {
+      "min_years": 5
+    },
+    "url": "https://www.topcv.vn/viec-lam/technical-leader-reactjs-nodejs-hybrid-working/1983375.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fullstack Software Engineer (NextJS + React+Typescript)",
+    "job_description": [
+      "I. Tech Stack bạn sẽ làm việc:\nNestJS – cấu trúc module, service, guard, auth.\nNextJS + React – hooks, SSR/SSG, state cơ bản, tổ chức code rõ ràng.\nTypescript – hiểu type, interface, generics cơ bản.\nDocker / Containers – build, run, debugging môi trường.\nKinh nghiệm làm REST API chuẩn bài.\nThao tác tốt với AI (review, chỉnh sửa, validate kết quả AI gợi ý).\nReact Native – từng build mobile app cross-platform.\nPython (Vision projects) – nếu bạn biết thì càng tốt, team có project liên quan.\nKinh nghiệm trong insurtech hoặc hệ thống có quy trình phức tạp.\nCI/CD, microservices basics.\nII. Chịu trách nhiệm các công việc:\nPhát triển tính năng full-stack với NestJS + NextJS.\nReview logic và implementation plan AI đề xuất trước khi code.\nViết code sạch, dễ hiểu, dễ maintain.\nLàm việc với PM/Designer để lên giải pháp kỹ thuật phù hợp.\nTham gia review code, đề xuất cải tiến.\nXử lý các luồng liên quan đến dữ liệu bảo hiểm (validation, chính xác, audit trail)."
+    ],
+    "requirements": [
+      "Không phải junior — cũng không cần quá senior.\nCó kinh nghiệm 2-4 năm ở vị trí tương đương, hiểu rõ cách web app vận hành và biết phối hợp tốt với AI/LLM (nhưng vẫn giữ được critical thinking).\nBiết đánh giá kế hoạch mà AI đưa ra, hiểu logic, kiến thức và các edge cases.\nBiết kết hợp AI để tăng tốc, nhưng vẫn giữ được kỷ luật kỹ thuật , đảm bảo chất lượng code và cấu trúc dài hạn.\nBiết review kế hoạch/giải pháp AI tạo ra trước khi code.\nƯa thích viết code sạch, cấu trúc rõ ràng.\nMuốn tham gia vào sản phẩm có domain logic phong phú (insurtech).\nThành thạo việc kết hợp AI nhưng vẫn giữ judgment của mình.\nGiao tiếp rõ ràng, làm việc cẩn thận, chủ động, cầu tiến."
+    ],
+    "salary": {
+      "max": 1200
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/fullstack-software-engineer-nextjs-react-typescript/1975709.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Frontend Developer (ReactJS)",
+    "job_description": [
+      "● Cùng với BA/SA phân tích các yêu cầu nghiệp vụ người yêu cầu, dựa trên kinh nghiệm làm việc tư vấn\nvà cung cấp các giải pháp kỹ thuật nhằm đáp ứng nhu cầu sử dụng của người dùng đồng thời đảm bảo\nkhả năng hoạt động, vận hành của hệ thống.\n● Thiết kế, tích hợp và phát triển hệ thống quản lý dữ liệu\n● Tư vấn đưa ra các giải pháp kỹ thuật, nghiệp vụ, thiết kế\n● Tham gia triển khai, phát triển các dự án liên quan;\n● Tham gia khắc phục các lỗi, sự cố còn tồn đọng của hệ thống để nâng cao chất lượng hệ thống cũng như hiệu quả sử dụng của người dùng."
+    ],
+    "requirements": [
+      "● Có kinh nghiệm về lập trình Frontend tối thiểu 1,5 năm trở lên\n● Có kinh nghiệm với Framework: Reactjs\n● Sử dụng các thư viện test như Jest, React Testing Library.\n● Cache trình duyệt, web socket, service workers\n● Có các kỹ năng lập trình tốt như: phân tích, đưa giải pháp để giải quyết các vấn đề;\n● Hiểu biết về Redux đối với React JS, RxJS đối với Angular.\n● Thiết kế UI/UX, Material design."
+    ],
+    "salary": {
+      "min": 16,
+      "max": 18
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 2
+    },
+    "url": "https://www.topcv.vn/viec-lam/frontend-developer-reactjs/1797518.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Frontend Developer (ReactJS/VueJS/Angular)",
+    "job_description": [
+      "Tham gia các dự án phát triển phần mềm cho Viettel ở đa dạng các lĩnh vực: Quản trị doanh nghiệp, Viễn Thông, Fintech, Bảo hiểm, Bán lẻ, AI\nChịu trách nhiệm chuyên môn về thiết kế và lập trình giao diện của sản phẩm để đáp ứng mục tiêu kinh doanh của Dự án.\nTiếp nhận yêu cầu từ PM, phối hợp với BA để lập trình giao diện đem lại trải nghiệm tốt cho người dùng.\nPhối hợp làm việc với các thành viên trong nhóm và công việc chuyên môn liên quan đến CNTT (SA, Backend Dev, Test...) trong quá trình hoàn thiện sản phẩm theo yêu cầu nghiệp vụ."
+    ],
+    "requirements": [
+      "Tốt nghiệp từ Đại học trở lên các chuyên ngành về Công nghệ thông tin, Khoa học máy tính, Kỹ thuật phần mềm hoặc liên quan\nCó kinh nghiệm với lập trình Front-end (Vuejs hoặc Reactjs hoặc Angular)\nCó kĩ năng lập trình tốt Javascript, Typescript, thành thạo sử dụng các Javascript framework ReactJS\nAm hiểu HTML/CSS, biết sử dụng các CSS framework (Bootstrap,..) và tối ưu hoá CSS, HTML, JS theo chuẩn để cải tiến tốc độ.\nCó kinh nghiệm làm việc với công cụ Git, Restful API, figma...\nCó kỹ năng làm việc độc lập và làm việc theo nhóm tốt"
+    ],
+    "salary": {
+      "min": 15,
+      "max": 25
+    },
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 2
+    },
+    "url": "https://www.topcv.vn/viec-lam/frontend-developer-reactjs-vuejs-angular/1652214.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fullstack Java+React (Tiếng Anh Giao Tiếp)",
+    "job_description": [
+      "– Frontend and Backend Development\n- Involve in Web development or API (backend) involving Web Services\n- Technology stack: React JS TypeScript, Redux Thunk, Java Spring Boot, JPA, PostgreSQL, Kafka, Azure DevOps CI/CD, Docker, Git\n- Helping in CI/CD especially automation testing and performance testing\n- Build backend API services\n- Implement low-latency, high-availability, and performant applications\n- Knowledge in building front-end applications using React JS TypeScript\n- Technical Problems / Issues Management\n- Review deployment and operational environments\n- Develop agile documentation and improve current processes"
+    ],
+    "requirements": [
+      "– Essential: Bachelor’s Degree in Computer Science or equivalent experience\n- English: Communicate\n- Essential: At least 4 years experience full stack or on Java projects for backend\n- Knowledge working Java/JEE, Spring Boot framework\n- Have knowledge working with Automation and Performance Tools such as Selenium, JMeter\n- Have knowledge working in Azure environment and RDMS DB, especially MS SQL\n- Knowledge of Kafka, ELK is an added advantage\n- Strong interpersonal, conflict resolution, and negotiation skills"
+    ],
+    "salary": {
+      "min": 55,
+      "max": 70
+    },
+    "location": "Hồ Chí Minh (mới)",
+    "experience": {
+      "min_years": 4
+    },
+    "url": "https://www.topcv.vn/viec-lam/fullstack-java-react-tieng-anh-giao-tiep/1775574.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Frontend Developer (ReactJS/VueJS)",
+    "job_description": [
+      "Why we’re looking for you\nWe are seeking a Frontend Developer who will be responsible for creating high-quality applications that will reach consumers around the world. You'll work closely with our Product Managers, UI/UX designers, and other developers to help translate business requirements and specifications into deliverable, high-quality product features.\nThe ideal candidate is self-sufficient and a strong team player who is curious and loves solving challenging problems. Therefore, a commitment to collaborative problem solving, sophisticated design, and quality product is important.\nYou'll do\nWrite clean code to develop functional web applications\nTroubleshoot and debug applications\nBuild new software front end for advanced user experience (UX)\nBuild reusable components/modules for future use\nOptimization of the application for maximum performance, quality, and responsiveness.\nEnsure UI/UX of developed pages and software with near pixel-perfect design\nCollaborate with Back-end developers to integrate user-facing elements with server-side logic\nOther duties as assigned by manager"
+    ],
+    "requirements": [
+      "You have...\n3+ year experience in Front-end design and development using the modern web stack.\nGreat knowledge with HTML5, CSS3, SASS/SCSS.\nKnowledge of UI/UX Principles & User Behaviors.\nExperience with Git tools/Git flow.\nWe prefer it if you could provide your demo projects that show the work.\nPlus points:\nExperienced with building e-commerce stores\nExperienced with integrating e-commerce platform APIs (Shopify, Haravan, Shopee, Lazada...)\nBeing able to work fullstack."
+    ],
+    "salary": {},
+    "location": "Hà Nội",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/frontend-developer-reactjs-vuejs/1937522.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "FE React JS (Front End)",
+    "job_description": [
+      "- Tham gia vào quá trình phân tích yêu cầu, thực hiện, xem xét mã, test và triển khai ứng dụng web eCommerce sử dụng NextJS Framework.\n- Thu thập các yêu cầu cụ thể và đề xuất giải pháp.\n- Tối ưu hóa và nâng cấp mã nguồn liên tục nhằm đảm bảo chất lượng, ổn định, an toàn, tăng tốc độ và trải nghiệm người dùng.\n- Làm việc và hợp tác với Designer, Backend Developer và PO trong quá trình phát triển sản phẩm."
+    ],
+    "requirements": [
+      "- Ít nhất 2 năm kinh nghiệm trong việc phát triển ứng dụng web bằng NextJS, Tailwind css, Typescript.\n- Kinh nghiệm làm việc với Agile Team.\n- Có kiến thức tốt về OOP, hiểu và áp dụng các nguyên lý SOLID, Design Pattern.\n- Có kiến thức tốt về cấu trúc dữ liệu và giải thuật.\n- Kỹ năng đọc hiểu Tiếng Anh chuyên ngành.\n- Kỹ năng phân tích, tổng hợp thông tin.\n- Sẵn sàng học hỏi, cầu thị, chủ động, có trách nhiệm trong công việc.\n- Năng động, có định hướng chi tiết trong công việc.\n- Trung thực, trách nhiệm, chuyên nghiệp."
+    ],
+    "salary": {},
+    "location": "Hồ Chí Minh (mới)",
+    "experience": {
+      "min_years": 2
+    },
+    "url": "https://www.topcv.vn/viec-lam/fe-react-js-front-end/1920980.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Frontend Developer (Angular/React)",
+    "job_description": [
+      "Develop and optimize web and mobile interfaces using Angular, ReactJS, and Ionic, ensuring high performance, aesthetics, and user experience.\nParticipate in front-end architecture design and collaborate with backend and UI/UX teams to deliver quality products.\nBuild and maintain applications for both web and mobile platforms.\nEnsure clean, maintainable code that adheres to best practices and security standards.\nIntegrate and consume RESTful APIs and work with JSON for backend integration.\nUtilize source code management tools (Git) and contribute to CI/CD processes.\nStay up to date with modern web development practices and technologies.\nParticipate in code reviews and ensure coding standards are met."
+    ],
+    "requirements": [
+      "Bachelor's Degree in Computer Science, Information Technology or a related field.\n5+ years of experience in frontend development (at least 3 years of hands-on experience with Angular 8+ and at least 2 years of practical experience with ReactJS).\nExperience developing hybrid/mobile applications using Ionic Framework.\nProficient in HTML5, CSS3, JavaScript/TypeScript.\nExperience with RESTful APIs, JSON, and backend integration.\nSkilled in source code management tools (Git); experience with CI/CD is a strong advantage.\nStrong knowledge of modern web development practices and UX principles.\nUnderstanding of responsive design and cross-browser compatibility.\nYou have a strong sense of ownership and attention to detail in delivering quality code and features.\nStrong problem-solving skills and logical thinking, and proactive work attitude with effective time and task management."
+    ],
+    "salary": {},
+    "location": "",
+    "experience": {
+      "min_years": 5
+    },
+    "url": "https://www.topcv.vn/viec-lam/frontend-developer-angular-react/1971672.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Full Stack Developer (ReactJS / .NET Core) Đi Làm Ngay",
+    "job_description": [
+      "Công ty Bảo hiểm AIA VN, cần build 1 Dev, term 04 tháng\nWe are seeking a skilled Full Stack Developer with strong expertise in both front-end and back-end development. The ideal candidate will be proficient in building responsive web applications using ReactJS and developing robust APIs and services with .NET Core.\nKey Responsibilities:\n• Design, develop, and maintain scalable web applications.\n• Build dynamic user interfaces using ReactJS, Redux, and modern JavaScript/TypeScript.\n• Develop and integrate RESTful APIs and backend services using .NET Core.\n• Collaborate with cross-functional teams to define, design, and ship new features.\n• Ensure application performance, scalability, and security.\n• Participate in code reviews and contribute to continuous improvement."
+    ],
+    "requirements": [
+      "Strong proficiency in ReactJS, Tailwind CSS and JavaScript/TypeScript.\nSolid experience with .NET Core, C#, and Entity Framework.\nFamiliarity with SQL Server or other relational databases.\nExperience with version control systems (e.g., Git).\nUnderstanding of CI/CD pipelines and cloud platforms (e.g., Azure or AWS) is a plus.\nPreferred Qualifications:\nBachelor’s degree in Computer Science or related field.\nExperience with Agile/Scrum methodologies\nKnowledge of containerization (Docker/Kubernetes) is a bonus."
+    ],
+    "salary": {
+      "min": 40,
+      "max": 55
+    },
+    "location": "Hồ Chí Minh (mới)",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/full-stack-developer-reactjs-net-core-di-lam-ngay/1931307.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "MANUAL TESTER (Need React JS Experience)",
+    "job_description": [
+      "Check for Developer Project, UX, API, logic, server, database.\nCreate Test case, do logic test, find bugs, ensure the product quality\nWorks with member of Developer team to test each function, re-check after Developer fixing the error\nEnsure that the change don't cause new error\nReads and analyzes the requirements specifications document to understand the functions and features of the system.\nBased on the requirements, designs test scenarios, writes test cases and prepares test data to apply in the testing phase."
+    ],
+    "requirements": [
+      "At least one year experience in React JS checking\nMeticulous and attentive to detail\nCuriosity and eagerness to learn\nPersistence and discipline, finding errors and testing requires patience and high discipline, especially when faced with repetitive situations.\nCustomer mindset, need to put yourselves in the shoes of end users to test the application realistically, looking at it from many different angles.\nGood at english communication. (Japanese is an advanced)"
+    ],
+    "salary": {
+      "min": 8,
+      "max": 10
+    },
+    "location": "Đà Nẵng (mới)",
+    "experience": {
+      "min_years": 1
+    },
+    "url": "https://www.topcv.vn/viec-lam/manual-tester-need-react-js-experience/1881850.html?ta_source=ITJobs_LinkDetail"
   }
 ]
