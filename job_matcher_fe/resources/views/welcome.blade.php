@@ -1,153 +1,112 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
-    <title>Job Matcher AI</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Matcher AI - Đăng nhập / Đăng ký</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            font-family: Inter, system-ui;
         }
 
         body {
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0f0f1a;
+            color: #e0e0ff;
             min-height: 100vh;
-            background: #000;
-            color: #fff;
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
         }
 
-        /* ===== BACKGROUND CHUYỂN ĐỘNG MÀU ===== */
+        /* Background gradient di chuyển nhẹ nhàng */
         body::before {
             content: "";
             position: absolute;
             inset: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 180, 255, 0.4), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(100, 255, 200, 0.3), transparent 45%),
-                radial-gradient(circle at 50% 90%, rgba(255, 100, 200, 0.25), transparent 50%),
-                radial-gradient(circle at 10% 80%, rgba(255, 200, 100, 0.2), transparent 45%);
-            background-size: 200% 200%;
-            animation: movingGradient 20s ease infinite;
+                radial-gradient(circle at 20% 30%, rgba(0, 180, 255, 0.25), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 150, 0.2), transparent 50%),
+                radial-gradient(circle at 50% 10%, rgba(100, 200, 255, 0.15), transparent 50%);
+            background-size: 150% 150%;
+            animation: slowMove 30s ease infinite;
             z-index: -2;
             opacity: 0.8;
         }
 
-        @keyframes movingGradient {
-            0% {
-                background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%;
-            }
-            25% {
-                background-position: 100% 0%, 0% 100%, 50% 0%, 100% 50%;
-            }
-            50% {
-                background-position: 100% 100%, 0% 0%, 0% 50%, 50% 100%;
-            }
-            75% {
-                background-position: 0% 100%, 100% 0%, 100% 100%, 0% 0%;
-            }
-            100% {
-                background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%;
-            }
-        }
-
-        /* Thêm một lớp blur nhẹ cho hiệu ứng sâu hơn */
         body::after {
             content: "";
             position: absolute;
             inset: 0;
             background: inherit;
-            filter: blur(120px);
-            animation: movingGradient 20s ease infinite;
+            filter: blur(100px);
+            animation: slowMove 30s ease infinite;
             z-index: -1;
             opacity: 0.6;
         }
 
-        /* ===== LAYOUT ===== */
+        @keyframes slowMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Layout chính */
         .layout {
             display: grid;
-            grid-template-columns: 1.3fr 1fr;
+            grid-template-columns: 1.4fr 1fr;
             min-height: 100vh;
             position: relative;
             z-index: 1;
         }
 
-        /* ===== LEFT VISUAL ===== */
+        /* Left - Visual */
         .visual {
-            position: relative;
             padding: 80px;
             display: flex;
             align-items: center;
-        }
-
-        .visual::before {
-            content: "";
-            position: absolute;
-            inset: -30%;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(0, 180, 255, .35), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, .25), transparent 45%);
-            filter: blur(160px);
-            animation: glow 14s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                transform: translate(-10%, -10%) scale(1);
-            }
-
-            to {
-                transform: translate(10%, 10%) scale(1.15);
-            }
+            position: relative;
         }
 
         .visual-content {
-            position: relative;
-            z-index: 1;
-            max-width: 520px;
+            max-width: 560px;
         }
 
         .visual h1 {
-            font-size: 3.2rem;
+            font-size: 3.6rem;
             font-weight: 800;
-            line-height: 1.15;
+            line-height: 1.1;
             margin-bottom: 24px;
         }
 
         .animated-text {
-            background: linear-gradient(120deg, #00b4ff, #ffffff, #00b4ff);
+            background: linear-gradient(120deg, #00b4ff, #ffffff, #00ffaa);
             background-size: 200% 200%;
-            animation: textGradient 6s ease infinite;
+            animation: textGradient 8s ease infinite;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        @keyframes textGradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+            background-clip: text;
         }
 
         .visual p {
-            opacity: .75;
+            font-size: 1.3rem;
+            opacity: 0.8;
             line-height: 1.7;
         }
 
-        /* ===== RIGHT ===== */
+        /* Right - Form */
         .right {
             display: flex;
             align-items: center;
@@ -157,83 +116,95 @@
 
         .wrapper {
             width: 100%;
-            max-width: 420px;
-            padding: 44px 30px;
+            max-width: 440px;
+            padding: 48px 36px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, .25);
-            border-radius: 22px;
-            background: rgba(0, 0, 0, .45);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 15, 25, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
         .logo {
-            width: 56px;
-            height: 56px;
+            width: 70px;
+            height: 70px;
             margin: 0 auto 32px;
             border-radius: 50%;
-            background: #fff;
+            background: linear-gradient(135deg, #00b4ff, #00ffaa);
             color: #000;
             font-weight: 800;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .wrapper h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .wrapper > p {
+            opacity: 0.8;
+            margin-bottom: 32px;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            border-radius: 999px;
-            font-size: 1rem;
+            padding: 16px;
+            border-radius: 16px;
             font-weight: 600;
+            font-size: 1.05rem;
             cursor: pointer;
-            border: none;
-            transition: .25s;
-            margin-bottom: 14px;
-        }
-
-        .btn:last-child {
-            margin-bottom: 0;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            opacity: .9;
-        }
-
-        .btn-primary {
-            background: #fff;
-            color: #000;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #fff;
-            border: 1px solid #333;
-        }
-
-        /* ===== SOCIAL BUTTON ===== */
-        .social-btn {
+            transition: all 0.4s ease;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00b4ff, #00ffaa);
+            color: #000;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0, 180, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 180, 255, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #bbd0ff;
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #00b4ff;
+            color: #ffffff;
         }
 
         .social-btn img {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
         }
 
-        /* ===== MODAL ===== */
+        /* Modal */
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, .85);
+            background: rgba(0, 0, 0, 0.85);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 999;
+            backdrop-filter: blur(8px);
         }
 
         .modal.active {
@@ -242,102 +213,144 @@
 
         .modal-box {
             width: 100%;
-            max-width: 420px;
-            padding: 36px 28px;
-            background: rgba(0, 0, 0, .92);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, .15);
+            max-width: 440px;
+            padding: 48px 36px;
+            background: rgba(15, 15, 25, 0.85);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px);
-            animation: slideUp .3s ease;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            animation: modalSlide 0.4s ease;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(40px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        @keyframes modalSlide {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-box h3 {
             text-align: center;
-            margin-bottom: 24px;
+            font-size: 2rem;
+            margin-bottom: 32px;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
         }
 
         .modal-box input {
             width: 100%;
-            padding: 14px;
-            background: #111;
-            border: 1px solid #222;
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 14px;
-            color: #fff;
-            margin-bottom: 14px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-box input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .modal-box input:focus {
+            outline: none;
+            border-color: #00b4ff;
+            box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.2);
         }
 
         .divider {
-            margin: 18px 0;
             text-align: center;
-            opacity: .6;
-            font-size: .85rem;
+            margin: 28px 0;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0; right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider span {
+            background: rgba(15, 15, 25, 0.85);
+            padding: 0 20px;
         }
 
         .modal-switch {
-            margin-top: 18px;
             text-align: center;
-            font-size: .9rem;
-            opacity: .75;
+            margin-top: 28px;
+            font-size: 1rem;
         }
 
         .modal-switch span {
+            color: #00b4ff;
             cursor: pointer;
+            font-weight: 600;
+        }
+
+        .modal-switch span:hover {
             text-decoration: underline;
         }
 
         .close {
-            margin-top: 18px;
             text-align: center;
-            opacity: .6;
+            margin-top: 24px;
+            opacity: 0.6;
             cursor: pointer;
-            font-size: .85rem;
+            font-size: 0.9rem;
         }
 
-        @media (max-width: 900px) {
+        /* Responsive */
+        @media (max-width: 992px) {
             .layout {
                 grid-template-columns: 1fr;
             }
-
             .visual {
                 display: none;
             }
         }
+
+        @media (max-width: 480px) {
+            .wrapper, .modal-box {
+                padding: 40px 24px;
+                margin: 20px;
+            }
+            .visual h1 { font-size: 3rem; }
+        }
     </style>
 </head>
-
 <body>
 
     <div class="layout">
+        <!-- Left Visual -->
         <div class="visual">
             <div class="visual-content">
                 <h1>
                     <span class="animated-text">Job Matcher</span><br>
                     <span class="animated-text">AI Platform</span>
                 </h1>
-                <p>Phân tích CV & gợi ý công việc bằng AI.</p>
+                <p>Phân tích CV thông minh và gợi ý công việc phù hợp nhất bằng công nghệ AI hiện đại.</p>
             </div>
         </div>
 
+        <!-- Right - Welcome Buttons -->
         <div class="right">
             <div class="wrapper">
                 <div class="logo">JM</div>
-                <h2>Welcome</h2>
-                <p>Đăng nhập hoặc tạo tài khoản mới</p>
+                <h2>Chào mừng bạn!</h2>
+                <p>Đăng nhập hoặc tạo tài khoản để bắt đầu</p>
 
-                <button class="btn btn-primary" onclick="openLogin()">Đăng nhập</button>
-                <button class="btn btn-outline" onclick="openRegister()">Đăng ký</button>
+                <button class="btn btn-primary" onclick="openLogin()">
+                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                </button>
+                <button class="btn btn-outline" onclick="openRegister()">
+                    <i class="fas fa-user-plus"></i> Đăng ký
+                </button>
             </div>
         </div>
     </div>
@@ -348,25 +361,31 @@
             <h3>Đăng nhập</h3>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Mật khẩu" required>
-                <button class="btn btn-primary">Login</button>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Mật khẩu" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> Đăng nhập
+                </button>
             </form>
 
-            <div class="divider">hoặc</div>
+            <div class="divider"><span>hoặc</span></div>
 
             <a href="{{ route('auth.google') }}" class="btn btn-outline social-btn">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
                 Đăng nhập với Google
             </a>
 
             <a href="{{ route('auth.github') }}" class="btn btn-outline social-btn">
-                <img src="https://www.svgrepo.com/show/475654/github-color.svg">
+                <img src="https://www.svgrepo.com/show/475654/github-color.svg" alt="GitHub">
                 Đăng nhập với GitHub
             </a>
 
             <div class="modal-switch">
-                <span onclick="switchToRegister()">Chưa có tài khoản? Đăng ký</span>
+                <span onclick="switchToRegister()">Chưa có tài khoản? Đăng ký ngay</span>
             </div>
 
             <div class="close" onclick="closeLogin()">Đóng</div>
@@ -377,14 +396,23 @@
     <div id="registerModal" class="modal">
         <div class="modal-box">
             <h3>Đăng ký</h3>
-
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-                <input type="text" name="name" placeholder="Tên hiển thị" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Mật khẩu" required>
-                <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" required>
-                <button class="btn btn-primary">Register</button>
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Tên hiển thị" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Đăng ký
+                </button>
             </form>
 
             <div class="modal-switch">
@@ -424,5 +452,4 @@
     </script>
 
 </body>
-
 </html>

@@ -19,12 +19,14 @@ class CrawlRun extends Model
         'error_message',
         'detail',
         'result',
+        'cv_used'
     ];
 
     protected $casts = [
         'parameters' => 'array',
         'detail'     => 'array',
         'result'     => 'array',
+        'cv_used'    => 'array'
     ];
 
     public function user()

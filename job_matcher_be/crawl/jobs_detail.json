@@ -1,1 +1,106 @@
-[]
+[
+  {
+    "title": "",
+    "salary_raw": "",
+    "location": "",
+    "experience": "",
+    "job_description": [
+      ""
+    ],
+    "requirements": [
+      ""
+    ],
+    "url": "https://www.topcv.vn/brand/happymoney/tuyen-dung/lap-trinh-vien-php-co-the-di-lam-sau-tet-j1980616.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "PHP Fullstack Developer (SaaS Product)",
+    "salary_raw": "23 - 45 triệu",
+    "location": "Hồ Chí Minh (mới)",
+    "experience": "2 năm",
+    "job_description": [
+      "3 Lý do bạn không thể bỏ lỡ Rakus Vietnam\n1. Không rào cản ngôn ngữ (No English/Japanese Required)\nTại Rakus, \"Code\" là ngôn ngữ duy nhất. Chúng tôi không yêu cầu kỹ năng tiếng Anh hay tiếng Nhật. Bạn chỉ cần tập trung vào chuyên môn kỹ thuật. Mọi rào cản ngôn ngữ đã có đội ngũ Comtor hỗ trợ.\n2. 3 kỳ nghỉ dài (9 ngày liên tục/kỳ) mỗi năm\nChúng tôi trân trọng thời gian bạn dành cho gia đình. Ngoài kỳ nghỉ Tết Âm lịch, công ty chủ động thiết lập các kỳ nghỉ đặc biệt vào dịp Golden Week (tháng 4-5) và Năm mới Dương lịch (tháng 12-1). Mỗi dịp này bạn sẽ được nghỉ liên tục 9 ngày.\nBạn có thể thoải mái du lịch hay về quê mà không cần dùng đến phép năm!\nTổng số ngày nghỉ lễ trong năm lên đến hơn 30 ngày.\n3. Nền tảng vững chắc (PHP/Java) x Công nghệ AI (Github Copilot, v.v.)\nChúng tôi phát triển sản phẩm SaaS ổn định được hơn 10.000 doanh nghiệp Nhật Bản tin dùng, nhưng quy trình làm việc luôn được cập nhật mới nhất.\nCấp tài khoản GitHub Copilot bản quyền cho toàn bộ kỹ sư.\nCấp tài khoản Devin, Claude Code cho những ai có nhu cầu.\nBạn sẽ phát triển thành một \"Hybrid Engineer\" – vừa có nền tảng Backend vững chắc, vừa thành thạo các công cụ AI hiện đại.\nRakus Việt Nam là công ty 100% vốn đầu tư từ RAKUS Co., Ltd. - công ty nổi tiếng hàng đầu tại Nhật Bản cung cấp các dịch vụ đám mây (SaaS), giúp các doanh nghiệp điều hành hoạt động của mình một cách nhanh chóng, tiện dụng nhất.\nChúng tôi đang tuyển dụng 4 vị trí PHP Software Engineer: LÀM VIỆC OFFLINE FULLTIME TẠI VĂN PHÒNG HEADOFFICE QUẬN 12\n- Domain: Hệ thống phần mềm phát hành và quản lý email Marketing - đang được sử dụng bởi hơn 1,7tr end-users tại thị trường Nhật Bản.\nNếu:\n・Bạn muốn tham gia phát triển một dự án lớn có độ khó cao về nghiệp vụ.\n・Bạn có định hướng thăng tiến lên Principal Software Engineer/Technical Leader.\n・Bạn mong muốn môi trường làm việc lâu dài (ít nhất 3 năm trở lên)\n・Bạn có năng lực tập trung và thích tìm hiểu sâu về 1 hệ thống.\nHãy gia nhập đội ngũ phát triển series sản phẩm \"Rakuraku\" – SaaS chiếm thị phần số 1 tại Nhật Bản.\nPhát triển: Thiết kế, triển khai và kiểm thử các tính năng mới sử dụng PHP thuần (Pure PHP).\nQuy trình AI: Tận dụng các công cụ AI mới nhất để tăng tốc độ coding, refactoring và tự động hóa kiểm thử (test automation).\nTư duy sản phẩm: Tập trung vào chất lượng code (Quality) và khả năng bảo trì dài hạn (Maintainability)."
+    ],
+    "requirements": [
+      "Yêu cầu cơ bản:\nCó từ 2 năm kinh nghiệm trở lên làm việc với PHP trong các dự án phát triển web application (Development, Refactoring, Unit Test). Ưu tiên ứng viên yêu thích, có niềm đam mê với lập trình PHP thuần.\nCó kinh nghiệm với 1 (hoặc nhiều) trong các framework của PHP như: Laravel, CodeIgniter, Yii 2, CakePHP, Zend\nThành thạo Javascript, HTML, CSS, SCSS, Jquery, Json, Ajax\nThành thạo PostgreSQL hoặc MySQL\nThành thạo Git (UI/Command)\nĐã từng sử dụng IDE: PHPStorm\nƯu tiên:\nKinh nghiệm làm việc với Framework Javascript như: Vuejs, Reactjs, Angularjs\nKinh nghiệm về xử lí dữ liệu lớn trên Database (Insert/Update/Delete)\nCó kiến thức hoặc kinh nghiệm viết Phpunit test.\nCó kinh nghiệm refactoring code, review code\nCó kiến thức và kinh nghiệm về quan điểm viết mã sạch (Clean code)\nCó khả năng đọc, hiểu và phân tích yêu cầu nghiệp vụ từ phía khách hàng\nCó khả năng phát hiện và giải quyết vấn đề tốt\nCó khả năng tạo/trình bày tài liệu kĩ thuật dễ hiểu và chia sẻ kiến thức với đồng nghiệp\nCó khả năng giao tiếp tốt\nHiểu quy trình và phong cách làm việc tại công ty Nhật là một lợi thế.\nNgôn ngữ: Biết tiếng Anh hoặc tiếng Nhật là điểm cộng, nhưng tuyệt đối không bắt buộc.\nLưu ý: Không tuyển ứng viên nước ngoài."
+    ],
+    "url": "https://www.topcv.vn/viec-lam/php-fullstack-developer-saas-product/1997365.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Thực Tập Sinh Backend( PHP)",
+    "salary_raw": "Từ 1 triệu",
+    "location": "Hồ Chí Minh (mới), Hà Nội",
+    "experience": "Dưới 1 năm",
+    "job_description": [
+      "Tham gia xây dựng hệ thống phần mềm quản lý thu thập khách hàng trên các nền tảng mạng xã hội, các trang thương mại điện tử.\nPhối hợp công việc theo nhóm dưới sự phân công của quản lý dự án để phân tích, cải thiện và bảo trì các tính năng hiện có và mở rộng tính năng theo lộ trình phát triển sản phẩm.\nĐảm bảo thông tin về các phần mềm, ứng dụng được bảo mật và cập nhật.\nLập kế hoạch, báo cáo về quá trình phát triển phần mềm.\nCác công việc khác trao đổi cụ thể khi phỏng vấn"
+    ],
+    "requirements": [
+      "Sinh viên năm 3, năm 4 hoặc đã tốt nghiệp trường có chuyên ngành Lập trình, thiết kế website.\nCó kiến thức về các ngôn ngữ/công nghệ: PHP, Nodejs, SocketIO, Mysql, mongodb, Html, Css,\nCó kinh nghiệm về Wordpress, Rest API là một lợi thế.Biết sử dụng các công cụ hỗ trợ github.\nCó khả năng nghiên cứu công nghệ mới.\nKỹ năng làm việc nhóm và làm việc độc lập.\nĐem theo máy tính làm bài test."
+    ],
+    "url": "https://www.topcv.vn/viec-lam/thuc-tap-sinh-backend-php/1698585.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Frontend Dev - PHP Wordpress Development (Mức Lương 10 - 12 Triệu)",
+    "salary_raw": "10 - 12 triệu",
+    "location": "Hà Nội",
+    "experience": "1 năm",
+    "job_description": [
+      "Xây dựng và phát triển website của công ty và khách hàng\nThiết kế và phát triển website tối ưu, thân thiện với người dùng trên nhiều nền tảng.\nĐảm bảo hiệu suất, bảo mật và khả năng mở rộng của các website.\nHợp tác với đội ngũ SEO và content để triển khai các tính năng mới.\nGiải quyết lỗi và tối ưu hóa các tính năng nhằm cải thiện trải nghiệm người dùng."
+    ],
+    "requirements": [
+      "Có kinh nghiệm từ 1 năm trong phát triển web (HTML, CSS, JavaScript, v.v.).\nHiểu biết về tối ưu hóa SEO, bảo mật web và hiệu suất.\nCó kỹ năng giải quyết vấn đề, giao tiếp tốt và tinh thần đồng đội.\nƯu tiên các ứng viên có kinh nghiệm với công nghệ frontkend (Node.js, Python, PHP)"
+    ],
+    "url": "https://www.topcv.vn/viec-lam/frontend-dev-php-wordpress-development-muc-luong-10-12-trieu/1510934.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Middle PHP",
+    "salary_raw": "13 - 25 triệu",
+    "location": "Hà Nội",
+    "experience": "3 năm",
+    "job_description": [
+      "Phát triển, thử nghiệm và duy trì các ứng dụng web dựa trên PHP, Python, Golang, JavaScript, TypeScript, AWS, GCP\nDuy trì, mở rộng và triển khai các tính năng mới theo yêu cầu của dự án\nLập mô hình cả lĩnh vực kinh doanh cũ và mới\nPhối hợp với nhóm đa chức năng và Người quản lý dự án hoặc Khách hàng để mang lại kết quả chất lượng cao.\nThực hiện theo các nhiệm vụ khác do quản lý giao\nKhắc phục sự cố, gỡ lỗi và giải quyết kịp thời các lỗi và sự cố phần mềm\nCung cấp sự cố vấn và hướng dẫn cho nhiều thành viên cấp dưới hơn\n■ Môi trường phát triển:\nSử dụng: Server side: Node.js, FastAPI, Laravel, front-end: React,Next.js,Vue.js\nQuản lý source-code: Github\nQuản lý dự án: Backlog, Trello\nTest: Unit Test, UI Test, Automation Test\nCI: CircleCi, Github Action, bitrise\nInfrastructure (cơ sở hạ tầng): AWS・GCP\nTrao đổi nội bộ: Chatwork, Slack"
+    ],
+    "requirements": [
+      "■ Kỹ năng/kinh nghiệm bắt buộc\nTối thiểu 3 năm kinh nghiệm phát triển PHP\nĐộ tuổi: 21-32\nKiến thức vững chắc về các khung web PHP (ví dụ: Laravel ), thành thạo cơ sở dữ liệu PostgreSQL/MySQL/Redis/Elasticsearch\nCó kiến thức về AWS\nHiểu biết sâu sắc về cấu trúc dữ liệu, thuật toán và ứng dụng của chúng trong phát triển web.\nCó thể thiết kế API, thiết kế hệ thống, kiến trúc phần mềm\nThành thạo lập trình với Java/Spring Boot, HTML, CSS, Javascript\nThành thạo Clean Code và SOLID\nCó kinh nghiệm với các công nghệ giao diện người dùng như HTML5, CSS3, JavaScript\nƯu tiên ứng viên đã làm việc với các Frontend Framework như Primefaces, Thymeleaf, Angularjs, ...\nCó hiểu biết về tích hợp với REST API, Web Service, SOAP là 1 lợi thế\nCó hiểu biết về Apache Kafka, MongoDB, ... là 1 lợi thế\nCó kinh nghiệm với nền tảng đám mây (ví dụ: AWS, Azure)"
+    ],
+    "url": "https://www.topcv.vn/viec-lam/middle-php/1545171.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Backend Developer (PHP, Java , .Net And English)",
+    "salary_raw": "20 - 40 triệu",
+    "location": "Hồ Chí Minh (mới)",
+    "experience": "2 năm",
+    "job_description": [
+      "Design, develop, and maintain server-side logic for web applications\nWrite clean, well-documented, and maintainable code\nCollaborate with frontend developers to integrate user interfaces with backend services\nImplement security measures to protect user data and application integrity\nTroubleshoot and resolve technical issues\nStay up-to-date with the latest backend technologies and trends"
+    ],
+    "requirements": [
+      "Degree of IT (Bachelor, Associate)\nMinimum 2 years of experience in backend development\nStrong proficiency in at least one of the following programming languages: Java (Spring) , PHP( Laravel), or .NET (C#)\nExperience in Frontend development ( Angular, Reactjs , Vuejs,...)\nSolid understanding of database systems (e.g., MySQL, PostgreSQL, MongoDB)\nExperience with RESTful APIs and web services\nKnowledge of version control systems (e.g., Git)\nExcellent problem-solving and debugging skills\nStrong communication and teamwork skills\nProficiency in English (written and spoken)\nJapanese at N4 is a plus\nNice to have\nExperience with cloud platforms (e.g., AWS, GCP, Azure)\nKnowledge of containerization technologies (e.g., Docker, Kubernetes)\nExperience with microservices architecture"
+    ],
+    "url": "https://www.topcv.vn/viec-lam/backend-developer-php-java-net-and-english/1998992.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Senior PHP/ Laravel Developer",
+    "salary_raw": "Thoả thuận",
+    "location": "Hà Nội",
+    "experience": "5 năm",
+    "job_description": [
+      "1. Phát triển sản phẩm:\nLàm việc với các bên liên quan (BA, Đội nghiệp vụ, ...) để hiểu rõ về yêu cầu sản phẩm và chuyển những yêu cầu đó thành các giải pháp kỹ thuật.\nLuôn tìm kiếm và đưa ra những giải pháp kĩ thuật tối ưu và phù hợp với nhu cầu của sản phảm.\nXác định tiến độ, mốc thời gian của sản phẩm, đảm bảo yếu tố đúng hẹn và chất lượng cao.\n2. Quản lý sản phẩm:\nQuản lý master/ branch, commit code, merge code, xử lý code conflict.\nReview code của team mỗi commit để đảm bảo chất lượng code, trao đổi với team member trong trường hợp commit có vấn đề.\nCài đặt servers/VMs, đẩy code, database lên môi trường cài đặt, thiết lập, trỏ DNS, cài đặt SSL.\nBảo đảm mỗi lần Release, Cập nhật phiên bản diễn ra thành công và đúng thời hạn.\n3. Triển khai sản phẩm:\nDeploy sản phẩm lên server của công ty hoặc server của khách hàng.\nLàm việc với khách hàng về những yếu tố kĩ thuật của sản phẩm như môi trường, thông số, bảo mật, …\nLàm việc với khách hàng để triển khai những tính năng kết nối nếu cần.\n4. Quản lý nhóm phát triển:\nHướng dẫn và đào tạo các thành viên trong team, tạo ra một văn hoá học hỏi và tiến bộ liên tục.\nPhân chia công việc hợp lý cho các developers trong nhóm, đảm bảo hoàn thành dự án đúng hạn."
+    ],
+    "requirements": [
+      "Có tối thiểu 5 năm kinh nghiệm làm các dự án PHP/Laravel. Tự code PHP trên nền tảng framework Laravel.\nCó kinh nghiệm phát triển module/packages cho Laravel.\nCó kinh nghiệm JavaScript, Inertia.js.\nCó kinh nghiệm Vue.js.\nCó kinh nghiệm ElasticSearch.\nCó kinh nghiệm làm việc với RESTful API.\nCó kinh nghiệm về Database: MySQL và Mongo DB.\nThành thạo các công cụ quản lý code và quản lý công việc như Github, Bitbucket.\nThành thạo Linux (Centos, Ubuntu, Redhat) ví dụ như setup LAMP stack trên Linux server, configure Virtual Host và có thể lập trình trực tiếp trên Linux.\nCó khả năng deploy sản phẩm lên server hoặc mạng nội bộ.\nCó hiểu biết về xu thế, giải pháp và công nghệ tối ưu nhằm giải quyết những vấn đề liên quan tới kỹ thuật.\nCó kinh nghiệm làm trưởng nhóm lập trình."
+    ],
+    "url": "https://www.topcv.vn/viec-lam/senior-php-laravel-developer/1997314.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Fullstack PHP Developer",
+    "salary_raw": "Thoả thuận",
+    "location": "Hồ Chí Minh (mới)",
+    "experience": "5 năm",
+    "job_description": [
+      "- Phát triển các hệ thống web frontend/backend và API cho các hệ thống web lớn\n- Làm việc với team Việt Nam hoặc trực tiếp với các kỹ sư Nhật Bản\n- Tham gia thiết kế, chỉnh sửa và tối ưu Database(MySql, PostgreSql, MongoDB...)\n- Hoàn thành tốt công việc được giao, hỗ trợ các thành viên khác và báo cáo thường xuyên cho trưởng nhóm/quản lý dự án"
+    ],
+    "requirements": [
+      "- Tốt nghiệp chuyên ngành CNTT/Toán Tin các trường đại học kỹ thuật\n- Có ít nhất 5 năm kinh nghiệm lập trình các hệ thống Web, API dùng ngôn ngữ PHP và Javascript như Vue.js/Next.js\n- Thành thạo framework Laravel và có khả năng nắm bắt nhanh các framework mới\n- Có kinh nghiệm triển khai, vận hành và tối ưu hạ tầng production trên nền tảng AWS\n- Có kỹ năng tự tìm hiểu kỹ thuật, công nghệ mới\n- Yêu thích văn hóa Nhật Bản và có mong muốn làm việc lâu dài cho các công ty Nhật Bản\n- Làm việc cẩn thận với tinh thần trách nhiệm cao"
+    ],
+    "url": "https://www.topcv.vn/viec-lam/fullstack-php-developer/1996206.html?ta_source=ITJobs_LinkDetail"
+  }
+]

@@ -199,7 +199,7 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
     driver = None
     all_results = []
     try:
-        driver = create_driver(headless=True)
+        driver = create_driver(headless=False)
         wait = WebDriverWait(driver, 15)
 
         driver.get("https://www.topcv.vn/viec-lam-it")
@@ -244,7 +244,8 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
         current_position = 1
 
         while crawled_count < search_range:
-            job_xpath = f'//*[@id="main"]/div[1]/div[3]/div[4]/div[1]/div[1]/div[{current_position}]/div/div[2]/div[2]/h3/a'
+            job_xpath = f'//*[@id="main"]/div[1]/div[3]/div[3]/div[1]/div[1]/div[{current_position}]/div/div[2]/div[2]/h3/a'
+            #topcv thay xpath, cay =))
             try:
                 job_link = WebDriverWait(driver, 8).until(
                     EC.presence_of_element_located((By.XPATH, job_xpath))

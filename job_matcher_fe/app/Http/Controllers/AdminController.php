@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Log;
 use App\Models\DeletedCrawl;
-
+use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function index()

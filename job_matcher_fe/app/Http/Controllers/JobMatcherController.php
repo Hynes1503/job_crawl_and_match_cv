@@ -109,7 +109,8 @@ class JobMatcherController extends Controller
             'action' => 'match_cv',
             'description' => 'Matched CV with latest jobs data',
             'ip_address' => request()->ip(),
-        ]);    }
+        ]);
+    }
 
     /**
      * Matching CV với một lần crawl cụ thể (từ lịch sử)
@@ -117,9 +118,9 @@ class JobMatcherController extends Controller
     public function matchWithRun(Request $request, $runId)
     {
         $request->validate([
-            'existing_cv' => 'nullable|exists:cvs,id',
-            'cv_file' => 'required_without:existing_cv|file|mimes:pdf,docx,txt|max:10240',
-            'extra_skills' => 'nullable|string|max:500',
+            'existing_cv'     => 'nullable|exists:cvs,id',
+            'cv_file'         => 'required_without:existing_cv|file|mimes:pdf,doc,docx,txt|max:10240', // thêm doc nếu cần
+            'extra_skills'    => 'nullable|string|max:500',
             'desired_position' => 'nullable|string|max:255',
         ]);
 
@@ -131,36 +132,63 @@ class JobMatcherController extends Controller
                 ->with('error', 'Lần crawl này không có dữ liệu hợp lệ để matching.');
         }
 
-        // Xử lý CV
-        if ($request->filled('existing_cv')) {
-            $cv = Cv::findOrFail($request->existing_cv);
-            if ($cv->user_id !== Auth::id()) {
-                abort(403, 'Bạn không có quyền sử dụng CV này.');
-            }
-            $cvContent = \Illuminate\Support\Facades\Storage::disk('public')->get($cv->file_path);
-            $cvName = $cv->original_name;
-        } else {
-            $cvFile = $request->file('cv_file');
-            $cvContent = file_get_contents($cvFile->path());
-            $cvName = $cvFile->getClientOriginalName();
-        }
+        // Biến chung: Cv model cuối cùng được sử dụng để matching
+        $usedCv = null;
+        $cvContent = null;
+        $cvName = null;
 
         try {
-            $response = Http::timeout(60)
-                ->attach(
-                    'cv_file',
-                    $cvContent,
-                    $cvName
-                )
-                ->post("{$this->apiBaseUrl}/match-with-jobs", [
-                    'run_id' => $crawlRun->id,
-                    'jobs_data' => json_encode($crawlRun->detail),
-                    'extra_skills' => $request->input('extra_skills', ''),
-                    'desired_position' => $request->input('desired_position', ''),
+            // Xử lý CV: dùng CV cũ HOẶC upload CV mới → lưu thành Cv
+            if ($request->filled('existing_cv')) {
+                $usedCv = Cv::findOrFail($request->existing_cv);
+
+                if ($usedCv->user_id !== Auth::id()) {
+                    abort(403, 'Bạn không có quyền sử dụng CV này.');
+                }
+
+                $cvContent = Storage::disk('public')->get($usedCv->file_path);
+                $cvName    = $usedCv->original_name;
+            } else {
+                // Upload CV mới
+                $cvFile = $request->file('cv_file');
+
+                // Tạo tên file unique để tránh trùng
+                $extension = $cvFile->getClientOriginalExtension();
+                $filename  = 'cv_' . Auth::id() . '_' . date('Y_m_d_His') . '_' . uniqid() . '.' . $extension;
+                $filePath  = 'cvs/' . $filename;
+
+                // Lưu file vào storage/public/cvs/
+                Storage::disk('public')->put($filePath, file_get_contents($cvFile->path()));
+
+                // Tạo bản ghi Cv mới trong DB
+                $usedCv = Cv::create([
+                    'user_id'   => Auth::id(),
+                    'file_path' => $filePath,
                 ]);
+
+                $cvContent = file_get_contents($cvFile->path());
+                $cvName    = $cvFile->getClientOriginalName();
+            }
+
+            // Bây giờ chắc chắn có $usedCv (Cv model), $cvContent và $cvName
+
+            $response = Http::timeout(60)->attach(
+                'cv_file',
+                $cvContent,
+                $cvName
+            )->post("{$this->apiBaseUrl}/match-with-jobs", [
+                'run_id'          => $crawlRun->id,
+                'jobs_data'       => json_encode($crawlRun->detail),
+                'extra_skills'    => $request->input('extra_skills', ''),
+                'desired_position' => $request->input('desired_position', ''),
+            ]);
 
             if ($response->failed()) {
                 $error = $response->json('detail') ?? $response->body();
+
+                // Nếu là CV mới upload, có thể xóa file và bản ghi nếu muốn (tùy chọn)
+                // if (!$request->filled('existing_cv')) { $usedCv->delete(); Storage::disk('public')->delete($usedCv->file_path); }
+
                 return redirect()->back()
                     ->withInput()
                     ->with('error', 'Lỗi matching: ' . $error);
@@ -169,55 +197,73 @@ class JobMatcherController extends Controller
             $results = $response->json();
 
             if (empty($results)) {
-                // Lưu kết quả rỗng để biết đã matching nhưng không có job phù hợp
+                $formattedResults = [];
+
                 $crawlRun->update([
-                    'result' => [],
+                    'result'   => [],
+                    'cv_used'  => [
+                        'cv_id'         => $usedCv->id,
+                        'original_name' => $usedCv->original_name,
+                        'url'           => $usedCv->url,
+                        'uploaded_at'   => $usedCv->created_at->toDateTimeString(),
+                    ],
                 ]);
 
                 return redirect()->back()
                     ->withInput()
-                    ->with('info', 'Không tìm thấy công việc phù hợp nào trong lần crawl này.');
+                    ->with('info', 'Không tìm thấy công việc phù hợp nào trong lần crawl này.')
+                    ->with('current_run_id', $crawlRun->id);
             }
 
             $topResults = array_slice($results, 0, 10);
 
-            $formattedResults = array_map(function ($job) use ($crawlRun) {
+            $formattedResults = array_map(function ($job) {
                 return [
-                    'Vị trí' => $job['title'] ?? 'Không rõ',
-                    'Mức lương' => $job['salary'] ?? 'Thoả thuận',
-                    'Kinh nghiệm' => is_numeric($job['experience'])
+                    'Vị trí'            => $job['title'] ?? 'Không rõ',
+                    'Mức lương'         => $job['salary'] ?? 'Thoả thuận',
+                    'Kinh nghiệm'       => is_numeric($job['experience'])
                         ? $job['experience'] . ' năm'
                         : ($job['experience'] ?? 'Không yêu cầu'),
-                    'Địa điểm' => $job['location'] ?? 'Không xác định',
+                    'Địa điểm'          => $job['location'] ?? 'Không xác định',
                     'Matching Score (%)' => number_format($job['score'], 1),
-                    'Kỹ năng phù hợp' => $job['matching_skills'] ?? 'Không có',
-                    'url' => $job['url'] ?? '#',
+                    'Kỹ năng phù hợp'   => $job['matching_skills'] ?? 'Không có',
+                    'url'               => $job['url'] ?? '#',
                 ];
             }, $topResults);
 
-            // Lưu kết quả vào DB
+            // Lưu kết quả + thông tin CV đã dùng
             $crawlRun->update([
                 'result' => $formattedResults,
+                'cv_used' => [
+                    'cv_id'         => $usedCv->id,
+                    'original_name' => $usedCv->original_name,
+                    'url'           => $usedCv->url, // accessor getUrlAttribute()
+                    'uploaded_at'   => $usedCv->created_at->toDateTimeString(),
+                ],
+            ]);
+
+            // Ghi log activity
+            ActivityLog::create([
+                'user_id'     => Auth::id(),
+                'action'      => 'match_cv_with_run',
+                'description' => "Matched CV ID {$usedCv->id} ({$usedCv->original_name}) with crawl run ID {$crawlRun->id}",
+                'ip_address'  => request()->ip(),
             ]);
 
             return redirect()->back()
                 ->withInput()
                 ->with('current_run_id', $crawlRun->id)
                 ->with('match_results', $formattedResults)
-                ->with('match_run_info', "Kết quả matching với dữ liệu crawl ngày {$crawlRun->created_at->format('d/m/Y H:i')}");
-
-            // Ghi log sau khi matching với run thành công
-            ActivityLog::create([
-                'user_id' => Auth::id(),
-                'action' => 'match_cv_with_run',
-                'description' => "Matched CV with crawl run ID {$crawlRun->id}",
-                'ip_address' => request()->ip(),
-            ]);
+                ->with('match_run_info', "Kết quả matching với dữ liệu crawl ngày {$crawlRun->created_at->format('d/m/Y H:i')}")
+                ->with('success', $request->filled('existing_cv')
+                    ? 'Matching thành công!'
+                    : 'CV mới đã được lưu tự động và matching thành công!');
         } catch (\Exception $e) {
-            Log::error("Lỗi match với run {$runId}: " . $e->getMessage());
+            Log::error("Lỗi match với run {$runId}: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Không thể thực hiện matching với dữ liệu crawl này.');
+                ->with('error', 'Không thể thực hiện matching với dữ liệu crawl này. Vui lòng thử lại sau.');
         }
     }
 
