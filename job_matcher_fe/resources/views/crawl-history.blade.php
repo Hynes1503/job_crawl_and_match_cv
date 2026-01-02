@@ -82,7 +82,7 @@
             font-size: 0.85rem;
         }
 
-        /* Nút hành động */
+        /* Nút hành động chung */
         .action-btn {
             background: none;
             border: 1px solid #00b4ff;
@@ -94,6 +94,8 @@
             font-weight: 600;
             transition: all 0.3s ease;
             margin-right: 6px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .action-btn:hover {
@@ -101,6 +103,7 @@
             color: #00d4ff;
         }
 
+        /* Nút Matching (xanh lá) */
         .action-btn.match {
             border-color: #00ffaa;
             color: #00ffaa;
@@ -109,6 +112,19 @@
         .action-btn.match:hover {
             background: rgba(0, 255, 150, .15);
             color: #00ffdd;
+        }
+
+        /* Nút Export Training Data (xanh lá đậm) */
+        .action-btn.export-training {
+            border-color: #00ff85;
+            color: #00ff85;
+            background: rgba(0, 255, 133, 0.08);
+        }
+
+        .action-btn.export-training:hover {
+            background: rgba(0, 255, 133, 0.25);
+            color: #00ffaa;
+            transform: translateY(-1px);
         }
 
         /* Overlay & Modal chính */
@@ -483,7 +499,7 @@
                             <th>Trạng thái</th>
                             <th>Ghi chú</th>
                             <th>Matching</th>
-                            <th>Xóa</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -509,6 +525,7 @@
                                     @endif
                                 </td>
                                 <td>
+                                    {{-- CỘT MATCHING: Chỉ các nút matching --}}
                                     @if ($run->status == 'completed' && $run->detail && count($run->detail) > 0)
                                         <button class="action-btn" onclick="openModal({{ $run->id }}, 'json')">
                                             <i class="fas fa-code"></i> JSON
@@ -526,7 +543,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{-- Nút Xóa - luôn hiện nếu là chủ sở hữu --}}
+                                    {{-- CỘT THAO TÁC: Xóa + Export Training --}}
+                                    {{-- Nút Xóa --}}
                                     <form action="{{ route('crawl-runs.destroy', $run->id) }}" method="POST"
                                         style="display:inline;"
                                         onsubmit="return confirm('Bạn có chắc chắn muốn xóa lần crawl này?\nDữ liệu JSON và kết quả matching sẽ bị xóa vĩnh viễn.');">
@@ -537,6 +555,15 @@
                                             <i class="fas fa-trash-alt"></i> Xóa
                                         </button>
                                     </form>
+
+                                    {{-- Nút Export Training (chỉ hiện khi completed + có detail) --}}
+                                    @if ($run->status == 'completed' && $run->detail && count($run->detail) > 0)
+                                        <a href="{{ route('crawl-runs.export-training', $run->id) }}"
+                                           class="action-btn export-training"
+                                           title="Export dữ liệu crawl + CV text để training model AI">
+                                            <i class="fas fa-file-export"></i> Export Training
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

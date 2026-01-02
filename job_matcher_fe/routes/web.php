@@ -41,6 +41,8 @@ Route::middleware(['web', 'auth'])->group(function () {
 });
 Route::middleware('auth')->group(function () {
     Route::get('/crawl-history', [JobMatcherController::class, 'crawlHistory'])->name('crawl.history');
+    Route::get('/crawl-runs/{runId}/export-training', [JobMatcherController::class, 'exportTrainingData'])
+        ->name('crawl-runs.export-training');
 });
 Route::delete('/crawl-runs/{crawlRun}', [JobMatcherController::class, 'destroy'])
     ->name('crawl-runs.destroy')

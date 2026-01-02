@@ -12,14 +12,177 @@ use App\Models\Cv;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Log as ActivityLog;
 use App\Models\DeletedCrawl;
+use App\Helpers\CvTextExtractor;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TrainingDataExport;
+use Illuminate\Support\Facades\Response;
 
 class JobMatcherController extends Controller
 {
     protected $apiBaseUrl = 'http://localhost:8080';
 
     /**
+     * Trích xuất tóm tắt CV bằng Gemini API
+     */
+    private function extractCvSummary($cvText)
+    {
+        if (empty($cvText)) {
+            return 'Nội dung CV không khả dụng';
+        }
+        $cvText = preg_replace('/[^\P{C}\n]+/u', '', $cvText);
+        $cvText = preg_replace('/\s+/u', ' ', $cvText);
+        $cvText = preg_replace('/([A-Za-zÀ-ỹ])\s+([a-zà-ỹ])/u', '$1$2', $cvText);
+        $cvText = trim($cvText);
+        $apiKey = config('services.gemini.api_key');
+
+        if (!$apiKey) {
+            Log::warning('Gemini API key không được cấu hình.');
+            return 'Lỗi: Thiếu API key Gemini';
+        }
+
+        $prompt = <<<PROMPT
+Bạn là chuyên gia trích xuất thông tin CV. Hãy trích xuất các phần chính từ CV sau và trả về dưới dạng text ngắn gọn, có tiêu đề rõ ràng, mỗi phần cách nhau đúng 2 dòng trống.
+
+Chỉ trả về nội dung trích xuất, không thêm bất kỳ giải thích nào.
+
+Các phần cần có (nếu tồn tại trong CV):
+- Tóm tắt / Giới thiệu / Mục tiêu nghề nghiệp
+- Kinh nghiệm làm việc
+- Học vấn / Trình độ học vấn
+- Kỹ năng
+- Chứng chỉ
+- Dự án
+
+CV:
+{$cvText}
+PROMPT;
+
+        try {
+            $response = Http::timeout(30)->withHeaders([
+                'Content-Type' => 'application/json',
+            ])->post(
+                "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key={$apiKey}",
+                [
+                    "contents" => [
+                        ["parts" => [["text" => $prompt]]]
+                    ],
+                    "generationConfig" => [
+                        "temperature" => 0.3,
+                        "maxOutputTokens" => 1500,
+                    ],
+                    "safetySettings" => [
+                        [
+                            "category" => "HARM_CATEGORY_DANGEROUS_CONTENT",
+                            "threshold" => "BLOCK_ONLY_HIGH"
+                        ]
+                    ]
+                ]
+            );
+
+            if ($response->failed()) {
+                Log::error('Gemini API error: ' . $response->body());
+                return 'Lỗi trích xuất CV (API không phản hồi)';
+            }
+
+            $text = $response->json('candidates.0.content.parts.0.text');
+
+            return $text ? trim($text) : 'Không trích xuất được nội dung từ CV';
+        } catch (\Exception $e) {
+            Log::error('Exception khi gọi Gemini API: ' . $e->getMessage());
+            return 'Lỗi kết nối API trích xuất CV';
+        }
+    }
+
+    /**
      * Hiển thị form matching CV (dùng dữ liệu mới nhất)
      */
+    public function exportTrainingData($runId)
+    {
+        $crawlRun = CrawlRun::findOrFail($runId);
+
+        if ($crawlRun->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        // === Lấy thông tin CV ===
+        $cvUsed = $crawlRun->cv_used ?? [];
+        $cvId = $cvUsed['cv_id'] ?? null;
+
+        $cvTextSummary = 'Nội dung CV không khả dụng';
+
+        if ($cvId) {
+            $cv = Cv::find($cvId);
+            if ($cv && $cv->text_content) {
+                // Gọi Gemini để trích xuất tóm tắt
+                $cvTextSummary = $this->extractCvSummary($cv->text_content);
+            }
+        }
+
+        // === Chuẩn bị dữ liệu job ===
+        $details = $crawlRun->detail ?? [];
+        $results = $crawlRun->result ?? [];
+
+        $scoreMap = [];
+        foreach ($results as $result) {
+            if (isset($result['url'])) {
+                $scoreMap[$result['url']] = $result['Matching Score (%)'] ?? '0';
+            }
+        }
+
+        $rows = [];
+        $rows[] = ['STT', 'CV ID', 'Nội dung CV (text)', 'Mức lương', 'Kinh nghiệm', 'Địa điểm', 'Matching Score (%)'];
+
+        $index = 1;
+        foreach ($details as $job) {
+            $jobUrl = $job['url'] ?? '';
+            $score = $scoreMap[$jobUrl] ?? '0';
+
+            $salary = 'Thoả thuận';
+            if (!empty($job['salary'])) {
+                if (isset($job['salary']['max'])) {
+                    $salary = 'Đến ' . $job['salary']['max'] . ' triệu';
+                } elseif (is_array($job['salary'])) {
+                    $salary = implode(', ', $job['salary']);
+                }
+            }
+
+            $experience = 'Không yêu cầu';
+            if (isset($job['experience']['min_years'])) {
+                $min = $job['experience']['min_years'];
+                $experience = is_numeric($min) ? $min . ' năm' : $min;
+            }
+
+            $rows[] = [
+                $index++,
+                $cvId ?? '',
+                $cvTextSummary, // ← Đã được tóm tắt bằng AI
+                $salary,
+                $experience,
+                $job['location'] ?? '',
+                $score,
+            ];
+        }
+
+        // === Tạo file CSV với UTF-8 BOM ===
+        $filename = 'Training_Data_Run_' . $crawlRun->id . '_' . now()->format('Y_m_d_His') . '.csv';
+
+        $handle = fopen('php://temp', 'r+');
+        fwrite($handle, "\xEF\xBB\xBF"); // BOM UTF-8
+
+        foreach ($rows as $row) {
+            fputcsv($handle, $row);
+        }
+
+        rewind($handle);
+        $content = stream_get_contents($handle);
+        fclose($handle);
+
+        return response($content)
+            ->header('Content-Type', 'text/csv; charset=UTF-8')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->header('Cache-Control', 'no-store, no-cache');
+    }
+
     public function showMatchForm()
     {
         $jobsCount = 0;
@@ -169,7 +332,12 @@ class JobMatcherController extends Controller
                 $cvContent = file_get_contents($cvFile->path());
                 $cvName    = $cvFile->getClientOriginalName();
             }
-
+            if (empty($usedCv->text_content)) {
+                $cvContent = Storage::disk('public')->get($usedCv->file_path);
+                $extension = pathinfo($usedCv->file_path, PATHINFO_EXTENSION);
+                $textContent = CvTextExtractor::extract($cvContent, $extension);
+                $usedCv->update(['text_content' => $textContent]);
+            }
             // Bây giờ chắc chắn có $usedCv (Cv model), $cvContent và $cvName
 
             $response = Http::timeout(60)->attach(

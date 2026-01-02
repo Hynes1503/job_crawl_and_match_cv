@@ -14,6 +14,7 @@ class Cv extends Model
     protected $fillable = [
         'user_id',
         'file_path',
+        'text_content',
         // 'embedding' không cần fillable vì thường được tính sau
     ];
 
