@@ -13,25 +13,23 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uvicorn
 from typing import Union, List
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, JSON, DateTime
-
-# ==================== THÊM KẾT NỐI MYSQL (CỔNG 3306) ====================
-from sqlalchemy import create_engine, Column, Integer, String, Text, JSON
+from sqlalchemy import Column, Integer, String, Text, JSON, DateTime, Boolean, UniqueConstraint
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 
-# THAY ĐỔI THÔNG TIN NÀY THEO MÁY BẠN
+# ==================== KẾT NỐI MYSQL ====================
 DATABASE_URL = "mysql+pymysql://root:@localhost:3306/job_matcher"
 
 engine = create_engine(
     DATABASE_URL,
-    echo=False,                  # Để True nếu muốn xem SQL log
+    echo=False,
     pool_pre_ping=True,
     pool_recycle=3600
 )
@@ -39,37 +37,23 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# ==================== THÊM MODEL CHO BẢNG crawl_runs ====================
+# ==================== MODEL CŨ ====================
 class CrawlRun(Base):
     __tablename__ = "crawl_runs"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, nullable=True)
     group_id = Column(Integer, nullable=True)
-    source = Column(String(100), nullable=True)          # ví dụ: "topcv"
-    status = Column(String(50), default="running")       # running, completed, failed
-    parameters = Column(JSON, nullable=True)             # chứa keyword, location, ...
+    source = Column(String(100), nullable=True)
+    status = Column(String(50), default="running")
+    parameters = Column(JSON, nullable=True)
     jobs_crawled = Column(Integer, default=0)
     error_message = Column(Text, nullable=True)
     detail = Column(Text, nullable=True)
-    result = Column(JSON, nullable=True)                  # kết quả matching CV
+    result = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-# Đảm bảo tạo table (nếu chưa có)
-Base.metadata.create_all(bind=engine)
-
-# Thêm model mới cho response của endpoint này (tùy chọn, để có docs rõ ràng hơn)
-class MatchWithJobsResult(BaseModel):
-    title: str
-    salary: str
-    experience: Union[int, str]
-    location: str
-    score: float
-    matching_skills: str
-    url: str
-
-# Định nghĩa model Job (sau này có thể dùng để lưu DB)
 class JobDB(Base):
     __tablename__ = "jobs"
 
@@ -82,10 +66,28 @@ class JobDB(Base):
     experience_min_years = Column(String(50))
     url = Column(Text, unique=True)
 
-# Tạo table nếu chưa tồn tại (chỉ chạy 1 lần khi khởi động app)
+# ==================== MODEL MỚI: QUẢN LÝ SELECTOR ====================
+class SiteSelector(Base):
+    __tablename__ = "site_selectors"
+
+    id = Column(Integer, primary_key=True, index=True)
+    site = Column(String(50), nullable=False, index=True)              # ví dụ: "topcv"
+    page_type = Column(String(50), nullable=False)                     # search_form, job_list, job_detail
+    element_key = Column(String(100), nullable=False)                  # tên key để code gọi
+    selector_type = Column(String(20), default="xpath")                # xpath, css, id, class
+    selector_value = Column(Text, nullable=False)                      # giá trị selector thực tế
+    description = Column(Text, nullable=True)                          # mô tả chức năng
+    is_active = Column(Boolean, default=True)
+    version = Column(Integer, default=1)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (UniqueConstraint('site', 'page_type', 'element_key', name='uq_site_page_element'),)
+
+# Tạo tất cả các bảng
 Base.metadata.create_all(bind=engine)
 
-# Hàm helper để lấy session (dùng khi bạn muốn lưu DB sau này)
+# ==================== DEPENDENCY ====================
 def get_db():
     db = SessionLocal()
     try:
@@ -93,11 +95,54 @@ def get_db():
     finally:
         db.close()
 
-# ===================================================================
+# ==================== HÀM LẤY SELECTOR TỪ DB ====================
+def get_selector(db: Session, site: str, page_type: str, element_key: str) -> tuple:
+    """
+    Trả về (By.TYPE, selector_value)
+    Ví dụ: (By.ID, "keyword") hoặc (By.XPATH, "//button[@type='submit']")
+    """
+    record = db.query(SiteSelector).filter(
+        SiteSelector.site == site,
+        SiteSelector.page_type == page_type,
+        SiteSelector.element_key == element_key,
+        SiteSelector.is_active == True
+    ).order_by(SiteSelector.version.desc()).first()
 
+    if not record:
+        raise ValueError(f"Không tìm thấy selector active: {site} - {page_type} - {element_key}")
+
+    selector_type = record.selector_type.lower()
+    if selector_type == "id":
+        return By.ID, record.selector_value
+    elif selector_type == "css":
+        return By.CSS_SELECTOR, record.selector_value
+    elif selector_type == "class":
+        return By.CLASS_NAME, record.selector_value
+    else:  # xpath hoặc mặc định
+        return By.XPATH, record.selector_value
+
+# ==================== CÁC MODEL RESPONSE ====================
+class MatchWithJobsResult(BaseModel):
+    title: str
+    salary: str
+    experience: Union[int, str]
+    location: str
+    score: float
+    matching_skills: str
+    url: str
+
+class MatchResult(BaseModel):
+    title: str
+    salary: str
+    experience: Union[int, str]
+    location: str
+    score: float
+    matching_skills: str
+    url: str
+
+# ==================== FASTAPI APP ====================
 app = FastAPI(title="Semantic CV Matcher + TopCV Job Crawler API")
 
-# ==================== THƯ MỤC ====================
 CLEAN_DIR = "clean"
 RAW_DIR = "crawl"
 os.makedirs(CLEAN_DIR, exist_ok=True)
@@ -164,7 +209,7 @@ def extract_skills(text: str) -> set:
     
     return found_skills
 
-# ==================== HÀM CRAWL TOPCV ====================
+# ==================== HÀM CRAWL TOPCV (SỬ DỤNG SELECTOR TỪ DB) ====================
 def create_driver(headless: bool = True):
     chrome_options = Options()
     if headless:
@@ -176,19 +221,19 @@ def create_driver(headless: bool = True):
     driver = webdriver.Chrome(options=chrome_options)
     return driver
 
-def safe_get_text(driver, xpath: str, timeout: int = 5) -> str:
+def safe_get_text(driver, by, selector, timeout: int = 5) -> str:
     try:
         element = WebDriverWait(driver, timeout).until(
-            EC.presence_of_element_located((By.XPATH, xpath))
+            EC.presence_of_element_located((by, selector))
         )
         return element.text.strip()
     except:
         return ""
 
-def safe_click_js(driver, xpath: str, timeout: int = 10) -> bool:
+def safe_click_js(driver, by, selector, timeout: int = 10) -> bool:
     try:
         element = WebDriverWait(driver, timeout).until(
-            EC.element_to_be_clickable((By.XPATH, xpath))
+            EC.element_to_be_clickable((by, selector))
         )
         driver.execute_script("arguments[0].click();", element)
         return True
@@ -197,6 +242,7 @@ def safe_click_js(driver, xpath: str, timeout: int = 10) -> bool:
 
 def crawl_topcv(keyword: str = None, location: str = None, level: str = None, salary: str = None, search_range: int = 20) -> list:
     driver = None
+    db = next(get_db())  # lấy session mới
     all_results = []
     try:
         driver = create_driver(headless=False)
@@ -205,14 +251,17 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
         driver.get("https://www.topcv.vn/viec-lam-it")
         time.sleep(4)
 
+        # === Tìm kiếm form ===
         if keyword:
-            kw_input = wait.until(EC.element_to_be_clickable((By.ID, "keyword")))
+            by, sel = get_selector(db, "topcv", "search_form", "keyword_input")
+            kw_input = wait.until(EC.element_to_be_clickable((by, sel)))
             kw_input.clear()
             kw_input.send_keys(keyword)
             time.sleep(1)
 
         if location and location != "Tất cả tỉnh/thành phố":
-            city_box = wait.until(EC.element_to_be_clickable((By.ID, "select2-city-container")))
+            by, sel = get_selector(db, "topcv", "search_form", "city_dropdown")
+            city_box = wait.until(EC.element_to_be_clickable((by, sel)))
             city_box.click()
             time.sleep(1)
             city_option = wait.until(EC.element_to_be_clickable((By.XPATH, f"//li[contains(@class,'select2-results__option') and normalize-space(text())='{location}']")))
@@ -220,7 +269,8 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
             time.sleep(1)
 
         if level and level != "Tất cả cấp bậc":
-            level_box = wait.until(EC.element_to_be_clickable((By.ID, "select2-position-container")))
+            by, sel = get_selector(db, "topcv", "search_form", "position_dropdown")
+            level_box = wait.until(EC.element_to_be_clickable((by, sel)))
             level_box.click()
             time.sleep(1)
             level_option = wait.until(EC.element_to_be_clickable((By.XPATH, f"//li[contains(@class,'select2-results__option') and contains(normalize-space(text()), '{level}')]")))
@@ -228,14 +278,16 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
             time.sleep(1)
 
         if salary and salary != "Tất cả mức lương":
-            salary_box = wait.until(EC.element_to_be_clickable((By.ID, "select2-salary-container")))
+            by, sel = get_selector(db, "topcv", "search_form", "salary_dropdown")
+            salary_box = wait.until(EC.element_to_be_clickable((by, sel)))
             salary_box.click()
             time.sleep(1)
             salary_option = wait.until(EC.element_to_be_clickable((By.XPATH, f"//li[contains(@class,'select2-results__option') and contains(normalize-space(text()), '{salary}')]")))
             salary_option.click()
             time.sleep(1)
 
-        search_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//form[@id='frm-search-job']//button[@type='submit']")))
+        by, sel = get_selector(db, "topcv", "search_form", "search_button")
+        search_btn = wait.until(EC.element_to_be_clickable((by, sel)))
         driver.execute_script("arguments[0].click();", search_btn)
         time.sleep(5)
 
@@ -243,12 +295,18 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
         crawled_count = 0
         current_position = 1
 
+        # Lấy selector cho job card container và title link
+        by_container, sel_container = get_selector(db, "topcv", "job_list", "job_card_container")
+        by_title, sel_title_relative = get_selector(db, "topcv", "job_list", "job_title_link")
+
         while crawled_count < search_range:
-            job_xpath = f'//*[@id="main"]/div[1]/div[3]/div[3]/div[1]/div[1]/div[{current_position}]/div/div[2]/div[2]/h3/a'
-            #topcv thay xpath, cay =))
             try:
+                # Tạo XPath đầy đủ cho job thứ current_position
+                job_card_xpath = f"({sel_container})[{current_position}]"
+                job_link_xpath = f"{job_card_xpath}{sel_title_relative}"
+
                 job_link = WebDriverWait(driver, 8).until(
-                    EC.presence_of_element_located((By.XPATH, job_xpath))
+                    EC.presence_of_element_located((By.XPATH, job_link_xpath))
                 )
 
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", job_link)
@@ -259,16 +317,26 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
                 driver.switch_to.window(driver.window_handles[-1])
                 time.sleep(3)
 
-                safe_click_js(driver, '//*[@id="SoGDz7"]/div/label/input', timeout=3)
-                safe_click_js(driver, '//*[@id="box-job-information-detail"]/div[4]/button', timeout=3)
+                # Click các nút mở rộng (nếu có)
+                try:
+                    by_chk, sel_chk = get_selector(db, "topcv", "job_detail", "checkbox_agree")
+                    safe_click_js(driver, by_chk, sel_chk, timeout=3)
+                except:
+                    pass
+                try:
+                    by_btn, sel_btn = get_selector(db, "topcv", "job_detail", "expand_button")
+                    safe_click_js(driver, by_btn, sel_btn, timeout=3)
+                except:
+                    pass
 
+                # Lấy thông tin chi tiết
                 job_data = {
-                    "title": safe_get_text(driver, '//*[@id="header-job-info"]/h1'),
-                    "salary_raw": safe_get_text(driver, '//*[@id="header-job-info"]/div[1]/div[1]/div[2]/div[2]'),
-                    "location": safe_get_text(driver, '//*[@id="header-job-info"]/div[1]/div[2]/div[2]/div[2]'),
-                    "experience": safe_get_text(driver, '//*[@id="job-detail-info-experience"]/div[2]/div[2]'),
-                    "job_description": [safe_get_text(driver, '//*[@id="box-job-information-detail"]/div[3]/div[1]/div/div[1]/div')],
-                    "requirements": [safe_get_text(driver, '//*[@id="box-job-information-detail"]/div[3]/div[1]/div/div[2]/div')],
+                    "title": safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "title")),
+                    "salary_raw": safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "salary")),
+                    "location": safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "location")),
+                    "experience": safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "experience")),
+                    "job_description": [safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "job_description"))],
+                    "requirements": [safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "requirements"))],
                     "url": driver.current_url
                 }
 
@@ -280,8 +348,10 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
                 current_position += 1
 
             except TimeoutException:
+                # Chuyển trang
                 try:
-                    next_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@class, 'next') or contains(text(), 'Trang tiếp theo')]")))
+                    by_next, sel_next = get_selector(db, "topcv", "job_list", "next_page_button")
+                    next_btn = wait.until(EC.element_to_be_clickable((by_next, sel_next)))
                     driver.execute_script("arguments[0].click();", next_btn)
                     time.sleep(5)
                     current_position = 1
@@ -302,7 +372,7 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
         if driver:
             driver.quit()
 
-# ==================== LÀM SẠCH DỮ LIỆU ====================
+# ==================== CÁC HÀM KHÁC (GIỮ NGUYÊN) ====================
 def is_valid_text_list(value):
     if not isinstance(value, list):
         return False
@@ -365,7 +435,6 @@ def convert_raw_to_clean() -> list:
 
     return cleaned_jobs
 
-# ==================== LOAD MODEL & JOBS ====================
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def load_jobs() -> list:
@@ -403,15 +472,6 @@ async def crawl_jobs(
         return {"message": f"Hoàn thành! Đã crawl {len(raw_results)} công việc.", "jobs_count": len(cleaned_jobs)}
     else:
         raise HTTPException(status_code=500, detail="Không crawl được job nào.")
-
-class MatchResult(BaseModel):
-    title: str
-    salary: str
-    experience: Union[int, str]
-    location: str
-    score: float
-    matching_skills: str
-    url: str
 
 @app.post("/match", response_model=list[MatchResult])
 async def match_cv(
@@ -482,18 +542,13 @@ async def get_jobs():
 @app.post("/match-with-jobs", response_model=List[MatchWithJobsResult])
 async def match_with_jobs(
     cv_file: UploadFile = File(...),
-    jobs_data: str = Form(...),                  # Chuỗi JSON jobs từ client
-    run_id: int = Form(...),                     # THÊM: ID của crawl run để lưu kết quả
+    jobs_data: str = Form(...),
+    run_id: int = Form(...),
     extra_skills: str = Form(""),
     desired_position: str = Form("")
 ):
-    """
-    Matching CV với danh sách job được truyền trực tiếp.
-    Đồng thời lưu kết quả matching vào cột result của bảng crawl_runs theo run_id.
-    """
     db = SessionLocal()
     try:
-        # Parse jobs_data
         try:
             jobs = json.loads(jobs_data)
         except json.JSONDecodeError:
@@ -502,7 +557,6 @@ async def match_with_jobs(
         if not jobs or not isinstance(jobs, list):
             raise HTTPException(status_code=400, detail="Danh sách job rỗng hoặc không hợp lệ.")
 
-        # Đọc và xử lý CV
         content = await cv_file.read()
         file_type = cv_file.content_type
         raw_cv = extract_text_from_file(content, file_type)
@@ -547,7 +601,6 @@ async def match_with_jobs(
 
             final_score = 0.7 * cos_score + 0.3 * (jaccard * 100)
 
-            # Xử lý lương
             salary_data = job.get("salary", {})
             if isinstance(salary_data, dict):
                 if salary_data.get("min") and salary_data.get("max"):
@@ -559,7 +612,6 @@ async def match_with_jobs(
             else:
                 salary_str = job.get("salary_raw", "Thoả thuận") or "Thoả thuận"
 
-            # Xử lý kinh nghiệm
             exp = job.get("experience", {})
             if isinstance(exp, dict):
                 experience_val = exp.get("min_years", "Không yêu cầu")
@@ -581,23 +633,20 @@ async def match_with_jobs(
                 "url": job.get("url", "#")
             })
 
-        # Sắp xếp theo score giảm dần
         results.sort(key=lambda x: x["score"], reverse=True)
 
-        # ==================== LƯU KẾT QUẢ VÀO DB ====================
+        # Lưu kết quả vào DB
         try:
             crawl_run = db.query(CrawlRun).filter(CrawlRun.id == run_id).first()
             if not crawl_run:
                 raise HTTPException(status_code=404, detail=f"Không tìm thấy crawl run với id = {run_id}")
 
-            # Lưu toàn bộ danh sách kết quả matching vào cột result (dạng JSON)
             crawl_run.result = results
             db.commit()
         except Exception as db_error:
             db.rollback()
             raise HTTPException(status_code=500, detail=f"Lỗi khi lưu kết quả vào DB: {str(db_error)}")
 
-        # Trả về kết quả cho frontend
         return results
 
     except HTTPException:
@@ -606,6 +655,6 @@ async def match_with_jobs(
         raise HTTPException(status_code=500, detail=f"Lỗi không xác định: {str(e)}")
     finally:
         db.close()
-        
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

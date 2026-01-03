@@ -8,6 +8,7 @@ use App\Http\Controllers\CvController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\XPathController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,6 +69,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Routes cho deleted crawls
     Route::get('/admin/deleted-crawls', [AdminController::class, 'deletedCrawls'])->name('admin.deleted.crawls');
     Route::get('/admin/deleted-crawls/{deletedCrawl}', [AdminController::class, 'showDeletedCrawl'])->name('admin.deleted.crawls.show');
+
+    Route::get('/site-selectors', [XPathController::class, 'index'])
+        ->name('admin.site-selectors.index');
+
+    Route::put('/site-selectors/{siteSelector}', [XPathController::class, 'update'])
+        ->name('admin.site-selectors.update');
 });
 
 // Routes cho User

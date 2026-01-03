@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -141,15 +142,18 @@
             .sidebar {
                 transform: translateX(-250px);
             }
+
             .main-content {
                 margin-left: 0;
             }
+
             .admin-header {
                 padding: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
@@ -162,37 +166,44 @@
         <ul class="nav flex-column px-3 py-3">
             <li class="nav-item">
                 <a class="nav-link text-white {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
-                   href="{{ route('admin.dashboard') }}">
+                    href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link text-white {{ request()->routeIs('admin.users*') ? 'active' : '' }}"
-                   href="{{ route('admin.users') }}">
+                    href="{{ route('admin.users') }}">
                     <i class="fas fa-users"></i> Quản Lý Người Dùng
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link text-white {{ request()->routeIs('admin.logs*') ? 'active' : '' }}"
-                   href="{{ route('admin.logs.index') }}">
+                    href="{{ route('admin.logs.index') }}">
                     <i class="fas fa-history"></i> Nhật Ký Hệ Thống
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link text-white {{ request()->routeIs('admin.deleted.crawls*') ? 'active' : '' }}"
-                   href="{{ route('admin.deleted.crawls') }}">
+                    href="{{ route('admin.deleted.crawls') }}">
                     <i class="fas fa-trash-restore"></i> Crawl Đã Xóa
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link text-white {{ request()->routeIs('admin.site-selectors*') ? 'active' : '' }}"
+                    href="{{ route('admin.site-selectors.index') }}">
+                    <i class="fas fa-code"></i> Site Selectors
                 </a>
             </li>
 
             <!-- Phần user dropdown ở dưới cùng -->
             <li class="nav-item mt-auto mb-4">
                 <div class="dropdown">
-                    <a class="nav-link text-white dropdown-toggle d-flex align-items-center px-3" 
-                       href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link text-white dropdown-toggle d-flex align-items-center px-3" href="#"
+                        id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user-circle fa-lg"></i>
                         <div class="ms-3 text-start">
                             <div class="fw-semibold">{{ auth()->user()->name }}</div>
@@ -201,9 +212,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="{{ route('dashboard') }}">
-                            <i class="fas fa-home me-2"></i> Trang Người Dùng
-                        </a></li>
-                        <li><hr class="dropdown-divider"></li>
+                                <i class="fas fa-home me-2"></i> Trang Người Dùng
+                            </a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
@@ -232,7 +245,7 @@
 
         <!-- Nội dung chính -->
         <div class="container-fluid py-4 px-4 px-md-5">
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -279,4 +292,5 @@
 
     @stack('scripts')
 </body>
+
 </html>

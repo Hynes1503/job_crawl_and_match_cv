@@ -1,5 +1,23 @@
 [
   {
+    "title": "Senior Backend Developer (Golang, Java/C++) Lương Từ 20-30 Triệu, Tại Hồ Chí Minh, Đi Làm Ngay",
+    "job_description": [
+      "Backend Development: Design and build scalable backend services in Golang to manage warehouse operations, inventory flow, and equipment coordination.\nSystem Integration: Develop interfaces to connect software with physical hardware (robots, conveyors, sensors) using standard IoT protocols (MQTT, TCP/IP).\nControl Logic: Implement logic to optimize the movement of goods and fleet management, ensuring efficient and safe operations.\nEdge Computing: Deploy and manage services on edge devices, ensuring reliability even in offline scenarios.\nArchitecture: Design clean, maintainable APIs (REST/gRPC) and data models to support real-time monitoring and control.\nQuality & Reliability: Ensure system stability through comprehensive testing, logging, and performance monitoring."
+    ],
+    "requirements": [
+      "Software Engineering: 3+ years of backend development experience.\nLanguage Proficiency: Strong experience with Golang (or expert in Java/C++/Rust with a strong desire to learn Go).\nDistributed Systems: Experience building and deploying microservices or distributed applications using Docker and Kubernetes.\nIoT & Networking: Familiarity with messaging systems (MQTT, NATS, or Kafka) and network programming.\nDatabases: Solid understanding of relational databases (PostgreSQL) and data modeling.\nProblem Solving: Ability to solve complex logical problems and willingness to learn about industrial automation domains."
+    ],
+    "salary": {
+      "min": 20,
+      "max": 30
+    },
+    "location": "Hồ Chí Minh (mới)",
+    "experience": {
+      "min_years": 3
+    },
+    "url": "https://www.topcv.vn/viec-lam/senior-backend-developer-golang-java-c-luong-tu-20-30-trieu-tai-ho-chi-minh-di-lam-ngay/1992420.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
     "title": "Senior Developer With AI Skill (Java/ C++/ Python/ C#) - Thu Nhập Từ 15-30 Triệu [Hà Nội]",
     "job_description": [
       "Nghiên cứu và đánh giá tính khả thi về mặt kỹ thuật của các giải pháp liên quan đến AI (Machine Learning / Deep Learning / Generative AI).\nXây dựng prototype (chủ yếu trên nền tảng web) để kiểm chứng ý tưởng và giải pháp AI.\nTham gia trao đổi, thảo luận kỹ thuật và báo cáo tiến độ với Manager.\nPhối hợp trao đổi, giải thích giải pháp và đề xuất kỹ thuật với khách hàng khi cần.\nThực hiện Design, Coding, Code Review, Unit test, Fix bugs;\nNội dung công việc chi tiết sẽ được trao đổi khi phỏng vấn."
@@ -18,53 +36,51 @@
     "url": "https://www.topcv.vn/viec-lam/senior-developer-with-ai-skill-java-c-python-c-thu-nhap-tu-15-30-trieu-ha-noi/1914882.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Backend Python Developer For AI Agent Development Project",
+    "title": "Talented Developers (C++ / C#)",
     "job_description": [
-      "Leading the way in financial IT service market in Korea, we now seek to expand our expertise to the APAC\nParticipation in R&D AI Agent development Project Solution Development\nSolution Development (Backend)\nRequirements analysis and design for a specific solution\nEnsuring solution quality"
+      "We are looking for passionate software developers to join Koh Young’s software development team in Vietnam. Whether your strength lies in C++ or C#, we welcome you to bring your skills to the table — and we’ll help you grow the rest.\nYou’ll be working on our cutting-edge SMT (Surface Mount Technology) inspection systems, contributing to both existing and new Windows desktop applications that power our industry-leading products. Depending on your expertise, you will be matched with the right role within the team, and we’ll support your professional development through hands-on projects and cross-functional collaboration.\nKey Responsibilities\nDevelop and maintain desktop applications for Koh Young’s 3D inspection systems (AOI/SPI/AXI)\nDesign and implement new features and resolve CRM-reported issues\nCollaborate with UX/UI, QA, and algorithm engineers to improve product quality and performance\nSupport customer needs via short-term overseas business trips (2 days to 2 weeks when needed)\nParticipate in team-wide architectural and design discussions\nEnsure high code quality through peer reviews and testing"
     ],
     "requirements": [
-      "Java programming experience\nDeveloped based on Spring, Spring Boot F/W, Spring MVC\nWeb application development experience (4 years or more)\nRDBMS (MySQL, PostgreSQL, MariaDB) & SQL\nGood knowledge of SQL database management and optimization\nGood knowledge of backend security, cryptography, and authentication protocols\nExperience with collaboration tools such as Git, Jira and Confluence\nExcellent communication skills and ability to work well in cross-functional teams\nCommunicate in English at an average level"
+      "C++ Developer\n3+ years of hands-on experience with C++\nExperience in Windows desktop application development\nKnowledge of OOP (Object-Oriented Programming) and design patterns\nFamiliarity with network communication (TCP/IP) and Client/Server architecture\nSQL database experience (e.g. Microsoft SQL)\nExperience using OpenGL, OpenCV, or other graphics libraries\nC# Developer\n3+ years of experience in C# / .NET / WPF\nStrong understanding of MVVM, Dependency Injection, and multi-threading (Thread/Task)\nExperience with 2D/3D graphics programming (GDI+, DirectX, OpenGL)\nComfortable working with SQL Lite / MS-SQL, and handling network communication\nFamiliarity with custom WPF controls, Prism, or SharpDX\nPreferred Qualifications\nExperience in Windows OS internals or performance optimization\nUnderstanding or experience in the SMT domain (e.g. electronics manufacturing, inspection systems)\nBackground in starting new software projects from scratch\nFamiliarity with MFC, application performance tuning, or database schema design\nChinese Speaking"
     ],
     "salary": {},
     "location": "Hà Nội",
     "experience": {
-      "min_years": 4
+      "min_years": 3
     },
-    "url": "https://www.topcv.vn/viec-lam/backend-python-developer-for-ai-agent-development-project/1997032.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/talented-developers-c-c/1948733.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Backend Developer (NodeJS, Java, Python) - Upto 40M - Đi Làm Ngay",
+    "title": "Software Engineer (C++)",
     "job_description": [
-      "Responsibilities\n• Develop and maintain backend systems for real-time gaming and web chat applications.\n• Proficient in Node.JS, PHP, Laravel, MySQL, Redis, and CentOS\n• Familiar with Golang, RESTful services, Python, Ruby, Java\n• Experience with NoSQL and cache systems such as MongoDB and Redis\n• Proficient with Git, Linux, Docker, and Kubernetes (K8S)\n• Skilled in MS SQL and PostgreSQL database setup and management\n• Experience with multi-threaded programming and high-load system architecture.\n• Write and maintain technical documentation for projects"
+      "Location: 3A Ton Duc Thang , HCMC, Vietnam\nJob Description\nWe are looking for full-time HMI Engineers working at Ho Chi Minh City, Vietnam.\nThe Car Multimedia (CM) team develops high-quality, state-of-the-art Automotive Head Unit and Home Appliance Linux/Android-based systems. Together with other Bosch locations worldwide, we provide software solutions for navigation, vehicle functions, autonomous driving, camera, and IoT features to the car marker.\nAs a HMI Software Engineer, your typical work activities include:\n• Participate in requirement analysis and software design.\n• Develop HMI software using C++/Qt in Linux system for Car Multimedia or Home appliance system.\n• Testing, debugging, maintenance and problem solving."
     ],
     "requirements": [
-      "What We Are Looking\n• Proficient in Node.JS, Java, Python, Ruby, or PHP\n• MySQL, PostgreSQL, NestJS\n• Minimum 3 years of experience in the same position.\n• Open mindset for AI and innovation; skilled in using creative AI tools.\n• Detail-oriented with strong problem-solving skills.\n• Strong self-learning skills, proficient with Git\n• Must bring work samples to interview.\n• Good English communication skills"
+      "QUALIFICATIONS\nThe job might be fit for you if you have:\n• Bachelor's degree in Computer Science, Electronic, Information Technology or equivalent.\n• Experience with OOP design, UI/UX, C++ / Qt / QML programming.\n• Knowledge in Linux based system.\n• Familiar with one of the engineering processes (Waterfall, Agile).\n• Passion for software engineering in the automotive / IoT industry.\n• Different levels of experiences are welcomed (Exp. to Senior).\n• Good English communication skills, be able to interact fluently with worldwide stakeholders.\nNICE TO HAVE\n• Experience with developing HMI and GUI/Graphics framework (CGI, Qt).\n• Experience using graphics API like OpenGL.\n• QML programing experience"
     ],
-    "salary": {
-      "min": 20,
-      "max": 40
-    },
+    "salary": {},
     "location": "Hồ Chí Minh (mới)",
     "experience": {
       "min_years": 3
     },
-    "url": "https://www.topcv.vn/viec-lam/backend-developer-nodejs-java-python-upto-40m-di-lam-ngay/1988073.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/software-engineer-c/1984765.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Backend Developer (Python) - Mức Lương 30tr/Tháng - Khu Vực Cầu Giấy",
+    "title": "C++/C# Desktop Application Developer (Remote) - CÓ THỂ BẮT ĐẦU SAU TẾT ÂM LỊCH",
     "job_description": [
-      "Thiết kế và phát triển API, microservices cho các ứng dụng trong hệ sinh thái FABi (bán hàng, vận hành, báo cáo).\nNghiên cứu, đề xuất và ứng dụng công nghệ mới, bao gồm Generative AI, vào sản phẩm và quy trình vận hành.\nLàm việc với người dùng nghiệp vụ và các bên liên quan để thu thập yêu cầu, phân tích quy trình, xác định điểm nghẽn và đề xuất giải pháp tối ưu.\nĐề xuất ý tưởng và use case ứng dụng Generative AI trong vận hành, chăm sóc khách hàng, báo cáo và tối ưu hệ thống.\nThực hiện công việc khác theo yêu cầu của quản lý sản phẩm."
+      "We are looking for talented C++/C# developers to join our dynamic team in Vietnam. If you have experience with C++/C# programing and have a passion for desktop application development, we want to hear from you. Excellent communication in English is a must.\nResponsibilities:\nFront-End Development:\nDesign and develop user interfaces using MFC or Qt (for C++) or WPF (for C#).\nEnsure the UI is responsive, user-friendly, and adheres to design specifications.\nBack-End Development:\nDevelop back-end logic and integrate with front-end components.\nEnsure robust, scalable, and secure application architecture.\nApplication Development:\nWrite clean, maintainable, and efficient code in C++ or C#.\nDebug, test, and fix issues in the application codebase.\nParticipate in code reviews and adhere to coding standards.\nCollaboration and Communication:\nWork closely with other developers, designers to gather and understand requirements.\nParticipate in agile development processes, including sprint planning, stand-up meetings, and retrospectives.\nDocument development processes, code changes, and other relevant information."
     ],
     "requirements": [
-      "Tốt nghiệp chuyên ngành Công nghệ thông tin, Khoa học máy tính, Điện tử viễn thông, Công nghệ phần mềm, Hệ thống thông tin hoặc tương đương.\n3+ năm kinh nghiệm lập trình Python và 1+ năm làm việc với framework Python như FastAPI, Flask hoặc Django.\nĐã triển khai Microservices hoặc tham gia thiết kế kiến trúc hệ thống quy mô vừa/lớn.\nHiểu rõ về thiết kế API RESTful (GraphQL là lợi thế).\nCó kinh nghiệm debug, troubleshooting, logging và monitoring trong môi trường production.\nĐã làm việc với cơ sở dữ liệu SQL (PostgreSQL) và NoSQL (MongoDB, Redis...), nắm vững cơ chế hoạt động và tối ưu truy vấn.\nCó kinh nghiệm triển khai và vận hành message queue như Celery, Redis Queue, RabbitMQ.\nThành thạo Git và công cụ quản lý công việc (Jira, ClickUp, Redmine), có kinh nghiệm viết tài liệu API.\nĐam mê và chủ động trong công việc, có kỹ năng làm việc nhóm và độc lập.\nCó khả năng quản lý, sắp xếp, điều phối và đốc thúc công việc.\nƯu tiên\nỨng viên trẻ, ham học hỏi và sáng tạo.\nCó kiến thức hoặc kinh nghiệm về Generative AI là lợi thế lớn.\nCó kinh nghiệm về bảo mật hệ thống (authentication, authorization, JWT...).\nHiểu biết và có khả năng xây dựng CI/CD pipelines (Jenkins, GitLab CI/CD, GitHub Actions...).\nCó tư duy sản phẩm và tinh thần ownership cao"
+      "Qualifications\nBachelor's degree in Computer Science, Information Technology, or a related field (or equivalent experience).\nWindows desktop software development\nFluency in English is a must.\nProficiency in C++ or C# programming\nStrong knowledge of algorithms, data structures, and object-oriented programming.\nFamiliarity with version control systems, including Git and SVN.\nPreferred Qualifications:\nStrong knowledge of spatial data structures, computational geometry, and linear algebra.\nKnowledge of Qt, MFC (Microsoft Foundation Classes) and WPF (Windows Presentation Foundation)\nAutomatic data transformation / interop"
     ],
     "salary": {
-      "max": 30
+      "min": 600,
+      "max": 2000
     },
-    "location": "Hà Nội",
+    "location": "Hà Nội & 33 nơi khác",
     "experience": {
-      "min_years": 3
+      "min_years": 2
     },
-    "url": "https://www.topcv.vn/viec-lam/backend-developer-python-muc-luong-30tr-thang-khu-vuc-cau-giay/1995040.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/c-c-desktop-application-developer-remote-co-the-bat-dau-sau-tet-am-lich/1976844.html?ta_source=ITJobs_LinkDetail"
   }
 ]
