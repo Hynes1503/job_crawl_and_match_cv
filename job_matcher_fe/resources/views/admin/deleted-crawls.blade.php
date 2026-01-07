@@ -5,7 +5,7 @@
 @push('styles')
     <style>
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -21,17 +21,165 @@
             margin-bottom: 32px;
         }
 
+        /* Toast Notification */
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+
+        @keyframes progressBar {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        .toast-notification {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            min-width: 350px;
+            max-width: 450px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            animation: slideIn 0.4s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toast-notification.hiding {
+            animation: slideOut 0.4s ease-out forwards;
+        }
+
+        .toast-notification.success {
+            border-left: 4px solid #00ffaa;
+        }
+
+        .toast-notification.error {
+            border-left: 4px solid #ff5080;
+        }
+
+        .toast-notification.success .toast-icon {
+            color: #00ffaa;
+            font-size: 1.5rem;
+        }
+
+        .toast-notification.error .toast-icon {
+            color: #ff5080;
+            font-size: 1.5rem;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .toast-message {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            color: #ddd;
+        }
+
+        .toast-close {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .toast-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .toast-notification::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00b4ff, #00ffaa);
+            animation: progressBar 4s linear forwards;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .toast-notification.error::after {
+            background: linear-gradient(90deg, #ff5080, #ff8a00);
+        }
+
+        /* Filter Form */
+        .filter-section {
+            background: rgba(0, 0, 0, .35);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .custom-select {
+            background: rgba(0, 0, 0, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+            backdrop-filter: blur(4px);
+            border-radius: 8px;
+        }
+
+        .custom-select option {
+            background: #1a1a2e !important;
+            color: #ffffff !important;
+        }
+
+        .custom-select:focus {
+            border-color: #00b4ff !important;
+            box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.2) !important;
+        }
+
+        .form-control {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            background: rgba(255,255,255,0.08);
+            border-color: #00b4ff;
+            color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.2);
+        }
+
         .table-wrapper {
             background: rgba(0, 0, 0, .45);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, .15);
             border-radius: 16px;
-            overflow: hidden;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 1200px;
         }
 
         th {
@@ -42,6 +190,7 @@
             font-weight: 600;
             opacity: .9;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
         }
 
         td {
@@ -53,6 +202,10 @@
             border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        tr:hover {
+            background: rgba(0, 180, 255, 0.08);
+        }
+
         .status {
             padding: 6px 12px;
             border-radius: 999px;
@@ -61,9 +214,9 @@
             display: inline-block;
         }
 
-        .status-completed { background: rgba(0, 255, 150, .2); color: #00ffaa; }
-        .status-running   { background: rgba(0, 180, 255, .2); color: #00b4ff; }
-        .status-failed    { background: rgba(255, 100, 100, .2); color: #ff6b6b; }
+        .status-completed { background: rgba(0, 255, 150, .2); color: #00ffaa; border: 1px solid rgba(0, 255, 150, 0.4); }
+        .status-running   { background: rgba(0, 180, 255, .2); color: #00b4ff; border: 1px solid rgba(0, 180, 255, 0.4); }
+        .status-failed    { background: rgba(255, 100, 100, .2); color: #ff6b6b; border: 1px solid rgba(255, 100, 100, 0.4); }
 
         .message {
             max-width: 250px;
@@ -102,15 +255,52 @@
             color: #00ffdd;
         }
 
-        .action-btn.results {
-            border-color: #00ffaa;
-            color: #00ffaa;
+        .btn-delete {
+            background: rgba(255, 50, 80, 0.2);
+            border: 1px solid rgba(255, 50, 80, 0.4);
+            color: #ff5080;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 50, 80, 0.3);
+            border-color: #ff5080;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 50, 80, 0.3);
         }
 
         .pagination {
             margin-top: 30px;
             display: flex;
             justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pagination .page-link {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #bbd0ff;
+            border-radius: 8px;
+            padding: 10px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-link:hover {
+            background: rgba(0,180,255,0.2);
+            color: #fff;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: #00b4ff;
+            border-color: #00b4ff;
+            color: #000;
+            font-weight: 600;
         }
 
         .no-data {
@@ -126,7 +316,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Modal styles (giống hệt trang lịch sử) */
+        /* Modal styles */
         .overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.8); z-index: 9000;
@@ -165,12 +355,6 @@
 @endpush
 
 @section('content')
-    @if (session('success'))
-        <div id="successMessage"
-            style="background: rgba(0, 255, 150, 0.15); border: 1px solid #00ffaa; color: #00ffaa; padding: 16px; border-radius: 12px; margin-bottom: 24px; text-align: center; font-weight: 600; opacity: 1; transition: opacity 1s ease-out;">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <div class="container">
         <div class="header">
@@ -180,8 +364,85 @@
                 </span>
             </h1>
             <div class="stats">
-                Hiển thị các lần crawl đã bị xóa khỏi hệ thống (chỉ dành cho quản trị viên)
+                Tổng cộng <strong>{{ $deletedCrawls->total() }}</strong> lần crawl đã bị xóa
             </div>
+        </div>
+
+        <!-- Form Bộ lọc -->
+        <div class="filter-section">
+            <form method="GET" action="{{ route('admin.deleted.crawls') }}" class="row g-3 align-items-end">
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Từ khóa</label>
+                    <input type="text" name="keyword" class="form-control" value="{{ request('keyword') }}"
+                           placeholder="Nhập từ khóa...">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Địa điểm</label>
+                    <input type="text" name="location" class="form-control" value="{{ request('location') }}"
+                           placeholder="Ví dụ: Hà Nội">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Cấp bậc</label>
+                    <input type="text" name="level" class="form-control" value="{{ request('level') }}"
+                           placeholder="Ví dụ: Fresher">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Mức lương</label>
+                    <input type="text" name="salary" class="form-control" value="{{ request('salary') }}"
+                           placeholder="Ví dụ: 10-15 triệu">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Yêu cầu</label>
+                    <input type="text" name="search_range" class="form-control" value="{{ request('search_range') }}"
+                           placeholder="Ví dụ: 3 tháng">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Trạng thái</label>
+                    <select name="status" class="form-select custom-select">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Thành công</option>
+                        <option value="running" {{ request('status') == 'running' ? 'selected' : '' }}>Đang chạy</option>
+                        <option value="failed" {{ request('status') == 'failed' ? 'selected' : '' }}>Thất bại</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Từ ngày</label>
+                    <input type="date" name="from_date" class="form-control" value="{{ request('from_date') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Đến ngày</label>
+                    <input type="date" name="to_date" class="form-control" value="{{ request('to_date') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label" style="font-size: 0.9rem; opacity: 0.8;">Xóa bởi</label>
+                    <input type="text" name="deleted_by" class="form-control" value="{{ request('deleted_by') }}"
+                           placeholder="Tên người xóa...">
+                </div>
+
+                <div class="col-md-1">
+                    <button type="submit" class="btn w-100"
+                            style="background: #00b4ff; border: none; padding: 10px; color: #000; font-weight: 600;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+
+            @if(request()->hasAny(['keyword', 'location', 'level', 'salary', 'search_range', 'status', 'from_date', 'to_date', 'deleted_by']))
+                <div class="mt-3 text-end">
+                    <a href="{{ route('admin.deleted.crawls') }}" class="btn btn-outline-secondary"
+                       style="border: 1px solid rgba(255,255,255,0.3); color: #bbd0ff; padding: 8px 16px;">
+                        <i class="fas fa-times me-2"></i>Xóa bộ lọc
+                    </a>
+                </div>
+            @endif
         </div>
 
         @if ($deletedCrawls->count() > 0)
@@ -199,9 +460,10 @@
                             <th>Trạng thái</th>
                             <th>Ghi chú</th>
                             <th>Dữ liệu JSON</th>
-                            <th>Kết quả Matching</th>
+                            <th>Kết quả Match</th>
                             <th>Xóa bởi</th>
                             <th>Thời gian xóa</th>
+                            <th style="text-align: center;">Thao Tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -237,7 +499,7 @@
                                 </td>
                                 <td>
                                     @if (is_array($crawl->result) && count($crawl->result) > 0)
-                                        <button class="action-btn results match" onclick="openModal({{ $crawl->id }}, 'results')">
+                                        <button class="action-btn match" onclick="openModal({{ $crawl->id }}, 'results')">
                                             Kết quả ({{ count($crawl->result) }})
                                         </button>
                                     @else
@@ -246,6 +508,17 @@
                                 </td>
                                 <td>{{ $crawl->deletedBy ? $crawl->deletedBy->name : 'N/A' }}</td>
                                 <td>{{ $crawl->deleted_at->format('d/m/Y H:i:s') }}</td>
+                                <td style="text-align: center;">
+                                    <form action="{{ route('admin.deleted.crawls.destroy', $crawl->id) }}" method="POST" 
+                                          style="display: inline-block;" 
+                                          onsubmit="return confirm('⚠️ Bạn có chắc chắn muốn XÓA VĨNH VIỄN crawl này?\n\nHành động này KHÔNG THỂ KHÔI PHỤC!');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-delete" title="Xóa vĩnh viễn">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -253,16 +526,17 @@
             </div>
 
             <div class="pagination">
-                {{ $deletedCrawls->links() }}
+                {{ $deletedCrawls->appends(request()->query())->links() }}
             </div>
         @else
             <div class="no-data">
-                <p>Không có lần crawl nào đã bị xóa.</p>
+                <i class="fas fa-trash-alt fa-4x mb-4" style="opacity: 0.4;"></i>
+                <p>Không tìm thấy lần crawl nào phù hợp với bộ lọc.</p>
             </div>
         @endif
     </div>
 
-    <!-- Modal xem chi tiết (giống trang lịch sử) -->
+    <!-- Modal xem chi tiết -->
     <div class="overlay" id="overlay" onclick="closeModal()"></div>
     <div class="main-modal" id="mainModal">
         <div class="modal-header">
@@ -297,6 +571,25 @@
         const crawlData = @json($deletedCrawls->keyBy('id')->map(fn($c) => ['detail' => $c->detail, 'result' => $c->result]));
 
         let currentRunId = null;
+
+        // Toast functions
+        function closeToast() {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                toast.classList.add('hiding');
+                setTimeout(() => toast.remove(), 400);
+            }
+        }
+
+        // Auto hide toast after 4 seconds
+        document.addEventListener('DOMContentLoaded', () => {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                setTimeout(() => {
+                    closeToast();
+                }, 4000);
+            }
+        });
 
         function openModal(runId, initialTab = 'json') {
             currentRunId = runId;
@@ -383,12 +676,13 @@
 
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const successMessage = document.getElementById('successMessage');
-            if (successMessage) {
-                setTimeout(() => successMessage.style.opacity = '0', 2000);
-                setTimeout(() => successMessage.remove(), 3000);
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
             }
-        });
+        `;
+        document.head.appendChild(style);
     </script>
 @endpush

@@ -19,19 +19,16 @@ class XPathController extends Controller
 
     public function update(Request $request, SiteSelector $siteSelector)
     {
-        $request->validate([
+        $validated = $request->validate([
             'selector_value' => 'required|string',
             'description'    => 'nullable|string|max:255',
-            'is_active'      => 'required|boolean',
             'version'        => 'required|string|max:20',
         ]);
 
-        $siteSelector->update($request->only([
-            'selector_value',
-            'description',
-            'is_active',
-            'version'
-        ]));
+        // Thêm is_active vào validated data
+        $validated['is_active'] = $request->has('is_active');
+
+        $siteSelector->update($validated);
 
         return redirect()->back()
             ->with('success', "Đã lưu thay đổi cho {$siteSelector->site} - {$siteSelector->element_key}");

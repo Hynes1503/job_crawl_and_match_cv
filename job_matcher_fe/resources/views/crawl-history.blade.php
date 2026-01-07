@@ -531,7 +531,7 @@
                                             <i class="fas fa-code"></i> JSON
                                         </button>
                                         <button class="action-btn match" onclick="openModal({{ $run->id }}, 'match')">
-                                            <i class="fas fa-search"></i> Tìm việc
+                                            <i class="fas fa-search"></i> Nối CV
                                         </button>
 
                                         @if (!empty($run->result) && count($run->result) > 0)
@@ -595,7 +595,7 @@
 
         <div class="modal-tabs">
             <button class="tab-btn active" id="tab-json" onclick="switchTab('json')">Dữ liệu JSON</button>
-            <button class="tab-btn" id="tab-match" onclick="switchTab('match')">Tìm việc phù hợp</button>
+            <button class="tab-btn" id="tab-match" onclick="switchTab('match')">Nối CV</button>
             <button class="tab-btn" id="tab-results" onclick="switchTab('results')">Kết quả Matching</button>
         </div>
 
@@ -650,7 +650,7 @@
 
                     <div id="matchLoading" style="text-align: center; padding: 40px; display: none;">
                         <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #00b4ff;"></i>
-                        <p style="margin-top: 16px;">Đang phân tích CV và tìm việc phù hợp...</p>
+                        <p style="margin-top: 16px;">Đang phân tích CV và đánh giá...</p>
                     </div>
                 </div>
             </div>
@@ -664,7 +664,7 @@
 
                 <div id="resultsContent">
                     <div id="noResultsMessage" style="text-align: center; padding: 60px 20px; opacity: 0.7;">
-                        <p>Chưa có kết quả matching nào.<br>Hãy upload CV ở tab "Tìm việc phù hợp" để bắt đầu.</p>
+                        <p>Chưa có kết quả matching nào.<br>Hãy upload CV ở tab "Nối CV" để bắt đầu.</p>
                     </div>
 
                     <div id="matchList" class="match-results">

@@ -191,7 +191,7 @@
                     <i class="fas fa-trash-restore"></i> Crawl Đã Xóa
                 </a>
             </li>
-            
+
             <li class="nav-item">
                 <a class="nav-link text-white {{ request()->routeIs('admin.site-selectors*') ? 'active' : '' }}"
                     href="{{ route('admin.site-selectors.index') }}">
@@ -246,11 +246,217 @@
         <!-- Nội dung chính -->
         <div class="container-fluid py-4 px-4 px-md-5">
             @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="toast-notification success" id="toastNotification">
+                    <div class="toast-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="toast-content">
+                        <div class="toast-title">Thành công!</div>
+                        <div class="toast-message">{{ session('success') }}</div>
+                    </div>
+                    <button class="toast-close" onclick="closeToast()">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
             @endif
+
+            @if (session('error'))
+                <div class="toast-notification error" id="toastNotification">
+                    <div class="toast-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="toast-content">
+                        <div class="toast-title">Lỗi!</div>
+                        <div class="toast-message">{{ session('error') }}</div>
+                    </div>
+                    <button class="toast-close" onclick="closeToast()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            @endif
+
+            @if (session('warning'))
+                <div class="toast-notification warning" id="toastNotification">
+                    <div class="toast-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="toast-content">
+                        <div class="toast-title">Cảnh báo!</div>
+                        <div class="toast-message">{{ session('warning') }}</div>
+                    </div>
+                    <button class="toast-close" onclick="closeToast()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            @endif
+
+            @push('styles')
+                <style>
+                    @keyframes slideIn {
+                        from {
+                            transform: translateX(400px);
+                            opacity: 0;
+                        }
+
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+
+                    @keyframes slideOut {
+                        from {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+
+                        to {
+                            transform: translateX(400px);
+                            opacity: 0;
+                        }
+                    }
+
+                    @keyframes progressBar {
+                        from {
+                            width: 100%;
+                        }
+
+                        to {
+                            width: 0%;
+                        }
+                    }
+
+                    .toast-notification {
+                        position: fixed;
+                        top: 24px;
+                        right: 24px;
+                        min-width: 350px;
+                        max-width: 450px;
+                        background: rgba(0, 0, 0, 0.95);
+                        backdrop-filter: blur(12px);
+                        border-radius: 12px;
+                        padding: 18px;
+                        display: flex;
+                        align-items: center;
+                        gap: 14px;
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+                        z-index: 9999;
+                        animation: slideIn 0.4s ease-out;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                    }
+
+                    .toast-notification.hiding {
+                        animation: slideOut 0.4s ease-out forwards;
+                    }
+
+                    /* Success */
+                    .toast-notification.success {
+                        border-left: 4px solid #00ffaa;
+                    }
+
+                    .toast-notification.success .toast-icon {
+                        color: #00ffaa;
+                        font-size: 1.5rem;
+                    }
+
+                    /* Error */
+                    .toast-notification.error {
+                        border-left: 4px solid #ff5080;
+                    }
+
+                    .toast-notification.error .toast-icon {
+                        color: #ff5080;
+                        font-size: 1.5rem;
+                    }
+
+                    /* Warning */
+                    .toast-notification.warning {
+                        border-left: 4px solid #ffb400;
+                    }
+
+                    .toast-notification.warning .toast-icon {
+                        color: #ffb400;
+                        font-size: 1.5rem;
+                    }
+
+                    .toast-content {
+                        flex: 1;
+                    }
+
+                    .toast-title {
+                        font-weight: 700;
+                        font-size: 1rem;
+                        margin-bottom: 4px;
+                        color: #fff;
+                    }
+
+                    .toast-message {
+                        font-size: 0.9rem;
+                        opacity: 0.85;
+                        color: #ddd;
+                    }
+
+                    .toast-close {
+                        background: transparent;
+                        border: none;
+                        color: rgba(255, 255, 255, 0.5);
+                        font-size: 1.1rem;
+                        cursor: pointer;
+                        padding: 4px 8px;
+                        transition: all 0.3s ease;
+                        border-radius: 4px;
+                    }
+
+                    .toast-close:hover {
+                        background: rgba(255, 255, 255, 0.1);
+                        color: #fff;
+                    }
+
+                    /* Progress bar chung */
+                    .toast-notification::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        height: 3px;
+                        width: 100%;
+                        background: linear-gradient(90deg, #00b4ff, #00ffaa);
+                        animation: progressBar 4s linear forwards;
+                        border-radius: 0 0 12px 12px;
+                    }
+
+                    /* Progress bar cho error */
+                    .toast-notification.error::after {
+                        background: linear-gradient(90deg, #ff5080, #ff8a00);
+                    }
+
+                    /* Progress bar cho warning */
+                    .toast-notification.warning::after {
+                        background: linear-gradient(90deg, #ffb400, #ff8a00);
+                    }
+                </style>
+            @endpush
+
+            @push('scripts')
+                <script>
+                    function closeToast() {
+                        const toast = document.getElementById('toastNotification');
+                        if (toast) {
+                            toast.classList.add('hiding');
+                            setTimeout(() => toast.remove(), 400);
+                        }
+                    }
+
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const toast = document.getElementById('toastNotification');
+                        if (toast) {
+                            setTimeout(() => {
+                                closeToast();
+                            }, 4000);
+                        }
+                    });
+                </script>
+            @endpush
 
             @yield('content')
         </div>

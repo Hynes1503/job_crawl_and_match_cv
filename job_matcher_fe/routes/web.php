@@ -9,6 +9,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\XPathController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +27,12 @@ Route::get('/auth/google/callback', [SocialAuthController::class, 'callbackGoogl
 
 Route::get('/auth/github', [SocialAuthController::class, 'redirectGithub'])->name('auth.github');
 Route::get('/auth/github/callback', [SocialAuthController::class, 'callbackGithub']);
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showForm'])->name('password.reset');
+Route::post('/reset-password/{token}', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/match-cv', [JobMatcherController::class, 'showMatchForm'])->name('match.cv.form');
 Route::post('/match-cv', [JobMatcherController::class, 'processMatch'])->name('match.cv');
@@ -65,10 +73,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('admin/logs', LogController::class)->names([
         'index' => 'admin.logs.index',
         'show' => 'admin.logs.show',
+        'destroy' => 'admin.logs.destroy',
     ]);
+    Route::get('/logs/pending', [LogController::class, 'pendingExpiration'])->name('admin.logs.pending');
+    Route::post('/logs/{log}/handle', [LogController::class, 'handleExpiration'])->name('admin.logs.handle');
     // Routes cho deleted crawls
     Route::get('/admin/deleted-crawls', [AdminController::class, 'deletedCrawls'])->name('admin.deleted.crawls');
     Route::get('/admin/deleted-crawls/{deletedCrawl}', [AdminController::class, 'showDeletedCrawl'])->name('admin.deleted.crawls.show');
+    Route::delete('/admin/deleted-crawls/{id}', [AdminController::class, 'destroyDeletedCrawl'])
+        ->name('admin.deleted.crawls.destroy');
 
     Route::get('/site-selectors', [XPathController::class, 'index'])
         ->name('admin.site-selectors.index');

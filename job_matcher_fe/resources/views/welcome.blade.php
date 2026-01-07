@@ -195,7 +195,7 @@
             height: 22px;
         }
 
-        /* Modal */
+        /* Modal chung */
         .modal {
             position: fixed;
             inset: 0;
@@ -342,7 +342,7 @@
         <div class="right">
             <div class="wrapper">
                 <div class="logo">JM</div>
-                <h2>Chào mừng bạn!</h2>
+                <h2>Welcome!</h2>
                 <p>Đăng nhập hoặc tạo tài khoản để bắt đầu</p>
 
                 <button class="btn btn-primary" onclick="openLogin()">
@@ -385,7 +385,8 @@
             </a>
 
             <div class="modal-switch">
-                <span onclick="switchToRegister()">Chưa có tài khoản? Đăng ký ngay</span>
+                <span onclick="switchToRegister()">Chưa có tài khoản? Đăng ký ngay</span><br><br>
+                <span onclick="openForgotPassword()">Quên mật khẩu?</span>
             </div>
 
             <div class="close" onclick="closeLogin()">Đóng</div>
@@ -423,6 +424,41 @@
         </div>
     </div>
 
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-box">
+            <h3>Quên mật khẩu</h3>
+
+            @if(session('success'))
+                <div style="background: rgba(0, 255, 150, 0.15); border: 1px solid rgba(0, 255, 150, 0.4); color: #00ffaa; padding: 16px; border-radius: 14px; margin-bottom: 24px; text-align: center;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('status'))
+                <div style="background: rgba(0, 255, 150, 0.15); border: 1px solid rgba(0, 255, 150, 0.4); color: #00ffaa; padding: 16px; border-radius: 14px; margin-bottom: 24px; text-align: center;">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('password.email') }}">
+                @csrf
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Nhập email của bạn" required autofocus>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Gửi link đặt lại mật khẩu
+                </button>
+            </form>
+
+            <div class="modal-switch">
+                <span onclick="switchToLogin()">← Quay lại đăng nhập</span>
+            </div>
+
+            <div class="close" onclick="closeForgotPassword()">Đóng</div>
+        </div>
+    </div>
+
     <script>
         function openLogin() {
             document.getElementById('loginModal').classList.add('active');
@@ -440,6 +476,15 @@
             document.getElementById('registerModal').classList.remove('active');
         }
 
+        function openForgotPassword() {
+            closeLogin();
+            document.getElementById('forgotPasswordModal').classList.add('active');
+        }
+
+        function closeForgotPassword() {
+            document.getElementById('forgotPasswordModal').classList.remove('active');
+        }
+
         function switchToRegister() {
             closeLogin();
             openRegister();
@@ -447,6 +492,7 @@
 
         function switchToLogin() {
             closeRegister();
+            closeForgotPassword();
             openLogin();
         }
     </script>
