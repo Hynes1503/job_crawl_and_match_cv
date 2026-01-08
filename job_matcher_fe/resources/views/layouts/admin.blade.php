@@ -199,6 +199,13 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link text-white {{ request()->routeIs('admin.statistics*') ? 'active' : '' }}"
+                    href="{{ route('admin.statistics') }}">
+                    <i class="fa-solid fa-chart-pie"></i> Thống kê
+                </a>
+            </li>
+
             <!-- Phần user dropdown ở dưới cùng -->
             <li class="nav-item mt-auto mb-4">
                 <div class="dropdown">

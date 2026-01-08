@@ -558,7 +558,7 @@ PROMPT;
         $crawlRuns = auth()->user()
             ->crawlRuns()
             ->orderByDesc('created_at')
-            ->paginate(10);
+            ->paginate(20);
 
         $jobsCount = 0;
         try {

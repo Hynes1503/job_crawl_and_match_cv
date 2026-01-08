@@ -269,7 +269,7 @@
             padding: 12px;
             border-radius: 8px;
             border: 1px solid #444;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -394,6 +394,29 @@
             margin-top: 30px;
             display: flex;
             justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pagination .page-link {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbd0ff;
+            border-radius: 8px;
+            padding: 10px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-link:hover {
+            background: rgba(0, 180, 255, 0.2);
+            color: #fff;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: #00b4ff;
+            border-color: #00b4ff;
+            color: #000;
+            font-weight: 600;
         }
 
         @keyframes fadeIn {
@@ -479,9 +502,6 @@
                     Lịch Sử Crawl
                 </span>
             </h1>
-            {{-- <div class="stats">
-                Tổng cộng có <strong>{{ number_format($jobsCount) }}</strong> công việc hiện tại trong hệ thống
-            </div> --}}
         </div>
 
         @if ($crawlRuns->count() > 0)
@@ -556,11 +576,16 @@
                                         </button>
                                     </form>
 
-                                    {{-- Nút Export Training (chỉ hiện khi completed + có detail) --}}
-                                    @if ($run->status == 'completed' && $run->detail && count($run->detail) > 0)
+                                    {{-- Nút Export Training: Chỉ hiện khi completed + có detail + có ít nhất 1 kết quả matching --}}
+                                    @if (
+                                        $run->status == 'completed' &&
+                                            $run->detail &&
+                                            count($run->detail) > 0 &&
+                                            !empty($run->result) &&
+                                            count($run->result) > 0)
                                         <a href="{{ route('crawl-runs.export-training', $run->id) }}"
-                                           class="action-btn export-training"
-                                           title="Export dữ liệu crawl + CV text để training model AI">
+                                            class="action-btn export-training"
+                                            title="Export dữ liệu crawl + CV text để training model AI">
                                             <i class="fas fa-file-export"></i> Export Training
                                         </a>
                                     @endif
@@ -572,7 +597,7 @@
             </div>
 
             <div class="pagination">
-                {{ $crawlRuns->links() }}
+                {{ $crawlRuns->appends(request()->query())->links() }}
             </div>
         @else
             <div class="no-data">
@@ -585,7 +610,7 @@
         @endif
     </div>
 
-    <!-- Modal chính -->
+    <!-- Modal chính (giữ nguyên như cũ) -->
     <div class="overlay" id="overlay" onclick="closeModal()"></div>
     <div class="main-modal" id="mainModal">
         <div class="modal-header">
@@ -605,31 +630,35 @@
                 <pre id="jsonContent"></pre>
             </div>
 
-            <!-- Tab Tìm việc phù hợp -->
+            <!-- Tab Nối CV -->
             <div id="tab-content-match" style="display: none;">
                 <div class="upload-form">
                     <form id="matchForm" action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div style="margin-bottom: 20px;">
-                            <label for="existing_cv" style="display: block; margin-bottom: 8px; font-weight: 600; color: #fff;">
+                            <label for="existing_cv"
+                                style="display: block; margin-bottom: 8px; font-weight: 600; color: #fff;">
                                 <i class="fas fa-file-alt" style="margin-right: 8px; color: #00b4ff;"></i>
                                 Chọn CV có sẵn (tùy chọn)
                             </label>
                             <select name="existing_cv" id="existing_cv" class="cv-select">
                                 <option value="">-- Không chọn, upload CV mới --</option>
-                                @foreach($userCvs as $cv)
-                                    <option value="{{ $cv->id }}" data-url="{{ $cv->url }}" data-mime="{{ $cv->mime_type }}">{{ $cv->original_name }}</option>
+                                @foreach ($userCvs as $cv)
+                                    <option value="{{ $cv->id }}" data-url="{{ $cv->url }}"
+                                        data-mime="{{ $cv->mime_type }}">{{ $cv->original_name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <!-- CV Preview Area -->
-                        <div id="cv-preview" style="display: none; margin-bottom: 20px; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                        <div id="cv-preview"
+                            style="display: none; margin-bottom: 20px; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
                             <h4 style="color: #00b4ff; margin-bottom: 12px; font-size: 1rem;">
                                 <i class="fas fa-eye" style="margin-right: 8px;"></i>Preview CV
                             </h4>
                             <div id="cv-preview-content"></div>
                         </div>
+
                         <div class="upload-area" onclick="document.getElementById('cvFile').click()">
                             <i class="fas fa-cloud-upload-alt"
                                 style="font-size: 3rem; color: #00b4ff; margin-bottom: 16px;"></i>
@@ -638,6 +667,7 @@
                             <input type="file" id="cvFile" name="cv_file" accept=".pdf,.docx,.txt" required>
                         </div>
                         <div id="fileNameDisplay" class="file-name-display" style="display: none;"></div>
+
                         <div style="margin-top: 20px;">
                             <input type="text" name="extra_skills" placeholder="Kỹ năng bổ sung (ví dụ: React, AWS)"
                                 style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: rgba(255,255,255,0.05); color: #fff; margin-bottom: 12px;">
@@ -645,6 +675,7 @@
                                 placeholder="Vị trí mong muốn (ví dụ: Senior Backend)"
                                 style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: rgba(255,255,255,0.05); color: #fff;">
                         </div>
+
                         <button type="submit" class="upload-btn">Tìm việc phù hợp ngay</button>
                     </form>
 
@@ -679,8 +710,8 @@
 @push('scripts')
     <script>
         /* ===============================
-                           DATA TỪ BACKEND
-                        =============================== */
+                                       DATA TỪ BACKEND
+                                    =============================== */
 
         const crawlData = @json($crawlData);
 
@@ -720,7 +751,7 @@
             document.getElementById('fileNameDisplay').textContent = '';
             document.getElementById('matchLoading').style.display = 'none';
 
-            // 🔥 RENDER RESULT TỪ DB
+            // RENDER RESULT TỪ DB
             if (Array.isArray(results) && results.length > 0) {
                 renderMatchResults(results);
                 switchTab('results');
@@ -797,12 +828,12 @@
                             </div>
 
                             ${skills.length > 0 ? `
-                                                    <div class="skill-tags">
-                                                        ${skills.map(skill =>
-                                                            `<span class="skill-tag">${skill}</span>`
-                                                        ).join('')}
-                                                    </div>
-                                                ` : ''}
+                                    <div class="skill-tags">
+                                        ${skills.map(skill =>
+                                            `<span class="skill-tag">${skill}</span>`
+                                        ).join('')}
+                                    </div>
+                                ` : ''}
                         </div>
 
                         <div class="score-container">
@@ -848,14 +879,12 @@
             const uploadArea = document.querySelector('.upload-area');
             const cvFile = document.getElementById('cvFile');
             if (this.value) {
-                // Selected existing CV, disable upload
                 uploadArea.style.opacity = '0.5';
                 uploadArea.style.pointerEvents = 'none';
                 cvFile.required = false;
                 cvFile.value = '';
                 document.getElementById('fileNameDisplay').style.display = 'none';
 
-                // Show preview
                 const selectedOption = this.options[this.selectedIndex];
                 const fileName = selectedOption.text;
                 const url = selectedOption.getAttribute('data-url');
@@ -869,16 +898,7 @@
                         <iframe src="${url}" width="100%" height="400px" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;"></iframe>
                         <p style="margin-top: 8px; font-size: 0.9rem; opacity: 0.8;">Preview PDF - <a href="${url}" target="_blank" style="color: #00ffaa;">Mở trong tab mới</a></p>
                     `;
-                } else if (mime === 'text/plain' || extension === 'txt') {
-                    // For text files, we might need to fetch content, but for now just show download link
-                    contentDiv.innerHTML += `
-                        <p>Loại file: TEXT</p>
-                        <a href="${url}" download style="color: #00ffaa; text-decoration: none;">
-                            <i class="fas fa-download" style="margin-right: 8px;"></i>Tải xuống để xem
-                        </a>
-                    `;
                 } else {
-                    // For DOC, DOCX, etc.
                     contentDiv.innerHTML += `
                         <p>Loại file: ${extension.toUpperCase()}</p>
                         <a href="${url}" download style="color: #00ffaa; text-decoration: none;">
@@ -889,7 +909,6 @@
 
                 previewDiv.style.display = 'block';
             } else {
-                // No selection, enable upload
                 uploadArea.style.opacity = '1';
                 uploadArea.style.pointerEvents = 'auto';
                 cvFile.required = true;
@@ -905,15 +924,13 @@
             if (e.key === 'Escape') closeModal();
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const successMessage = document.getElementById('successMessage');
             if (successMessage) {
-                // Bắt đầu mờ dần sau 4 giây
                 setTimeout(() => {
                     successMessage.style.opacity = '0';
                 }, 2000);
 
-                // Xóa hoàn toàn khỏi DOM sau khi mờ xong (1 giây transition)
                 setTimeout(() => {
                     successMessage.remove();
                 }, 3000);

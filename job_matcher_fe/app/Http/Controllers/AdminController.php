@@ -7,12 +7,71 @@ use App\Models\User;
 use App\Models\Log;
 use App\Models\DeletedCrawl;
 use Illuminate\Support\Facades\Auth;
+use App\Models\CrawlRun;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        // USER + LOG STATS
+        $totalUsers = User::count();
+        $totalAdmins = User::where('role', 'admin')->count();
+        $totalNormalUsers = User::where('role', 'user')->count();
+        $totalLogs = Log::count();
+
+        $recentLogs = Log::with('user')->latest()->take(6)->get();
+
+        // ================== CRAWL STATS ==================
+        $runs = CrawlRun::whereNotNull('detail')->get();
+
+        $jobs = collect();
+
+        foreach ($runs as $run) {
+            foreach ($run->detail as $job) {
+                $jobs->push([
+                    'location'   => $job['location'] ?: 'Không rõ',
+                    'created_at' => $run->created_at,
+                    'hash'       => md5(($job['title'] ?? '') . ($job['location'] ?? '') . ($job['url'] ?? ''))
+                ]);
+            }
+        }
+
+        // Số lượng crawl theo thời gian
+        $crawlToday = $jobs->where('created_at', '>=', now()->startOfDay())->count();
+        $crawlWeek  = $jobs->where('created_at', '>=', now()->startOfWeek())->count();
+        $crawlMonth = $jobs->where('created_at', '>=', now()->startOfMonth())->count();
+        $crawlYear  = $jobs->where('created_at', '>=', now()->startOfYear())->count();
+
+        // Job trùng
+        $duplicateJobs = $jobs->groupBy('hash')->filter(fn($i) => $i->count() > 1)->count();
+
+        // Phân bố theo địa điểm (Top 10 + Others)
+        $byLocation = $jobs->groupBy('location')->map->count()->sortDesc();
+
+        $topLocations = $byLocation->take(10);
+        $othersCount = $byLocation->skip(10)->sum();
+
+        if ($othersCount > 0) {
+            $topLocations->put('Các tỉnh/thành khác', $othersCount);
+        }
+
+        $locationLabels = $topLocations->keys()->toArray();
+        $locationData   = $topLocations->values()->toArray();
+
+        return view('admin.dashboard', compact(
+            'totalUsers',
+            'totalAdmins',
+            'totalNormalUsers',
+            'totalLogs',
+            'recentLogs',
+            'crawlToday',
+            'crawlWeek',
+            'crawlMonth',
+            'crawlYear',
+            'duplicateJobs',
+            'locationLabels',
+            'locationData'
+        ));
     }
 
     public function manageUsers(Request $request)
@@ -46,13 +105,18 @@ class AdminController extends Controller
 
     public function updateUserRole(Request $request, User $user)
     {
+        // ❌ Không cho tự đổi role của chính mình
+        if ($user->id === Auth::id()) {
+            return redirect()->route('admin.users')
+                ->with('error', 'You cannot change your own role!');
+        }
+
         $request->validate([
             'role' => 'required|in:admin,user',
         ]);
 
         $user->update(['role' => $request->role]);
 
-        // Ghi log cập nhật role
         Log::create([
             'user_id' => Auth::id(),
             'action' => 'update_user_role',
@@ -62,6 +126,7 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'Role updated successfully');
     }
+
 
     public function deletedCrawls(Request $request)
     {

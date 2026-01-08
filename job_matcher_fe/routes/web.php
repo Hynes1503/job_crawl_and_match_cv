@@ -11,6 +11,7 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\XPathController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\StatisticalController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -88,6 +89,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::put('/site-selectors/{siteSelector}', [XPathController::class, 'update'])
         ->name('admin.site-selectors.update');
+
+    Route::get('admin/statistics', [StatisticalController::class, 'index'])
+        ->name('admin.statistics');
 });
 
 // Routes cho User
