@@ -4,305 +4,439 @@
 
 @push('styles')
     <style>
-        /* Container chính - tối ưu cho màn hình 16:9, không tràn */
-        .content-container {
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(14px);
-            min-height: 100vh;
-            padding: 40px 20px 60px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            width: 100%;
-        }
-
-        /* Panel crawl gọn gàng, vừa màn hình 16:9 */
-        .crawl-panel {
-            width: 100%;
-            max-width: 620px; /* Giảm từ 760px → gọn hơn */
-            padding: 0 20px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            margin-top: 20px;
-        }
-
-        /* Tiêu đề nhỏ hơn, vừa màn hình */
-        .panel-title {
-            font-size: 2.2rem; /* Giảm từ 2.6rem */
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 10px;
-            line-height: 1.1;
-        }
-
-        .animated-text {
-            background: linear-gradient(120deg, #00b4ff, #ffffff, #00ffaa);
-            background-size: 200% 200%;
-            animation: textGradient 8s ease infinite;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         @keyframes textGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Mô tả ngắn gọn hơn */
-        .panel-desc {
-            opacity: 0.85;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Container */
+        .crawl-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* Hero Card */
+        .crawl-card {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(15, 15, 25, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 180, 255, 0.3);
+            border-radius: 32px;
+            padding: 48px 40px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .crawl-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 180, 255, 0.15), transparent);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .crawl-header {
             text-align: center;
-            max-width: 520px;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
+        }
+
+        .crawl-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(0, 180, 255, 0.2), rgba(0, 255, 170, 0.2));
+            border: 2px solid rgba(0, 180, 255, 0.4);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2.5rem;
+        }
+
+        .crawl-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(120deg, #00b4ff, #ffffff, #00ffaa);
+            background-size: 200% 200%;
+            animation: textGradient 8s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .crawl-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            color: #bbd0ff;
             line-height: 1.6;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .form-label i {
+            color: #00b4ff;
             font-size: 1rem;
         }
 
-        /* Form wrapper nhỏ hơn */
-        .form-wrapper {
+        .form-input,
+        .form-select {
             width: 100%;
-            max-width: 600px; /* Giảm từ 720px */
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            opacity: 0.95;
-        }
-
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 12px 16px; /* Giảm padding */
-            background: rgba(17, 17, 17, 0.85);
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             color: #ffffff;
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
-        input[type="text"]:focus,
-        select:focus {
+        .form-input:focus,
+        .form-select:focus {
             outline: none;
             border-color: #00b4ff;
             box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
         }
 
-        select {
+        .form-input::placeholder {
+            color: #888;
+        }
+
+        .form-select {
             appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bbbbbb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300b4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 14px center;
-            background-size: 14px;
+            background-size: 16px;
             padding-right: 44px;
+            cursor: pointer;
         }
 
-        /* 3 select ngang nhưng nhỏ hơn */
-        .filters-row {
+        .form-select option {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px;
+        }
+
+        /* Filters Grid */
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* Range Slider */
+        .slider-group {
+            margin: 32px 0;
+        }
+
+        .slider-header {
             display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
         }
 
-        .filters-row .form-group {
-            flex: 1;
-            min-width: 170px; /* Giảm min-width */
-            margin-bottom: 0;
+        .slider-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #fff;
         }
 
-        /* Slider nhỏ gọn */
-        .slider-container {
-            margin: 28px 0 24px;
-            width: 100%;
-        }
-
-        .slider-container label {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            height: 7px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 7px;
-            outline: none;
-            appearance: none;
-            cursor: pointer;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, #00b4ff, #00ffaa);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 180, 255, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
+        .slider-label i {
+            color: #00b4ff;
         }
 
         .slider-value {
-            text-align: center;
-            font-size: 1.4rem; /* Giảm từ 1.6rem */
+            font-size: 1.8rem;
             font-weight: 800;
-            color: #00ffaa;
-            margin-top: 10px;
-            text-shadow: 0 0 12px rgba(0, 255, 150, 0.3);
+            background: linear-gradient(120deg, #00b4ff, #00ffaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 150, 0.3);
         }
 
-        /* Nút crawl nhỏ hơn, vừa phải */
-        .btn {
+        .range-slider {
             width: 100%;
-            padding: 16px; /* Giảm từ 18px */
-            border-radius: 999px;
-            font-size: 1.1rem; /* Giảm từ 1.2rem */
-            font-weight: 700;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #00b4ff, #00ffaa);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 180, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 30px rgba(0, 180, 255, 0.8);
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #00b4ff, #00ffaa);
+            border-radius: 50%;
             cursor: pointer;
             border: none;
-            transition: all 0.4s ease;
-            margin-top: 16px;
+            box-shadow: 0 0 20px rgba(0, 180, 255, 0.6);
+        }
+
+        /* Progress Bar */
+        .slider-track {
+            height: 4px;
+            background: rgba(0, 180, 255, 0.3);
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .slider-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00b4ff, #00ffaa);
+            transition: width 0.2s ease;
+            border-radius: 4px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00b4ff, #00ffaa);
+            color: #000;
+            padding: 18px;
+            border: none;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 32px;
+            box-shadow: 0 8px 24px rgba(0, 180, 255, 0.3);
         }
 
-        .btn i {
-            font-size: 1.4rem;
-        }
-
-        .btn-crawl {
-            background: linear-gradient(135deg, #00b4ff, #00ffaa);
-            color: #000000;
-        }
-
-        .btn-crawl:hover {
+        .submit-btn:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 180, 255, 0.4);
+            box-shadow: 0 12px 32px rgba(0, 180, 255, 0.5);
         }
 
-        /* Thông báo nhỏ gọn */
-        .status-message {
-            padding: 16px 20px;
+        .submit-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn i {
+            font-size: 1.5rem;
+        }
+
+        /* Status Messages */
+        .status-alert {
+            margin-top: 24px;
+            padding: 18px 24px;
             border-radius: 14px;
             text-align: center;
             font-weight: 600;
-            max-width: 600px;
-            margin: 24px auto 0;
-            font-size: 1rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            animation: fadeIn 0.5s ease;
         }
 
-        .success {
-            background: rgba(0, 255, 150, 0.15);
+        .status-alert i {
+            font-size: 1.3rem;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, rgba(0, 255, 150, 0.15), rgba(0, 255, 150, 0.08));
             border: 1px solid rgba(0, 255, 150, 0.4);
             color: #00ffaa;
         }
 
-        .error {
-            background: rgba(255, 100, 100, 0.15);
+        .alert-error {
+            background: linear-gradient(135deg, rgba(255, 100, 100, 0.15), rgba(255, 100, 100, 0.08));
             border: 1px solid rgba(255, 100, 100, 0.4);
             color: #ff6b6b;
         }
 
-        /* Responsive - tối ưu cho 16:9 */
+        /* Info Box */
+        .info-box {
+            background: rgba(0, 180, 255, 0.08);
+            border: 1px solid rgba(0, 180, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-box i {
+            color: #00b4ff;
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
         @media (max-width: 992px) {
-            .crawl-panel {
-                max-width: 560px;
-            }
-            .panel-title {
-                font-size: 2rem;
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .content-container {
-                padding: 20px 16px 60px;
+            .crawl-container {
+                padding: 20px 16px;
             }
 
-            .crawl-panel {
-                margin-top: 10px;
-                padding: 0 10px 30px;
+            .crawl-card {
+                padding: 32px 24px;
+                border-radius: 24px;
             }
 
-            .panel-title {
-                font-size: 1.8rem;
+            .crawl-title {
+                font-size: 2.2rem;
             }
 
-            .panel-desc {
-                font-size: 0.95rem;
-                margin-bottom: 28px;
+            .crawl-subtitle {
+                font-size: 1rem;
             }
 
-            .filters-row {
-                flex-direction: column;
-                gap: 16px;
+            .filters-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .slider-value {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
 
-            .btn {
-                padding: 15px;
+            .submit-btn {
+                padding: 16px;
                 font-size: 1.05rem;
             }
         }
 
         @media (max-width: 480px) {
-            .panel-title {
-                font-size: 1.7rem;
+            .crawl-card {
+                padding: 24px 20px;
             }
 
-            .form-wrapper {
-                max-width: 100%;
+            .crawl-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .crawl-title {
+                font-size: 2rem;
             }
         }
     </style>
 @endpush
 
 @section('content')
-    <div class="content-container">
-        <div class="crawl-panel">
-            <h2 class="panel-title">
-                <span class="animated-text">Crawl</span><br>
-                <span class="animated-text">Công Việc IT</span>
-            </h2>
-            <p class="panel-desc">
-                Thu thập dữ liệu việc làm mới nhất từ TopCV với các tiêu chí tùy chỉnh.
-            </p>
+    <div class="crawl-container">
+        <div class="crawl-card">
+            <div class="card-content">
+                <div class="crawl-header">
+                    <h1 class="crawl-title">Crawl Công Việc IT</h1>
+                    <p class="crawl-subtitle">
+                        Thu thập dữ liệu việc làm mới nhất từ TopCV với các tiêu chí tùy chỉnh
+                    </p>
+                </div>
 
-            <div class="form-wrapper">
                 <form action="{{ route('crawl.jobs') }}" method="POST">
                     @csrf
 
+                    <!-- Keyword -->
                     <div class="form-group">
-                        <label for="keyword">Từ khóa (tùy chọn)</label>
-                        <input type="text" id="keyword" name="keyword" placeholder="Ví dụ: PHP, React, Java..." value="{{ old('keyword') }}">
+                        <label for="keyword" class="form-label">
+                            <i class="fas fa-search"></i>
+                            Từ khóa (tùy chọn)
+                        </label>
+                        <input type="text" id="keyword" name="keyword" class="form-input"
+                            placeholder="VD: PHP, React, Java, Python..."
+                            value="{{ old('keyword') }}">
                     </div>
 
-                    <div class="filters-row">
+                    <!-- Filters Grid -->
+                    <div class="filters-grid">
                         <div class="form-group">
-                            <label for="location">Tỉnh / Thành phố</label>
-                            <select id="location" name="location">
+                            <label for="location" class="form-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Địa điểm
+                            </label>
+                            <select id="location" name="location" class="form-select">
                                 <option value="">Tất cả tỉnh/thành phố</option>
                                 <option value="Hà Nội">Hà Nội</option>
                                 <option value="Hồ Chí Minh">Hồ Chí Minh</option>
@@ -371,8 +505,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="level">Cấp bậc</label>
-                            <select id="level" name="level">
+                            <label for="level" class="form-label">
+                                <i class="fas fa-layer-group"></i>
+                                Cấp bậc
+                            </label>
+                            <select id="level" name="level" class="form-select">
                                 <option value="">Tất cả cấp bậc</option>
                                 <option value="Thực tập sinh">Thực tập sinh</option>
                                 <option value="Nhân viên">Nhân viên</option>
@@ -385,8 +522,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="salary">Mức lương</label>
-                            <select id="salary" name="salary">
+                            <label for="salary" class="form-label">
+                                <i class="fas fa-dollar-sign"></i>
+                                Mức lương
+                            </label>
+                            <select id="salary" name="salary" class="form-select">
                                 <option value="">Tất cả mức lương</option>
                                 <option value="Dưới 10 triệu">Dưới 10 triệu</option>
                                 <option value="10 - 15 triệu">10 - 15 triệu</option>
@@ -400,29 +540,49 @@
                         </div>
                     </div>
 
-                    <div class="slider-container">
-                        <label>Số lượng công việc muốn crawl</label>
+                    <!-- Range Slider -->
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-label">
+                                <i class="fas fa-sliders-h"></i>
+                                Số lượng công việc
+                            </span>
+                            <span class="slider-value" id="sliderValue">{{ old('search_range', 20) }}</span>
+                        </div>
                         <input type="range" name="search_range" min="1" max="50"
                             value="{{ old('search_range', 20) }}"
+                            class="range-slider"
                             oninput="updateSliderValue(this.value)">
-                        <div class="slider-value">{{ old('search_range', 20) }} công việc</div>
+                        <div class="slider-track">
+                            <div class="slider-fill" id="sliderFill" style="width: {{ (old('search_range', 20) / 50) * 100 }}%"></div>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-crawl">
-                        <i class="fa-solid fa-circle-play"></i>
-                        Bắt đầu Crawl Ngay
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-rocket"></i>
+                        Bắt Đầu Crawl Ngay
                     </button>
                 </form>
 
+                <!-- Info Box -->
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Dữ liệu sẽ được crawl từ TopCV. Thời gian xử lý phụ thuộc vào số lượng công việc.</p>
+                </div>
+
+                <!-- Status Messages -->
                 @if (session('success'))
-                    <div class="status-message success">
-                        {{ session('success') }}
+                    <div class="status-alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <span>{{ session('success') }}</span>
                     </div>
                 @endif
 
                 @if (session('error') && request()->is('dashboard'))
-                    <div class="status-message error">
-                        {{ session('error') }}
+                    <div class="status-alert alert-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>{{ session('error') }}</span>
                     </div>
                 @endif
             </div>
@@ -433,7 +593,15 @@
 @push('scripts')
     <script>
         function updateSliderValue(value) {
-            document.querySelector('.slider-value').textContent = value + ' công việc';
+            document.getElementById('sliderValue').textContent = value;
+            const percentage = (value / 50) * 100;
+            document.getElementById('sliderFill').style.width = percentage + '%';
         }
+
+        // Initialize slider fill on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.range-slider');
+            updateSliderValue(slider.value);
+        });
     </script>
 @endpush

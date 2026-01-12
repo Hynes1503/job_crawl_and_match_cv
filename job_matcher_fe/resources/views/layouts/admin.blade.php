@@ -181,7 +181,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white {{ request()->routeIs('admin.logs*') ? 'active' : '' }}"
                     href="{{ route('admin.logs.index') }}">
-                    <i class="fas fa-history"></i> Nhật Ký Hệ Thống
+                    <i class="fas fa-history"></i> Nhật Ký Người Dùng
                 </a>
             </li>
 

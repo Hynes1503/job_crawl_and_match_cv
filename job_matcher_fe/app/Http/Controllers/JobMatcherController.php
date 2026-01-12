@@ -16,6 +16,7 @@ use App\Helpers\CvTextExtractor;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TrainingDataExport;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 
 class JobMatcherController extends Controller
 {
@@ -24,6 +25,53 @@ class JobMatcherController extends Controller
     /**
      * Trích xuất tóm tắt CV bằng Gemini API
      */
+
+    public function dashboard()
+    {
+        $user = Auth::user();
+
+        // Thống kê tổng quan
+        $stats = [
+            'total_cvs' => $user->cvs()->count(),
+            'total_crawls' => $user->crawlRuns()->count(),
+            'pending_crawls' => $user->crawlRuns()->where('status', 'pending')->count(),
+            'completed_crawls' => $user->crawlRuns()->where('status', 'completed')->count(),
+            'failed_crawls' => $user->crawlRuns()->where('status', 'failed')->count(),
+            'total_jobs_found' => $user->crawlRuns()->sum('jobs_crawled'),
+        ];
+
+        // Danh sách CV gần đây (5 CV mới nhất)
+        $recentCvs = $user->cvs()
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Lịch sử crawl gần đây (10 lần gần nhất)
+        $recentCrawls = $user->crawlRuns()
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Thống kê theo nguồn
+        $crawlsBySource = $user->crawlRuns()
+            ->selectRaw('source, count(*) as total, sum(jobs_crawled) as jobs')
+            ->groupBy('source')
+            ->get();
+
+        // Thống kê theo trạng thái
+        $crawlsByStatus = $user->crawlRuns()
+            ->selectRaw('status, count(*) as total')
+            ->groupBy('status')
+            ->get();
+
+        return view('dashboard', compact(
+            'stats',
+            'recentCvs',
+            'recentCrawls',
+            'crawlsBySource',
+            'crawlsByStatus'
+        ));
+    }
     private function extractCvSummary($cvText)
     {
         if (empty($cvText)) {
@@ -243,17 +291,16 @@ PROMPT;
 
             $formattedResults = array_map(function ($job) {
                 return [
-                    'Vị trí' => $job['title'] ?? 'Không rõ',
-                    'Mức lương' => $job['salary'] ?? 'Thoả thuận',
-                    'Kinh nghiệm' => is_numeric($job['experience'])
+                    'Vị trí'              => $job['title'] ?? 'Không rõ',
+                    'Mức lương'           => $job['salary'] ?? 'Thoả thuận',
+                    'Kinh nghiệm'         => is_numeric($job['experience'])
                         ? $job['experience'] . ' năm'
                         : ($job['experience'] ?? 'Không yêu cầu'),
-                    'Địa điểm' => $job['location'] ?? 'Không xác định',
-                    'Matching Score (%)' => number_format($job['score'], 1),
-                    'Kỹ năng phù hợp' => is_array($job['matching_skills'] ?? null)
-                        ? implode(', ', $job['matching_skills'])
-                        : ($job['matching_skills'] ?? 'Không có'),
-                    'url' => $job['url'] ?? '#',
+                    'Địa điểm'            => $job['location'] ?? 'Không xác định',
+                    'Matching Score (%)'  => number_format($job['score'], 1),
+                    'Kỹ năng phù hợp'     => $job['matching_skills'] ?? 'Không có',
+                    'Kỹ năng còn thiếu'   => $job['missing_skills'] ?? 'Không thiếu kỹ năng nào',
+                    'url'                 => $job['url'] ?? '#',
                 ];
             }, $topResults);
 
@@ -387,17 +434,19 @@ PROMPT;
 
             $formattedResults = array_map(function ($job) {
                 return [
-                    'Vị trí'            => $job['title'] ?? 'Không rõ',
-                    'Mức lương'         => $job['salary'] ?? 'Thoả thuận',
-                    'Kinh nghiệm'       => is_numeric($job['experience'])
+                    'Vị trí'              => $job['title'] ?? 'Không rõ',
+                    'Mức lương'           => $job['salary'] ?? 'Thoả thuận',
+                    'Kinh nghiệm'         => is_numeric($job['experience'])
                         ? $job['experience'] . ' năm'
                         : ($job['experience'] ?? 'Không yêu cầu'),
-                    'Địa điểm'          => $job['location'] ?? 'Không xác định',
-                    'Matching Score (%)' => number_format($job['score'], 1),
-                    'Kỹ năng phù hợp'   => $job['matching_skills'] ?? 'Không có',
-                    'url'               => $job['url'] ?? '#',
+                    'Địa điểm'            => $job['location'] ?? 'Không xác định',
+                    'Matching Score (%)'  => number_format($job['score'], 1),
+                    'Kỹ năng phù hợp'     => $job['matching_skills'] ?? 'Không có',
+                    'Kỹ năng còn thiếu'   => $job['missing_skills'] ?? 'Không thiếu kỹ năng nào',
+                    'url'                 => $job['url'] ?? '#',
                 ];
             }, $topResults);
+
 
             // Lưu kết quả + thông tin CV đã dùng
             $crawlRun->update([
@@ -542,7 +591,7 @@ PROMPT;
             Log::warning('Không thể lấy jobs count: ' . $e->getMessage());
         }
 
-        return view('crawl-jobs', compact('jobsCount'));
+        return view('match-cv', compact('jobsCount'));
     }
 
     /**

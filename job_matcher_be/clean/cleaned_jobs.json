@@ -1,86 +1,32 @@
 [
   {
-    "title": "Senior Backend Developer (Golang, Java/C++) Lương Từ 20-30 Triệu, Tại Hồ Chí Minh, Đi Làm Ngay",
+    "title": "Nhân Viên Lập Trình & Xử Lý Dữ Liệu – ASP.NET / WinForms / SQL Server",
     "job_description": [
-      "Backend Development: Design and build scalable backend services in Golang to manage warehouse operations, inventory flow, and equipment coordination.\nSystem Integration: Develop interfaces to connect software with physical hardware (robots, conveyors, sensors) using standard IoT protocols (MQTT, TCP/IP).\nControl Logic: Implement logic to optimize the movement of goods and fleet management, ensuring efficient and safe operations.\nEdge Computing: Deploy and manage services on edge devices, ensuring reliability even in offline scenarios.\nArchitecture: Design clean, maintainable APIs (REST/gRPC) and data models to support real-time monitoring and control.\nQuality & Reliability: Ensure system stability through comprehensive testing, logging, and performance monitoring."
+      "- Xây dựng ứng dụng Web bằng ASP.NET Core C# (MVC hoặc Razor Pages).\n- Xây dựng ứng dụng Desktop bằng WinForms C# phục vụ quản lý và xử lý dữ liệu.\n- Thiết kế giao diện báo cáo, biểu đồ, form nhập liệu bằng DevExpress.\n- Truy xuất, xử lý và tối ưu hóa dữ liệu trên SQL Server hoặc Oracle.\n- Phối hợp với các bộ phận liên quan để đảm bảo dữ liệu chính xác, bảo mật và dễ truy cập.\n- Công việc cụ thể trao đổi khi phỏng vấn."
     ],
     "requirements": [
-      "Software Engineering: 3+ years of backend development experience.\nLanguage Proficiency: Strong experience with Golang (or expert in Java/C++/Rust with a strong desire to learn Go).\nDistributed Systems: Experience building and deploying microservices or distributed applications using Docker and Kubernetes.\nIoT & Networking: Familiarity with messaging systems (MQTT, NATS, or Kafka) and network programming.\nDatabases: Solid understanding of relational databases (PostgreSQL) and data modeling.\nProblem Solving: Ability to solve complex logical problems and willingness to learn about industrial automation domains."
-    ],
-    "salary": {
-      "min": 20,
-      "max": 30
-    },
-    "location": "Hồ Chí Minh (mới)",
-    "experience": {
-      "min_years": 3
-    },
-    "url": "https://www.topcv.vn/viec-lam/senior-backend-developer-golang-java-c-luong-tu-20-30-trieu-tai-ho-chi-minh-di-lam-ngay/1992420.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "Senior Developer With AI Skill (Java/ C++/ Python/ C#) - Thu Nhập Từ 15-30 Triệu [Hà Nội]",
-    "job_description": [
-      "Nghiên cứu và đánh giá tính khả thi về mặt kỹ thuật của các giải pháp liên quan đến AI (Machine Learning / Deep Learning / Generative AI).\nXây dựng prototype (chủ yếu trên nền tảng web) để kiểm chứng ý tưởng và giải pháp AI.\nTham gia trao đổi, thảo luận kỹ thuật và báo cáo tiến độ với Manager.\nPhối hợp trao đổi, giải thích giải pháp và đề xuất kỹ thuật với khách hàng khi cần.\nThực hiện Design, Coding, Code Review, Unit test, Fix bugs;\nNội dung công việc chi tiết sẽ được trao đổi khi phỏng vấn."
-    ],
-    "requirements": [
-      "Tốt nghiệp ĐH chuyên ngành CNTT/Các trung tâm lập trình từ 3 năm trở lên\nCó tối thiểu 1 năm kinh nghiệm thực tế về AI, bao gồm: Machine Learning / Deep Learning, Generative AI (GenAI)\nCó tối thiểu 2 năm kinh nghiệm phát triển ứng dụng với ít nhất một trong các ngôn ngữ/framework sau: Java, C#, C++, Python, ReactJS, VueJS\nCó khả năng:\n+ Phân tích bài toán\n+ Thiết kế và triển khai thuật toán để giải quyết vấn đề thực tế\nTư duy logic tốt, cẩn thận, chủ động học hỏi, yêu thích nghiên cứu công nghệ mới.\nCó khả năng trao đổi, trình bày và đề xuất giải pháp kỹ thuật cho khách hàng.\nCó khả năng tự điều tra, xử lý tình huống tốt, có trách nhiệm và chịu được áp lực công việc;\nOptional:\nCó kinh nghiệm về cloud(Azure, AWS, GCP);\nCó kinh nghiệm sử dụng hoặc triển khai CI/CD;\nCó kinh nghiệm phát triển hoặc xây dựng các hệ thống DWH;\nCó kinh nghiệm thiết kế hệ thống, đảm bảo security;\nCó kinh nghiệm làm việc trong môi trường Nhật."
-    ],
-    "salary": {
-      "min": 15,
-      "max": 30
-    },
-    "location": "Hà Nội",
-    "experience": {
-      "min_years": 3
-    },
-    "url": "https://www.topcv.vn/viec-lam/senior-developer-with-ai-skill-java-c-python-c-thu-nhap-tu-15-30-trieu-ha-noi/1914882.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "Talented Developers (C++ / C#)",
-    "job_description": [
-      "We are looking for passionate software developers to join Koh Young’s software development team in Vietnam. Whether your strength lies in C++ or C#, we welcome you to bring your skills to the table — and we’ll help you grow the rest.\nYou’ll be working on our cutting-edge SMT (Surface Mount Technology) inspection systems, contributing to both existing and new Windows desktop applications that power our industry-leading products. Depending on your expertise, you will be matched with the right role within the team, and we’ll support your professional development through hands-on projects and cross-functional collaboration.\nKey Responsibilities\nDevelop and maintain desktop applications for Koh Young’s 3D inspection systems (AOI/SPI/AXI)\nDesign and implement new features and resolve CRM-reported issues\nCollaborate with UX/UI, QA, and algorithm engineers to improve product quality and performance\nSupport customer needs via short-term overseas business trips (2 days to 2 weeks when needed)\nParticipate in team-wide architectural and design discussions\nEnsure high code quality through peer reviews and testing"
-    ],
-    "requirements": [
-      "C++ Developer\n3+ years of hands-on experience with C++\nExperience in Windows desktop application development\nKnowledge of OOP (Object-Oriented Programming) and design patterns\nFamiliarity with network communication (TCP/IP) and Client/Server architecture\nSQL database experience (e.g. Microsoft SQL)\nExperience using OpenGL, OpenCV, or other graphics libraries\nC# Developer\n3+ years of experience in C# / .NET / WPF\nStrong understanding of MVVM, Dependency Injection, and multi-threading (Thread/Task)\nExperience with 2D/3D graphics programming (GDI+, DirectX, OpenGL)\nComfortable working with SQL Lite / MS-SQL, and handling network communication\nFamiliarity with custom WPF controls, Prism, or SharpDX\nPreferred Qualifications\nExperience in Windows OS internals or performance optimization\nUnderstanding or experience in the SMT domain (e.g. electronics manufacturing, inspection systems)\nBackground in starting new software projects from scratch\nFamiliarity with MFC, application performance tuning, or database schema design\nChinese Speaking"
+      "- Tốt nghiệp Đại học chuyên ngành Công nghệ thông tin, Khoa học máy tính hoặc liên quan.\n- Thành thạo:\n+ ASP.NET Core, WinForms (ưu tiên biết cả MVC & Razor Pages).\n+ SQL Server/Oracle (truy vấn tối ưu, xử lý dữ liệu lớn).\n+ DevExpress (thiết kế giao diện & báo cáo).\n- Có hiểu biết về Client–Server, JSON/XML, RESTful API, bảo mật hệ thống.\n- Kinh nghiệm trong lĩnh vực hệ thống y tế/HIS là lợi thế.\n- Độ tuổi: dưới 35 tuổi. Ưu tiên Nam.\n- Mong muốn gắn bó, góp phần vào sự phát triển của Bệnh viện S.I.S Cần Thơ."
     ],
     "salary": {},
-    "location": "Hà Nội",
+    "location": "Cần Thơ (mới)",
     "experience": {
-      "min_years": 3
+      "min_years": 1
     },
-    "url": "https://www.topcv.vn/viec-lam/talented-developers-c-c/1948733.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/nhan-vien-lap-trinh-xu-ly-du-lieu-asp-net-winforms-sql-server/1957282.html?ta_source=ITJobs_LinkDetail"
   },
   {
-    "title": "Software Engineer (C++)",
+    "title": "Nhân Viên JavaSpring Boot",
     "job_description": [
-      "Location: 3A Ton Duc Thang , HCMC, Vietnam\nJob Description\nWe are looking for full-time HMI Engineers working at Ho Chi Minh City, Vietnam.\nThe Car Multimedia (CM) team develops high-quality, state-of-the-art Automotive Head Unit and Home Appliance Linux/Android-based systems. Together with other Bosch locations worldwide, we provide software solutions for navigation, vehicle functions, autonomous driving, camera, and IoT features to the car marker.\nAs a HMI Software Engineer, your typical work activities include:\n• Participate in requirement analysis and software design.\n• Develop HMI software using C++/Qt in Linux system for Car Multimedia or Home appliance system.\n• Testing, debugging, maintenance and problem solving."
+      "- Tham gia nghiên cứu,xây dựng và phát triển phần mềm.\n- Quản lý và cập nhật các phần mềm hiện có của công ty.\n- Làm việc, phối hợp công việc theo nhóm dưới sự phân công công việc của quản lý dự án."
     ],
     "requirements": [
-      "QUALIFICATIONS\nThe job might be fit for you if you have:\n• Bachelor's degree in Computer Science, Electronic, Information Technology or equivalent.\n• Experience with OOP design, UI/UX, C++ / Qt / QML programming.\n• Knowledge in Linux based system.\n• Familiar with one of the engineering processes (Waterfall, Agile).\n• Passion for software engineering in the automotive / IoT industry.\n• Different levels of experiences are welcomed (Exp. to Senior).\n• Good English communication skills, be able to interact fluently with worldwide stakeholders.\nNICE TO HAVE\n• Experience with developing HMI and GUI/Graphics framework (CGI, Qt).\n• Experience using graphics API like OpenGL.\n• QML programing experience"
+      "- Kinh nghiệm làm việc thực tế từ 1 năm trở lên trong lĩnh vực phát triển phần mềm Spring Boot.\n- Tư duy logic tốt, có kỹ năng sử dụng các công cụ quản lý phiên bản như Git.\n- Hiểu biết về quy trình phát triển phần mềm Agile/Scrum.\n- Hiểu biết về cơ sở dữ liệu SQL và kỹ năng làm việc với cơ sở dữ liệu quan hệ (ví dụ: MySQL, PostgreSQL).\n- Kỹ năng làm việc độc lập hoặc theo nhóm, có khả năng giải quyết vấn đề tốt.\n- Có Tiếng Anh tốt là một lợi thế."
     ],
     "salary": {},
-    "location": "Hồ Chí Minh (mới)",
+    "location": "",
     "experience": {
-      "min_years": 3
+      "min_years": 1
     },
-    "url": "https://www.topcv.vn/viec-lam/software-engineer-c/1984765.html?ta_source=ITJobs_LinkDetail"
-  },
-  {
-    "title": "C++/C# Desktop Application Developer (Remote) - CÓ THỂ BẮT ĐẦU SAU TẾT ÂM LỊCH",
-    "job_description": [
-      "We are looking for talented C++/C# developers to join our dynamic team in Vietnam. If you have experience with C++/C# programing and have a passion for desktop application development, we want to hear from you. Excellent communication in English is a must.\nResponsibilities:\nFront-End Development:\nDesign and develop user interfaces using MFC or Qt (for C++) or WPF (for C#).\nEnsure the UI is responsive, user-friendly, and adheres to design specifications.\nBack-End Development:\nDevelop back-end logic and integrate with front-end components.\nEnsure robust, scalable, and secure application architecture.\nApplication Development:\nWrite clean, maintainable, and efficient code in C++ or C#.\nDebug, test, and fix issues in the application codebase.\nParticipate in code reviews and adhere to coding standards.\nCollaboration and Communication:\nWork closely with other developers, designers to gather and understand requirements.\nParticipate in agile development processes, including sprint planning, stand-up meetings, and retrospectives.\nDocument development processes, code changes, and other relevant information."
-    ],
-    "requirements": [
-      "Qualifications\nBachelor's degree in Computer Science, Information Technology, or a related field (or equivalent experience).\nWindows desktop software development\nFluency in English is a must.\nProficiency in C++ or C# programming\nStrong knowledge of algorithms, data structures, and object-oriented programming.\nFamiliarity with version control systems, including Git and SVN.\nPreferred Qualifications:\nStrong knowledge of spatial data structures, computational geometry, and linear algebra.\nKnowledge of Qt, MFC (Microsoft Foundation Classes) and WPF (Windows Presentation Foundation)\nAutomatic data transformation / interop"
-    ],
-    "salary": {
-      "min": 600,
-      "max": 2000
-    },
-    "location": "Hà Nội & 33 nơi khác",
-    "experience": {
-      "min_years": 2
-    },
-    "url": "https://www.topcv.vn/viec-lam/c-c-desktop-application-developer-remote-co-the-bat-dau-sau-tet-am-lich/1976844.html?ta_source=ITJobs_LinkDetail"
+    "url": "https://www.topcv.vn/viec-lam/nhan-vien-javaspring-boot/1220514.html?ta_source=ITJobs_LinkDetail"
   }
 ]

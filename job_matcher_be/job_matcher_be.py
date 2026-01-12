@@ -129,6 +129,7 @@ class MatchWithJobsResult(BaseModel):
     location: str
     score: float
     matching_skills: str
+    missing_skills: str
     url: str
 
 class MatchResult(BaseModel):
@@ -575,17 +576,19 @@ async def match_with_jobs(
             desc_list = []
             req_list = []
 
-            if "job_description" in job and isinstance(job["job_description"], list):
-                desc_list.extend(job["job_description"])
-            elif "job_description" in job and isinstance(job["job_description"], str):
-                desc_list.append(job["job_description"])
+            if "job_description" in job:
+                if isinstance(job["job_description"], list):
+                    desc_list.extend(job["job_description"])
+                elif isinstance(job["job_description"], str):
+                    desc_list.append(job["job_description"])
 
-            if "requirements" in job and isinstance(job["requirements"], list):
-                req_list.extend(job["requirements"])
-            elif "requirements" in job and isinstance(job["requirements"], str):
-                req_list.append(job["requirements"])
+            if "requirements" in job:
+                if isinstance(job["requirements"], list):
+                    req_list.extend(job["requirements"])
+                elif isinstance(job["requirements"], str):
+                    req_list.append(job["requirements"])
 
-            full_desc = " ".join(desc_list + req_list)
+            full_desc = " ".join([str(d) for d in (desc_list + req_list) if d])
             if not full_desc.strip():
                 continue
 
@@ -596,6 +599,8 @@ async def match_with_jobs(
 
             skills_jd = extract_skills(jd_text)
             intersection = skills_cv & skills_jd
+            missing_in_cv = skills_jd - skills_cv
+
             union = skills_cv | skills_jd
             jaccard = len(intersection) / len(union) if union else 0
 
@@ -618,10 +623,9 @@ async def match_with_jobs(
             else:
                 experience_val = job.get("experience", "Không yêu cầu")
             
-            if isinstance(experience_val, int) or (isinstance(experience_val, str) and experience_val.isdigit()):
-                experience_str = int(experience_val)
-            else:
-                experience_str = experience_val
+            experience_str = int(experience_val) if str(experience_val).isdigit() else experience_val
+
+            missing_str = ", ".join(sorted(missing_in_cv)[:8]) if missing_in_cv else "Không thiếu kỹ năng nào"
 
             results.append({
                 "title": job.get("title", "Không rõ"),
@@ -630,22 +634,19 @@ async def match_with_jobs(
                 "location": job.get("location", "Không xác định"),
                 "score": round(final_score, 1),
                 "matching_skills": ", ".join(sorted(intersection)) if intersection else "Không có",
+                "missing_skills": missing_str,
                 "url": job.get("url", "#")
             })
 
         results.sort(key=lambda x: x["score"], reverse=True)
 
         # Lưu kết quả vào DB
-        try:
-            crawl_run = db.query(CrawlRun).filter(CrawlRun.id == run_id).first()
-            if not crawl_run:
-                raise HTTPException(status_code=404, detail=f"Không tìm thấy crawl run với id = {run_id}")
+        crawl_run = db.query(CrawlRun).filter(CrawlRun.id == run_id).first()
+        if not crawl_run:
+            raise HTTPException(status_code=404, detail=f"Không tìm thấy crawl run với id = {run_id}")
 
-            crawl_run.result = results
-            db.commit()
-        except Exception as db_error:
-            db.rollback()
-            raise HTTPException(status_code=500, detail=f"Lỗi khi lưu kết quả vào DB: {str(db_error)}")
+        crawl_run.result = results
+        db.commit()
 
         return results
 

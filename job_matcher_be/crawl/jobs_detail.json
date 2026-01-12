@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "title": "Nhân Viên Lập Trình & Xử Lý Dữ Liệu – ASP.NET / WinForms / SQL Server",
+    "salary_raw": "Thoả thuận",
+    "location": "Cần Thơ (mới)",
+    "experience": "1 năm",
+    "job_description": [
+      "- Xây dựng ứng dụng Web bằng ASP.NET Core C# (MVC hoặc Razor Pages).\n- Xây dựng ứng dụng Desktop bằng WinForms C# phục vụ quản lý và xử lý dữ liệu.\n- Thiết kế giao diện báo cáo, biểu đồ, form nhập liệu bằng DevExpress.\n- Truy xuất, xử lý và tối ưu hóa dữ liệu trên SQL Server hoặc Oracle.\n- Phối hợp với các bộ phận liên quan để đảm bảo dữ liệu chính xác, bảo mật và dễ truy cập.\n- Công việc cụ thể trao đổi khi phỏng vấn."
+    ],
+    "requirements": [
+      "- Tốt nghiệp Đại học chuyên ngành Công nghệ thông tin, Khoa học máy tính hoặc liên quan.\n- Thành thạo:\n+ ASP.NET Core, WinForms (ưu tiên biết cả MVC & Razor Pages).\n+ SQL Server/Oracle (truy vấn tối ưu, xử lý dữ liệu lớn).\n+ DevExpress (thiết kế giao diện & báo cáo).\n- Có hiểu biết về Client–Server, JSON/XML, RESTful API, bảo mật hệ thống.\n- Kinh nghiệm trong lĩnh vực hệ thống y tế/HIS là lợi thế.\n- Độ tuổi: dưới 35 tuổi. Ưu tiên Nam.\n- Mong muốn gắn bó, góp phần vào sự phát triển của Bệnh viện S.I.S Cần Thơ."
+    ],
+    "url": "https://www.topcv.vn/viec-lam/nhan-vien-lap-trinh-xu-ly-du-lieu-asp-net-winforms-sql-server/1957282.html?ta_source=ITJobs_LinkDetail"
+  },
+  {
+    "title": "Nhân Viên JavaSpring Boot",
+    "salary_raw": "",
+    "location": "",
+    "experience": "1 năm",
+    "job_description": [
+      "- Tham gia nghiên cứu,xây dựng và phát triển phần mềm.\n- Quản lý và cập nhật các phần mềm hiện có của công ty.\n- Làm việc, phối hợp công việc theo nhóm dưới sự phân công công việc của quản lý dự án."
+    ],
+    "requirements": [
+      "- Kinh nghiệm làm việc thực tế từ 1 năm trở lên trong lĩnh vực phát triển phần mềm Spring Boot.\n- Tư duy logic tốt, có kỹ năng sử dụng các công cụ quản lý phiên bản như Git.\n- Hiểu biết về quy trình phát triển phần mềm Agile/Scrum.\n- Hiểu biết về cơ sở dữ liệu SQL và kỹ năng làm việc với cơ sở dữ liệu quan hệ (ví dụ: MySQL, PostgreSQL).\n- Kỹ năng làm việc độc lập hoặc theo nhóm, có khả năng giải quyết vấn đề tốt.\n- Có Tiếng Anh tốt là một lợi thế."
+    ],
+    "url": "https://www.topcv.vn/viec-lam/nhan-vien-javaspring-boot/1220514.html?ta_source=ITJobs_LinkDetail"
+  }
+]

@@ -42,9 +42,9 @@ Route::post('/match-cv', [JobMatcherController::class, 'processMatch'])->name('m
 Route::get('/crawl-jobs', [JobMatcherController::class, 'showCrawlForm'])->name('crawl.form');
 Route::post('/crawl-jobs', [JobMatcherController::class, 'crawlJobs'])->name('crawl.jobs');
 
-Route::get('/dashboard', function () {
-    return view('match-cv');
-})->middleware('auth')->name('dashboard');
+Route::get('/dashboard', [JobMatcherController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+
+
 Route::middleware(['web', 'auth'])->group(function () {
     Route::post('/match-with-run/{runId}', [JobMatcherController::class, 'matchWithRun'])
         ->name('match.with.run');

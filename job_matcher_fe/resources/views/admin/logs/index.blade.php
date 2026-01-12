@@ -4,36 +4,6 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Thông báo Toast -->
-    {{-- @if(session('success'))
-        <div class="toast-notification success" id="toastNotification">
-            <div class="toast-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="toast-content">
-                <div class="toast-title">Thành công!</div>
-                <div class="toast-message">{{ session('success') }}</div>
-            </div>
-            <button class="toast-close" onclick="closeToast()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="toast-notification error" id="toastNotification">
-            <div class="toast-icon">
-                <i class="fas fa-exclamation-circle"></i>
-            </div>
-            <div class="toast-content">
-                <div class="toast-title">Lỗi!</div>
-                <div class="toast-message">{{ session('error') }}</div>
-            </div>
-            <button class="toast-close" onclick="closeToast()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    @endif --}}
 
     <div class="header mb-5 text-center">
         <h1 style="font-size: 2.6rem; margin-bottom: 16px;">
@@ -91,7 +61,7 @@
             </div>
         </form>
 
-        @if(request()->hasAny(['user', 'action', 'ip', 'from_date', 'to_date']))
+        @if(request()->hasAny(['user', 'action', 'from_date', 'to_date']))
             <div class="mt-3 text-end">
                 <a href="{{ route('admin.logs.index') }}" class="btn btn-outline-secondary"
                    style="border: 1px solid rgba(255,255,255,0.3); color: #bbd0ff; padding: 8px 16px;">
@@ -115,13 +85,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($logs as $log)
+                    @php
+                        $hasTodayLogs = $logs->contains(fn($log) => $log->created_at->isToday());
+                        $showTodayHeader = $hasTodayLogs;
+                    @endphp
+
+                    @if($showTodayHeader)
+                        <!-- Tiêu đề nhóm: Hôm nay -->
                         <tr>
+                            <td colspan="6"
+                                style="text-align: center; padding: 16px; font-weight: 600; color: #00ffaa; font-size: 1.1rem; background: rgba(0, 255, 170, 0.08);">
+                                <i class="fas fa-clock me-2"></i>
+                                HOẠT ĐỘNG HÔM NAY
+                            </td>
+                        </tr>
+                    @endif
+
+                    @foreach($logs as $log)
+                        <!-- Đường phân cách gradient giữa các ngày (chỉ khi chuyển ngày) -->
+                        @if(!$loop->first && !$log->created_at->isSameDay($logs[$loop->iteration - 1]->created_at))
+                            <tr>
+                                <td colspan="6"
+                                    style="padding: 0; height: 8px; background: linear-gradient(to right, transparent, #00b4ff, transparent); opacity: 0.5;">
+                                </td>
+                            </tr>
+                        @endif
+
+                        <tr class="{{ $log->created_at->isToday() ? 'today-log' : '' }}">
                             <td class="fw-bold">#{{ $log->id }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #00b4ff, #00ffaa); color: #000; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-right: 12px;">
-                                        {{ $log->user ? strtoupper(substr($log->user->name, 0, 1)) : 'N' }}
+                                        {{ $log->user ? strtoupper(substr($log->user->name ?? 'N/A', 0, 1)) : 'N' }}
                                     </div>
                                     <div>
                                         <div style="font-weight: 600;">{{ $log->user ? $log->user->name : 'N/A' }}</div>
@@ -137,7 +132,14 @@
                             <td class="message">
                                 {{ $log->description }}
                             </td>
-                            <td>{{ $log->created_at->format('d/m/Y H:i:s') }}</td>
+                            <td>
+                                <strong style="color: {{ $log->created_at->isToday() ? '#00ffaa' : '#bbd0ff' }};">
+                                    {{ $log->created_at->format('d/m/Y H:i:s') }}
+                                </strong>
+                                @if($log->created_at->isToday())
+                                    <small style="opacity: 0.6; display: block; color: #00ffaa;">(Hôm nay)</small>
+                                @endif
+                            </td>
                             <td style="text-align: center;">
                                 <form action="{{ route('admin.logs.destroy', $log->id) }}" method="POST" 
                                       style="display: inline-block;" 
@@ -170,132 +172,11 @@
 
 @push('styles')
 <style>
+    /* Giữ nguyên toàn bộ style từ file cũ + thêm nhẹ cho today */
     @keyframes textGradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-
-    @keyframes progressBar {
-        from {
-            width: 100%;
-        }
-        to {
-            width: 0%;
-        }
-    }
-
-    /* Toast Notification */
-    .toast-notification {
-        position: fixed;
-        top: 24px;
-        right: 24px;
-        min-width: 350px;
-        max-width: 450px;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(12px);
-        border-radius: 12px;
-        padding: 18px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        z-index: 9999;
-        animation: slideIn 0.4s ease-out;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .toast-notification.hiding {
-        animation: slideOut 0.4s ease-out forwards;
-    }
-
-    .toast-notification.success {
-        border-left: 4px solid #00ffaa;
-    }
-
-    .toast-notification.error {
-        border-left: 4px solid #ff5080;
-    }
-
-    .toast-notification.success .toast-icon {
-        color: #00ffaa;
-        font-size: 1.5rem;
-    }
-
-    .toast-notification.error .toast-icon {
-        color: #ff5080;
-        font-size: 1.5rem;
-    }
-
-    .toast-content {
-        flex: 1;
-    }
-
-    .toast-title {
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 4px;
-        color: #fff;
-    }
-
-    .toast-message {
-        font-size: 0.9rem;
-        opacity: 0.85;
-        color: #ddd;
-    }
-
-    .toast-close {
-        background: transparent;
-        border: none;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 1.1rem;
-        cursor: pointer;
-        padding: 4px 8px;
-        transition: all 0.3s ease;
-        border-radius: 4px;
-    }
-
-    .toast-close:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-    }
-
-    /* Progress bar cho toast */
-    .toast-notification::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #00b4ff, #00ffaa);
-        animation: progressBar 4s linear forwards;
-        border-radius: 0 0 12px 12px;
-    }
-
-    .toast-notification.error::after {
-        background: linear-gradient(90deg, #ff5080, #ff8a00);
     }
 
     .table-wrapper {
@@ -332,6 +213,14 @@
         background: rgba(0, 180, 255, 0.08);
     }
 
+    tr.today-log {
+        background: rgba(0, 180, 255, 0.12) !important;
+    }
+
+    tr.today-log:hover {
+        background: rgba(0, 255, 170, 0.18) !important;
+    }
+
     .status {
         padding: 8px 14px;
         border-radius: 999px;
@@ -347,13 +236,12 @@
     }
 
     .message {
-        max-width: 400px;
+        max-width: 420px;
         word-break: break-word;
         opacity: .85;
         font-size: 0.88rem;
     }
 
-    /* Button Delete */
     .btn-delete {
         background: rgba(255, 50, 80, 0.2);
         border: 1px solid rgba(255, 50, 80, 0.4);
@@ -361,23 +249,17 @@
         padding: 8px 16px;
         border-radius: 8px;
         cursor: pointer;
-        font-size: 0.9rem;
         transition: all 0.3s ease;
     }
 
     .btn-delete:hover {
-        background: rgba(255, 50, 80, 0.3);
+        background: rgba(255, 50, 80, 0.35);
         border-color: #ff5080;
         color: #fff;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(255, 50, 80, 0.3);
     }
 
-    .btn-delete i {
-        pointer-events: none;
-    }
-
-    /* Pagination */
+    /* Pagination & Custom Select giữ nguyên như trang Users */
     .pagination {
         display: flex;
         justify-content: center;
@@ -406,7 +288,6 @@
         font-weight: 600;
     }
 
-    /* Fix select như trang users */
     .custom-select {
         background: rgba(0, 0, 0, 0.5) !important;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -431,42 +312,21 @@
         opacity: .6;
         font-size: 1.3rem;
     }
-
-    .header .stats {
-        font-size: 1.1rem;
-        opacity: .85;
-    }
 </style>
 @endpush
 
 @push('scripts')
 <script>
-    // Toast notification auto-hide
-    function closeToast() {
-        const toast = document.getElementById('toastNotification');
-        if (toast) {
-            toast.classList.add('hiding');
-            setTimeout(() => toast.remove(), 400);
-        }
-    }
-
-    // Auto hide toast after 4 seconds
     document.addEventListener('DOMContentLoaded', () => {
-        const toast = document.getElementById('toastNotification');
-        if (toast) {
-            setTimeout(() => {
-                closeToast();
-            }, 4000);
-        }
-
-        // Table row animation
-        document.querySelectorAll('tbody tr').forEach((row, index) => {
+        // Animation fade-in từng dòng
+        document.querySelectorAll('tbody tr:not([colspan])').forEach((row, index) => {
             row.style.opacity = '0';
             row.style.animation = `fadeIn 0.6s ease forwards`;
             row.style.animationDelay = `${index * 0.05}s`;
         });
     });
 
+    // Định nghĩa fadeIn (nếu chưa có trong layout chính)
     const style = document.createElement('style');
     style.textContent = `
         @keyframes fadeIn {
@@ -476,4 +336,4 @@
     `;
     document.head.appendChild(style);
 </script>
-@endpu
+@endpush
