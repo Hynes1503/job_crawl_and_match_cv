@@ -10,9 +10,7 @@ use App\Models\Log;
 
 class AuthController extends Controller
 {
-    /**
-     * LOGIN
-     */
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -25,7 +23,6 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
-            // Ghi log đăng nhập thành công
             Log::create([
                 'user_id' => $user->id,
                 'action' => 'login',
@@ -45,9 +42,6 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * REGISTER
-     */
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -64,7 +58,6 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        // Ghi log đăng ký
         Log::create([
             'user_id' => $user->id,
             'action' => 'register',
@@ -75,9 +68,6 @@ class AuthController extends Controller
         return redirect('/dashboard');
     }
 
-    /**
-     * LOGOUT
-     */
     public function logout(Request $request)
     {
         $userId = Auth::id();
@@ -87,7 +77,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // Ghi log đăng xuất
         if ($userId) {
             Log::create([
                 'user_id' => $userId,

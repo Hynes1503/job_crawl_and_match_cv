@@ -17,4 +17,13 @@ class Log extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function scopeLastDay($q)
+    {
+        return $q->where('created_at', '>=', now()->subDay());
+    }
+
+    public static function countForAdminNavbar()
+    {
+        return static::lastDay()->count();
+    }
 }

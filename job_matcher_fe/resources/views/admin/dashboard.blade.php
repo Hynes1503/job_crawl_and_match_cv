@@ -201,13 +201,11 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Header -->
         <div class="dashboard-header">
             <h1>Admin Dashboard</h1>
             <p>Chào mừng quay lại! Tổng quan hệ thống Job Matcher AI</p>
         </div>
 
-        <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-box">
                 <div class="stat-icon"><i class="fas fa-users"></i></div>
@@ -237,9 +235,7 @@
             </div>
         </div>
 
-        <!-- Recent Activity + Location Chart -->
         <div class="stats-grid">
-            <!-- Recent Activity -->
             <div class="activity-section" style="grid-column: span 2;">
                 <h2 class="section-title">
                     <i class="fas fa-stream"></i> Hoạt Động Gần Đây
@@ -269,7 +265,6 @@
                 </div>
             </div>
 
-            <!-- Location Distribution Chart -->
             <div class="chart-section">
                 <h2 class="chart-title">
                     <i class="fas fa-map-marker-alt"></i> Địa điểm thường xuyên xuất hiện
@@ -291,7 +286,6 @@
             const labels = @json($locationLabels);
             const data = @json($locationData);
 
-            // Gradient màu từ xanh dương sang xanh lá
             const gradientColors = [
                 '#00b4ff', '#00c0ff', '#00ccff', '#00d8ff',
                 '#00e4ff', '#00ffaa', '#00ef95', '#00df80',

@@ -53,8 +53,6 @@
                 transform: scale(1.05);
             }
         }
-
-        /* Page Header */
         .page-header {
             background: linear-gradient(135deg, rgba(0, 180, 255, 0.1), rgba(0, 255, 170, 0.05));
             border: 1px solid rgba(0, 180, 255, 0.3);
@@ -84,7 +82,6 @@
             line-height: 1.6;
         }
 
-        /* CV Grid */
         .cv-container {
             background: rgba(15, 15, 25, 0.7);
             backdrop-filter: blur(16px);
@@ -101,7 +98,6 @@
             width: 100%;
         }
 
-        /* CV Card */
         .cv-card {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -120,7 +116,6 @@
             border-color: rgba(0, 180, 255, 0.5);
         }
 
-        /* CV Preview */
         .cv-preview {
             height: 340px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(17, 17, 17, 0.9));
@@ -155,8 +150,6 @@
             color: #00b4ff;
             opacity: 0.6;
         }
-
-        /* CV Info */
         .cv-info {
             padding: 20px;
             flex-grow: 1;
@@ -187,7 +180,6 @@
             color: #00b4ff;
         }
 
-        /* CV Actions */
         .cv-actions {
             margin-top: auto;
             display: flex;
@@ -235,7 +227,6 @@
             border-color: rgba(255, 100, 100, 0.5);
         }
 
-        /* Add Card */
         .add-card {
             background: linear-gradient(135deg, rgba(0, 180, 255, 0.1), rgba(0, 255, 170, 0.08));
             border: 2px dashed rgba(0, 180, 255, 0.4);
@@ -264,7 +255,6 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        /* More Card */
         .more-card {
             background: rgba(100, 100, 100, 0.15);
             border: 2px dashed rgba(255, 255, 255, 0.2);
@@ -290,8 +280,6 @@
             font-size: 3.5rem;
             margin-bottom: 16px;
         }
-
-        /* Placeholder Card */
         .placeholder-card {
             opacity: 0.25;
             pointer-events: none;
@@ -307,7 +295,6 @@
             opacity: 0.5;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -377,7 +364,6 @@
             transform: rotate(90deg);
         }
 
-        /* Upload Form */
         .upload-area {
             border: 2px dashed rgba(0, 180, 255, 0.4);
             border-radius: 16px;
@@ -436,8 +422,6 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(0, 180, 255, 0.4);
         }
-
-        /* Toast Notification */
         .toast {
             position: fixed;
             top: 100px;
@@ -468,7 +452,6 @@
             font-size: 1.3rem;
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 80px 20px;
@@ -495,7 +478,6 @@
             font-size: 1.1rem;
         }
 
-        /* Responsive */
         @media (max-width: 1200px) {
             .cv-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -554,22 +536,18 @@
 @endpush
 
 @section('content')
-    <!-- Page Header -->
     <div class="page-header">
         <h1><i class="fa-solid fa-clipboard-list"></i> Quản Lý CV</h1>
         <p>Xem trước và quản lý CV để hệ thống tìm việc làm IT phù hợp nhất cho bạn</p>
     </div>
 
-    <!-- CV Container -->
     <div class="cv-container">
         <div class="cv-grid">
-            <!-- Add New CV Card -->
             <div class="cv-card add-card" onclick="openUploadModal()">
                 <i class="fas fa-plus-circle"></i>
                 <div>Thêm CV Mới</div>
             </div>
 
-            <!-- CV Cards -->
             @forelse($cvs->take(10) as $cv)
                 <div class="cv-card">
                     <div class="cv-preview">
@@ -605,7 +583,6 @@
                     </div>
                 </div>
             @empty
-                <!-- Placeholder Cards when empty -->
                 @for ($i = 1; $i <= 11; $i++)
                     <div class="cv-card placeholder-card">
                         <div class="cv-preview">
@@ -622,7 +599,6 @@
                 @endfor
             @endforelse
 
-            <!-- More Card -->
             @if ($cvs->count() > 0)
                 <div class="cv-card more-card" onclick="showMoreInfo()">
                     @if ($cvs->count() > 10)
@@ -637,7 +613,6 @@
         </div>
     </div>
 
-    <!-- Upload Modal -->
     <div id="uploadModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -674,7 +649,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     @if (session('success'))
         <div id="successToast" class="toast show">
             <i class="fas fa-check-circle"></i>
@@ -685,19 +659,16 @@
 
 @push('scripts')
     <script>
-        // Open Upload Modal
         function openUploadModal() {
             document.getElementById('uploadModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // Close Upload Modal
         function closeUploadModal() {
             document.getElementById('uploadModal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
-        // Close modal when clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('uploadModal');
             if (event.target == modal) {
@@ -705,14 +676,12 @@
             }
         }
 
-        // Close modal with ESC key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeUploadModal();
             }
         });
 
-        // File input change handler
         document.getElementById('cvFileInput').addEventListener('change', function(e) {
             const display = document.getElementById('fileNameDisplay');
             if (this.files && this.files.length > 0) {
@@ -723,7 +692,6 @@
             }
         });
 
-        // Show more info
         function showMoreInfo() {
             const count = {{ $cvs->count() }};
             if (count > 10) {
@@ -733,7 +701,6 @@
             }
         }
 
-        // Auto hide toast
         const toast = document.getElementById('successToast');
         if (toast) {
             setTimeout(() => {

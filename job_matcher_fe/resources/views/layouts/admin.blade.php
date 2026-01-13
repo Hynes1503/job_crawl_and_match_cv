@@ -10,7 +10,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('styles')
     <style>
-        /* Dark theme tổng thể */
         body {
             background-color: #0f0f1a;
             color: #e0e0ff;
@@ -81,7 +80,6 @@
             transform: rotate(90deg);
         }
 
-        /* Sidebar menu items */
         .nav-link.text-white {
             color: #bbd0ff !important;
             padding: 14px 20px;
@@ -91,6 +89,7 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            position: relative;
         }
 
         .nav-link.text-white i {
@@ -106,13 +105,36 @@
             box-shadow: 0 4px 15px rgba(0, 180, 255, 0.2);
         }
 
+        .nav-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff4444;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            min-width: 18px;
+            height: 18px;
+            line-height: 18px;
+            border-radius: 50%;
+            padding: 0 4px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
         .navbar-brand.text-white {
             font-size: 1.5rem;
             font-weight: 800;
             letter-spacing: 0.5px;
         }
 
-        /* Alert */
         .alert-success {
             background-color: rgba(0, 255, 150, 0.15);
             border: 1px solid #00ffaa;
@@ -120,7 +142,6 @@
             border-radius: 12px;
         }
 
-        /* Dropdown */
         .dropdown-menu {
             background-color: #1a1a2e;
             border: 1px solid #2a2a40;
@@ -155,7 +176,6 @@
 </head>
 
 <body>
-    <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="p-4 text-center border-bottom border-2" style="border-color: #2a2a40 !important;">
             <a class="navbar-brand text-white d-inline-block" href="{{ route('admin.dashboard') }}">
@@ -171,24 +191,40 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item position-relative">
+                <a class="nav-link text-white {{ request()->routeIs('admin.tickets.index') ? 'active' : '' }}"
+                    href="{{ route('admin.tickets.index') }}">
+                    <i class="fa-solid fa-ticket"></i> Quản Lý Ticket
+                    @if($newTicketsCount > 0)
+                        <span class="nav-badge">{{ $newTicketsCount }}</span>
+                    @endif
+                </a>
+            </li>
+
+            <li class="nav-item position-relative">
                 <a class="nav-link text-white {{ request()->routeIs('admin.users*') ? 'active' : '' }}"
                     href="{{ route('admin.users') }}">
                     <i class="fas fa-users"></i> Quản Lý Người Dùng
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item position-relative">
                 <a class="nav-link text-white {{ request()->routeIs('admin.logs*') ? 'active' : '' }}"
                     href="{{ route('admin.logs.index') }}">
                     <i class="fas fa-history"></i> Nhật Ký Người Dùng
+                    @if($newLogsCount > 0)
+                        <span class="nav-badge">{{ $newLogsCount }}</span>
+                    @endif
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item position-relative">
                 <a class="nav-link text-white {{ request()->routeIs('admin.deleted.crawls*') ? 'active' : '' }}"
                     href="{{ route('admin.deleted.crawls') }}">
                     <i class="fas fa-trash-restore"></i> Crawl Đã Xóa
+                    @if($newDeletedCrawlsCount > 0)
+                        <span class="nav-badge">{{ $newDeletedCrawlsCount }}</span>
+                    @endif
                 </a>
             </li>
 
@@ -206,7 +242,6 @@
                 </a>
             </li>
 
-            <!-- Phần user dropdown ở dưới cùng -->
             <li class="nav-item mt-auto mb-4">
                 <div class="dropdown">
                     <a class="nav-link text-white dropdown-toggle d-flex align-items-center px-3" href="#"
@@ -221,9 +256,7 @@
                         <li><a class="dropdown-item" href="{{ route('dashboard') }}">
                                 <i class="fas fa-home me-2"></i> Trang Người Dùng
                             </a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li>
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
@@ -237,10 +270,7 @@
             </li>
         </ul>
     </nav>
-
-    <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Header với toggle và tiêu đề trang -->
         <header class="admin-header d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <button class="toggle-btn me-4" id="sidebarToggle">
@@ -250,7 +280,6 @@
             </div>
         </header>
 
-        <!-- Nội dung chính -->
         <div class="container-fluid py-4 px-4 px-md-5">
             @if (session('success'))
                 <div class="toast-notification success" id="toastNotification">
@@ -297,179 +326,10 @@
                 </div>
             @endif
 
-            @push('styles')
-                <style>
-                    @keyframes slideIn {
-                        from {
-                            transform: translateX(400px);
-                            opacity: 0;
-                        }
-
-                        to {
-                            transform: translateX(0);
-                            opacity: 1;
-                        }
-                    }
-
-                    @keyframes slideOut {
-                        from {
-                            transform: translateX(0);
-                            opacity: 1;
-                        }
-
-                        to {
-                            transform: translateX(400px);
-                            opacity: 0;
-                        }
-                    }
-
-                    @keyframes progressBar {
-                        from {
-                            width: 100%;
-                        }
-
-                        to {
-                            width: 0%;
-                        }
-                    }
-
-                    .toast-notification {
-                        position: fixed;
-                        top: 24px;
-                        right: 24px;
-                        min-width: 350px;
-                        max-width: 450px;
-                        background: rgba(0, 0, 0, 0.95);
-                        backdrop-filter: blur(12px);
-                        border-radius: 12px;
-                        padding: 18px;
-                        display: flex;
-                        align-items: center;
-                        gap: 14px;
-                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-                        z-index: 9999;
-                        animation: slideIn 0.4s ease-out;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                    }
-
-                    .toast-notification.hiding {
-                        animation: slideOut 0.4s ease-out forwards;
-                    }
-
-                    /* Success */
-                    .toast-notification.success {
-                        border-left: 4px solid #00ffaa;
-                    }
-
-                    .toast-notification.success .toast-icon {
-                        color: #00ffaa;
-                        font-size: 1.5rem;
-                    }
-
-                    /* Error */
-                    .toast-notification.error {
-                        border-left: 4px solid #ff5080;
-                    }
-
-                    .toast-notification.error .toast-icon {
-                        color: #ff5080;
-                        font-size: 1.5rem;
-                    }
-
-                    /* Warning */
-                    .toast-notification.warning {
-                        border-left: 4px solid #ffb400;
-                    }
-
-                    .toast-notification.warning .toast-icon {
-                        color: #ffb400;
-                        font-size: 1.5rem;
-                    }
-
-                    .toast-content {
-                        flex: 1;
-                    }
-
-                    .toast-title {
-                        font-weight: 700;
-                        font-size: 1rem;
-                        margin-bottom: 4px;
-                        color: #fff;
-                    }
-
-                    .toast-message {
-                        font-size: 0.9rem;
-                        opacity: 0.85;
-                        color: #ddd;
-                    }
-
-                    .toast-close {
-                        background: transparent;
-                        border: none;
-                        color: rgba(255, 255, 255, 0.5);
-                        font-size: 1.1rem;
-                        cursor: pointer;
-                        padding: 4px 8px;
-                        transition: all 0.3s ease;
-                        border-radius: 4px;
-                    }
-
-                    .toast-close:hover {
-                        background: rgba(255, 255, 255, 0.1);
-                        color: #fff;
-                    }
-
-                    /* Progress bar chung */
-                    .toast-notification::after {
-                        content: '';
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        height: 3px;
-                        width: 100%;
-                        background: linear-gradient(90deg, #00b4ff, #00ffaa);
-                        animation: progressBar 4s linear forwards;
-                        border-radius: 0 0 12px 12px;
-                    }
-
-                    /* Progress bar cho error */
-                    .toast-notification.error::after {
-                        background: linear-gradient(90deg, #ff5080, #ff8a00);
-                    }
-
-                    /* Progress bar cho warning */
-                    .toast-notification.warning::after {
-                        background: linear-gradient(90deg, #ffb400, #ff8a00);
-                    }
-                </style>
-            @endpush
-
-            @push('scripts')
-                <script>
-                    function closeToast() {
-                        const toast = document.getElementById('toastNotification');
-                        if (toast) {
-                            toast.classList.add('hiding');
-                            setTimeout(() => toast.remove(), 400);
-                        }
-                    }
-
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const toast = document.getElementById('toastNotification');
-                        if (toast) {
-                            setTimeout(() => {
-                                closeToast();
-                            }, 4000);
-                        }
-                    });
-                </script>
-            @endpush
-
             @yield('content')
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const sidebar = document.getElementById('sidebar');
@@ -482,7 +342,6 @@
             mainContent.classList.toggle('expanded');
             toggleBtn.classList.toggle('active');
 
-            // Đổi icon bars ↔ times
             if (sidebar.classList.contains('collapsed')) {
                 toggleIcon.classList.replace('fa-times', 'fa-bars');
             } else {
@@ -490,7 +349,6 @@
             }
         });
 
-        // Tự động đóng sidebar trên mobile khi click menu
         document.querySelectorAll('.sidebar .nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
@@ -501,9 +359,23 @@
                 }
             });
         });
+
+        function closeToast() {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                toast.classList.add('hiding');
+                setTimeout(() => toast.remove(), 400);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                setTimeout(() => closeToast(), 4000);
+            }
+        });
     </script>
 
     @stack('scripts')
 </body>
-
 </html>

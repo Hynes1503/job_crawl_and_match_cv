@@ -42,7 +42,93 @@
             }
         }
 
-        /* Hero Header */
+        .filter-bar {
+            background: rgba(15, 15, 25, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .filter-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: 0.95rem;
+        }
+
+        .filter-input,
+        .filter-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 180, 255, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .filter-input:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.2);
+        }
+
+        .filter-actions {
+            width: 320px;
+            margin: 12px auto 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .btn-filter {
+            background: linear-gradient(135deg, #00b4ff, #00ffaa);
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-filter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 180, 255, 0.4);
+        }
+
+        .btn-reset {
+            background: rgba(255, 100, 100, 0.15);
+            border: 1px solid rgba(255, 100, 100, 0.4);
+            color: #ff6b6b;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 100, 100, 0.25);
+        }
+
         .page-header {
             background: linear-gradient(135deg, rgba(0, 180, 255, 0.1), rgba(0, 255, 170, 0.05));
             border: 1px solid rgba(0, 180, 255, 0.3);
@@ -70,7 +156,6 @@
             margin: 0;
         }
 
-        /* Success Alert */
         .success-alert {
             background: linear-gradient(135deg, rgba(0, 255, 150, 0.15), rgba(0, 255, 150, 0.08));
             border: 1px solid rgba(0, 255, 150, 0.4);
@@ -91,7 +176,6 @@
             font-size: 1.3rem;
         }
 
-        /* Table Container */
         .table-container {
             background: rgba(15, 15, 25, 0.7);
             backdrop-filter: blur(16px);
@@ -175,7 +259,6 @@
             border-bottom-right-radius: 12px;
         }
 
-        /* Badges */
         .badge {
             padding: 6px 14px;
             border-radius: 999px;
@@ -205,7 +288,6 @@
             border: 1px solid rgba(255, 100, 100, 0.3);
         }
 
-        /* Action Buttons */
         .action-btn {
             background: rgba(0, 180, 255, 0.1);
             border: 1px solid rgba(0, 180, 255, 0.3);
@@ -269,7 +351,6 @@
             font-size: 1.05rem;
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 100px 20px;
@@ -317,7 +398,6 @@
             color: #000;
         }
 
-        /* Pagination */
         .pagination {
             margin-top: 30px;
             display: flex;
@@ -348,7 +428,6 @@
             color: #000;
         }
 
-        /* Modal Styles */
         .overlay {
             position: fixed;
             top: 0;
@@ -472,7 +551,6 @@
             overflow-y: auto;
         }
 
-        /* JSON Content */
         #jsonContent {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -484,7 +562,6 @@
             overflow-x: auto;
         }
 
-        /* Upload Form */
         .upload-form {
             max-width: 100%;
         }
@@ -609,7 +686,6 @@
             box-shadow: 0 10px 30px rgba(0, 180, 255, 0.4);
         }
 
-        /* CV Preview */
         #cv-preview {
             margin-bottom: 24px;
             padding: 20px;
@@ -627,7 +703,6 @@
             gap: 10px;
         }
 
-        /* Match Results */
         .match-item {
             background: rgba(0, 0, 0, 0.3);
             padding: 24px;
@@ -764,7 +839,6 @@
             transform: translateY(-2px);
         }
 
-        /* Loading */
         #matchLoading,
         #resultsLoading {
             text-align: center;
@@ -788,7 +862,6 @@
             }
         }
 
-        /* Responsive */
         @media (max-width: 1200px) {
             .main-modal {
                 width: 90%;
@@ -842,10 +915,68 @@
         </div>
     @endif
 
-    <!-- Page Header -->
     <div class="page-header">
         <h1><i class="fa-solid fa-clipboard-list"></i> Lịch Sử Crawl</h1>
         <p>Quản lý và theo dõi tất cả các lần crawl việc làm của bạn</p>
+    </div>
+
+    <div class="filter-bar">
+        <form method="GET" action="{{ route('crawl.history') }}" class="filter-form">
+            <div class="filter-group">
+                <label for="keyword">Từ khóa</label>
+                <input type="text" name="keyword" id="keyword" class="filter-input" value="{{ request('keyword') }}"
+                    placeholder="VD: PHP, React, Laravel...">
+            </div>
+
+            <div class="filter-group">
+                <label for="location">Địa điểm</label>
+                <input type="text" name="location" id="location" class="filter-input" value="{{ request('location') }}"
+                    placeholder="Hà Nội, TP.HCM, Remote...">
+            </div>
+
+            <div class="filter-group">
+                <label for="level">Cấp bậc</label>
+                <select name="level" id="level" class="filter-select">
+                    <option value="">-- Tất cả --</option>
+                    <option value="Intern" {{ request('level') === 'Intern' ? 'selected' : '' }}>Intern</option>
+                    <option value="Fresher" {{ request('level') === 'Fresher' ? 'selected' : '' }}>Fresher</option>
+                    <option value="Junior" {{ request('level') === 'Junior' ? 'selected' : '' }}>Junior</option>
+                    <option value="Mid" {{ request('level') === 'Mid' ? 'selected' : '' }}>Mid/Senior</option>
+                    <option value="Senior" {{ request('level') === 'Senior' ? 'selected' : '' }}>Senior</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="status">Trạng thái</label>
+                <select name="status" id="status" class="filter-select">
+                    <option value="">-- Tất cả --</option>
+                    <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Thành công</option>
+                    <option value="running" {{ request('status') === 'running' ? 'selected' : '' }}>Đang chạy</option>
+                    <option value="failed" {{ request('status') === 'failed' ? 'selected' : '' }}>Thất bại</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="date_range">Thời gian</label>
+                <select name="date_range" id="date_range" class="filter-select">
+                    <option value="">-- Tất cả --</option>
+                    <option value="today" {{ request('date_range') === 'today' ? 'selected' : '' }}>Hôm nay</option>
+                    <option value="week" {{ request('date_range') === 'week' ? 'selected' : '' }}>7 ngày qua</option>
+                    <option value="month" {{ request('date_range') === 'month' ? 'selected' : '' }}>30 ngày qua</option>
+                    <option value="3months" {{ request('date_range') === '3months' ? 'selected' : '' }}>3 tháng qua
+                    </option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn-filter">
+                    <i class="fas fa-search"></i> Lọc
+                </button>
+                <a href="{{ route('crawl.history') }}" class="btn-reset">
+                    <i class="fas fa-undo"></i> Reset
+                </a>
+            </div>
+        </form>
     </div>
 
     @if ($crawlRuns->count() > 0)
@@ -878,9 +1009,8 @@
                                 {{ $run->created_at->format('d/m/Y H:i') }}
                             </td>
                             <td><strong>{{ $run->parameters['keyword'] ?? '-' }}</strong></td>
-                            <td>
-                                <i class="fas fa-map-marker-alt" style="margin-right: 6px; color: #ff6b6b;"></i>
-                                {{ $run->parameters['location'] ?? 'Tất cả' }}
+                            <td></td>
+                            {{ $run->parameters['location'] ?? 'Tất cả' }}
                             </td>
                             <td>{{ $run->parameters['level'] ?? 'Tất cả' }}</td>
                             <td>
@@ -956,16 +1086,22 @@
         <div class="table-container">
             <div class="empty-state">
                 <i class="fas fa-inbox"></i>
-                <h3>Chưa Có Lịch Sử Crawl</h3>
-                <p>Bạn chưa thực hiện lần crawl nào. Hãy bắt đầu tìm kiếm việc làm ngay!</p>
-                <a href="{{ route('dashboard') ?? '/' }}" class="cta-btn">
-                    <i class="fas fa-rocket"></i> Bắt Đầu Crawl
+                <h3>Chưa Có Lịch Sử Crawl Hoặc Không Tìm Thấy Kết Quả</h3>
+                <p>
+                    @if (request()->hasAny(['keyword', 'location', 'level', 'status', 'min_jobs', 'date_range']))
+                        Bộ lọc hiện tại không khớp với bất kỳ lần crawl nào.
+                        <br>Hãy thử reset bộ lọc hoặc thay đổi điều kiện tìm kiếm.
+                    @else
+                        Bạn chưa thực hiện lần crawl nào. Hãy bắt đầu tìm kiếm việc làm ngay!
+                    @endif
+                </p>
+                <a href="{{ route('crawl.form') ?? '/' }}" class="cta-btn">
+                    Bắt Đầu Crawl
                 </a>
             </div>
         </div>
     @endif
 
-    <!-- Modal -->
     <div class="overlay" id="overlay" onclick="closeModal()"></div>
     <div class="main-modal" id="mainModal">
         <div class="modal-header">
@@ -986,12 +1122,10 @@
         </div>
 
         <div class="modal-body">
-            <!-- Tab JSON -->
             <div id="tab-content-json">
                 <pre id="jsonContent"></pre>
             </div>
 
-            <!-- Tab Nối CV -->
             <div id="tab-content-match" style="display: none;">
                 <div class="upload-form">
                     <form id="matchForm" action="" method="POST" enctype="multipart/form-data">
@@ -1010,7 +1144,6 @@
                             </select>
                         </div>
 
-                        <!-- CV Preview -->
                         <div id="cv-preview" style="display: none;">
                             <h4>
                                 <i class="fas fa-eye"></i> Preview CV
@@ -1059,7 +1192,6 @@
                 </div>
             </div>
 
-            <!-- Tab Kết quả Matching -->
             <div id="tab-content-results" style="display: none;">
                 <div id="resultsLoading" style="display: none;">
                     <i class="fas fa-spinner fa-spin"></i>
@@ -1075,7 +1207,7 @@
                     </div>
 
                     <div id="matchList" class="match-results">
-                        <!-- Jobs sẽ được render động bởi JavaScript -->
+
                     </div>
                 </div>
             </div>
@@ -1085,45 +1217,33 @@
 
 @push('scripts')
     <script>
-        /* ===============================
-                       DATA FROM BACKEND
-                    =============================== */
         const crawlData = @json($crawlData);
         let currentRunId = null;
         const matchRouteTemplate = "{{ route('match.with.run', ':id') }}";
 
-        /* ===============================
-           MODAL CONTROL
-        =============================== */
+
         function openModal(runId, initialTab = 'json') {
             currentRunId = runId;
             const runData = crawlData[runId] || {};
             const jobs = runData.detail || [];
             const results = runData.result || [];
 
-            // Set title
             document.getElementById('modalTitle').textContent =
                 `Crawl #${runId} - ${jobs.length} công việc`;
-
-            // Load JSON
             document.getElementById('jsonContent').textContent =
                 JSON.stringify(jobs, null, 2);
 
-            // Set form action
             const form = document.getElementById('matchForm');
             form.action = matchRouteTemplate.replace(':id', runId);
             form.reset();
 
-            // Reset CV select
             document.getElementById('existing_cv').value = '';
             document.getElementById('existing_cv').dispatchEvent(new Event('change'));
 
-            // Reset UI
             document.getElementById('fileNameDisplay').style.display = 'none';
             document.getElementById('fileNameDisplay').textContent = '';
             document.getElementById('matchLoading').style.display = 'none';
 
-            // Render results
             if (Array.isArray(results) && results.length > 0) {
                 renderMatchResults(results);
                 switchTab('results');
@@ -1133,7 +1253,6 @@
                 switchTab(initialTab);
             }
 
-            // Open modal
             document.getElementById('overlay').classList.add('open');
             document.getElementById('mainModal').classList.add('open');
             document.body.style.overflow = 'hidden';
@@ -1147,13 +1266,11 @@
         }
 
         function switchTab(tab) {
-            // Remove active class from all tabs
             document.querySelectorAll('.tab-btn').forEach(btn =>
                 btn.classList.remove('active')
             );
             document.getElementById(`tab-${tab}`).classList.add('active');
 
-            // Hide all content
             document.getElementById('tab-content-json').style.display =
                 tab === 'json' ? 'block' : 'none';
             document.getElementById('tab-content-match').style.display =
@@ -1162,9 +1279,6 @@
                 tab === 'results' ? 'block' : 'none';
         }
 
-        /* ===============================
-           RENDER MATCH RESULTS
-        =============================== */
         function renderMatchResults(results) {
             const container = document.getElementById('matchList');
             const noResultsMessage = document.getElementById('noResultsMessage');
@@ -1181,12 +1295,10 @@
             results.forEach((job, index) => {
                 const score = parseFloat(job['Matching Score (%)']) || 0;
 
-                // Parse matched skills
                 const matchedSkillsStr = job['Kỹ năng phù hợp'] || '';
                 const matchedSkills = matchedSkillsStr && matchedSkillsStr !== 'Không có' ?
                     matchedSkillsStr.split(',').map(s => s.trim()).filter(s => s) : [];
 
-                // Parse missing skills
                 const missingSkillsStr = job['Kỹ năng còn thiếu'] || '';
                 const missingSkills = missingSkillsStr && missingSkillsStr !== 'Không thiếu kỹ năng nào' &&
                     missingSkillsStr !== 'Không có' ?
@@ -1208,34 +1320,34 @@
                                 </div>
                                 
                                 ${matchedSkills.length > 0 ? `
-                                        <div class="skills-container">
-                                            <div style="margin-bottom: 8px; font-weight: 600; color: #00ffaa; font-size: 0.9rem;">
-                                                <i class="fas fa-check-circle"></i> Kỹ năng phù hợp
-                                            </div>
-                                            <div class="skill-tags">
-                                                ${matchedSkills.map(skill => 
-                                                    `<span class="skill-tag">${skill}</span>`
-                                                ).join('')}
-                                            </div>
-                                        </div>
-                                    ` : ''}
+                                         <div class="skills-container">
+                                         <div style="margin-bottom: 8px; font-weight: 600; color: #00ffaa; font-size: 0.9rem;">
+                                         <i class="fas fa-check-circle"></i> Kỹ năng phù hợp
+                                         </div>
+                                         <div class="skill-tags">
+                                         ${matchedSkills.map(skill => 
+                                         `<span class="skill-tag">${skill}</span>`
+                                         ).join('')}
+                                         </div>
+                                         </div>
+                                        ` : ''}
                                 
                                 ${missingSkills.length > 0 ? `
                                         <div class="missing-section">
-                                            <h5>
-                                                <i class="fas fa-exclamation-circle"></i> Kỹ năng còn thiếu
-                                            </h5>
-                                            <div class="skill-tags">
-                                                ${missingSkills.map(skill => 
-                                                    `<span class="skill-tag missing">${skill}</span>`
-                                                ).join('')}
-                                            </div>
+                                        <h5>
+                                        <i class="fas fa-exclamation-circle"></i> Kỹ năng còn thiếu
+                                        </h5>
+                                        <div class="skill-tags">
+                                        ${missingSkills.map(skill => 
+                                        `<span class="skill-tag missing">${skill}</span>`
+                                        ).join('')}
                                         </div>
-                                    ` : `
+                                        </div>
+                                        ` : `
                                         <div class="no-missing">
-                                            <i class="fas fa-star"></i> Bạn đã đáp ứng đủ các kỹ năng yêu cầu!
+                                        <i class="fas fa-star"></i> Bạn đã đáp ứng đủ các kỹ năng yêu cầu!
                                         </div>
-                                    `}
+                                        `}
                             </div>
                             <div class="score-container">
                                 <div class="score-circle" 
@@ -1253,9 +1365,7 @@
                 container.insertAdjacentHTML('beforeend', itemHTML);
             });
         }
-        /* ===============================
-           FILE & CV HANDLING
-        =============================== */
+
         document.getElementById('cvFile').addEventListener('change', function() {
             const display = document.getElementById('fileNameDisplay');
             if (this.files && this.files.length > 0) {
@@ -1320,9 +1430,7 @@
             document.getElementById('matchLoading').style.display = 'block';
         });
 
-        /* ===============================
-           KEYBOARD & AUTO-HIDE
-        =============================== */
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeModal();
         });

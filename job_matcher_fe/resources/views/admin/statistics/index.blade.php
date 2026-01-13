@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Tiêu đề trang -->
         <div class="header mb-5 text-center">
             <h1 style="font-size: 2.8rem; margin-bottom: 12px;">
                 <span
@@ -19,7 +18,6 @@
             <p class="stats opacity-85">Thống kê toàn diện thị trường việc làm IT từ dữ liệu crawl</p>
         </div>
 
-        <!-- Stats Cards -->
         <div class="stats-grid mb-5">
             <div class="stat-box">
                 <div class="stat-icon">
@@ -64,7 +62,6 @@
             @endif
         </div>
 
-        <!-- Top Keywords Chart -->
         <div class="chart-card mb-5">
             <h3 class="chart-title">
                 <i class="fas fa-key"></i> Top 20 Từ Khoá Nổi Bật Trong Tiêu Đề Việc Làm
@@ -72,9 +69,7 @@
             <canvas id="keywordsChart"></canvas>
         </div>
 
-        <!-- Charts Row -->
         <div class="charts-grid">
-            <!-- Jobs by Location -->
             <div class="chart-card">
                 <h3 class="chart-title">
                     <i class="fas fa-map-marker-alt"></i> Phân Bố Công Việc Theo Địa Điểm
@@ -82,7 +77,6 @@
                 <canvas id="locationChart"></canvas>
             </div>
 
-            <!-- Salary Distribution -->
             <div class="chart-card">
                 <h3 class="chart-title">
                     <i class="fas fa-money-bill-wave"></i> Phân Bố Mức Lương
@@ -91,7 +85,6 @@
             </div>
         </div>
 
-        <!-- Technology Trend Charts -->
         <div class="chart-card mt-5">
             <h3 class="chart-title">
                 <i class="fas fa-chart-line"></i> Xu Hướng Công Nghệ (7 ngày gần nhất - Moving Average)
@@ -117,7 +110,6 @@
             }
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -173,7 +165,6 @@
             color: #ff88ff;
         }
 
-        /* Duplicate stat box */
         .duplicate-stat {
             border-color: rgba(255, 100, 100, 0.5) !important;
         }
@@ -202,7 +193,6 @@
             font-weight: 600;
         }
 
-        /* Charts */
         .charts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -234,7 +224,6 @@
             width: 100% !important;
         }
 
-        /* Responsive */
         @media (max-width: 992px) {
             .charts-grid {
                 grid-template-columns: 1fr;
@@ -264,13 +253,11 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Màu sắc neon đồng bộ
         const neonColors = [
             '#00b4ff', '#00ffaa', '#ffdd00', '#ff88ff', '#88ddff',
             '#ff6b6b', '#aaffaa', '#ffaa88', '#88aaff', '#aaffff'
         ];
 
-        // Top Keywords - Horizontal Bar
         new Chart(document.getElementById('keywordsChart'), {
             type: 'bar',
             data: {
@@ -317,7 +304,6 @@
             }
         });
 
-        // Location Chart - Bar
         new Chart(document.getElementById('locationChart'), {
             type: 'bar',
             data: {
@@ -363,7 +349,6 @@
             }
         });
 
-        // Salary Chart - Doughnut
         new Chart(document.getElementById('salaryChart'), {
             type: 'doughnut',
             data: {
@@ -393,7 +378,6 @@
             }
         });
 
-        // Trend Chart - Line with Moving Average
         const trendCtx = document.getElementById('trendChart');
         const datasets = [];
 
@@ -404,7 +388,6 @@
             const dailyData = @json($trendStacks)[stack]['daily'];
             const ma7Data = @json($trendStacks)[stack]['ma7'];
 
-            // Daily line (thin, dotted)
             datasets.push({
                 label: stack.toUpperCase() + ' (hàng ngày)',
                 data: Object.values(dailyData),
@@ -417,7 +400,6 @@
                 fill: false
             });
 
-            // Moving Average (thick, solid)
             datasets.push({
                 label: stack.toUpperCase() + ' (MA7)',
                 data: Object.values(ma7Data),
@@ -434,7 +416,7 @@
             type: 'line',
             data: {
                 labels: Object.keys(@json($trendStacks)['php']['daily'] ??
-            []), // dùng ngày từ stack đầu tiên
+            []),
                 datasets: datasets
             },
             options: {

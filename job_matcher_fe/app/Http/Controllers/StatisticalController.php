@@ -27,16 +27,13 @@ class StatisticalController extends Controller
             }
         }
 
-        // Tổng
         $totalJobs = $jobs->count();
         $todayJobs = $jobs->where('created_at', '>=', now()->startOfDay())->count();
         $weekJobs  = $jobs->where('created_at', '>=', now()->startOfWeek())->count();
         $monthJobs = $jobs->where('created_at', '>=', now()->startOfMonth())->count();
 
-        // Phân bố địa điểm
         $byLocation = $jobs->groupBy('location')->map->count()->sortDesc();
 
-        // Phân bố lương
         $salaryStats = [
             'Thoả thuận'     => $jobs->whereNull('salary_max')->count(),
             'Dưới 10 triệu'  => $jobs->whereBetween('salary_max', [0, 10])->count(),
@@ -48,13 +45,10 @@ class StatisticalController extends Controller
             'Trên 50 triệu'  => $jobs->where('salary_max', '>', 50)->count(),
         ];
 
-        // Job trùng
         $duplicateJobs = $jobs->groupBy('hash')->filter(fn($i) => $i->count() > 1)->count();
 
-        // ================= TOP KEYWORDS ===================
         $topKeywords = $this->extractKeywords($jobs);
 
-        // ================= TREND ==========================
         $trendStacks = ['php','java','python','react','node','devops','ai','data'];
         $trendResult = [];
 
@@ -83,7 +77,6 @@ class StatisticalController extends Controller
         ]);
     }
 
-    // ================== NLP ==================
     private function extractKeywords($jobs)
     {
         $stopWords = [
@@ -108,7 +101,6 @@ class StatisticalController extends Controller
         return collect($keywords)->countBy()->sortDesc()->take(20);
     }
 
-    // ================= TREND ===================
     private function buildTrend($jobs, $keyword)
     {
         return $jobs->filter(fn($j) => str_contains(mb_strtolower($j['title']), $keyword))

@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        // USER + LOG STATS
+
         $totalUsers = User::count();
         $totalAdmins = User::where('role', 'admin')->count();
         $totalNormalUsers = User::where('role', 'user')->count();
@@ -21,7 +21,6 @@ class AdminController extends Controller
 
         $recentLogs = Log::with('user')->latest()->take(6)->get();
 
-        // ================== CRAWL STATS ==================
         $runs = CrawlRun::whereNotNull('detail')->get();
 
         $jobs = collect();
@@ -36,16 +35,13 @@ class AdminController extends Controller
             }
         }
 
-        // Số lượng crawl theo thời gian
         $crawlToday = $jobs->where('created_at', '>=', now()->startOfDay())->count();
         $crawlWeek  = $jobs->where('created_at', '>=', now()->startOfWeek())->count();
         $crawlMonth = $jobs->where('created_at', '>=', now()->startOfMonth())->count();
         $crawlYear  = $jobs->where('created_at', '>=', now()->startOfYear())->count();
 
-        // Job trùng
         $duplicateJobs = $jobs->groupBy('hash')->filter(fn($i) => $i->count() > 1)->count();
 
-        // Phân bố theo địa điểm (Top 10 + Others)
         $byLocation = $jobs->groupBy('location')->map->count()->sortDesc();
 
         $topLocations = $byLocation->take(10);
@@ -78,7 +74,6 @@ class AdminController extends Controller
     {
         $query = User::query();
 
-        // Lọc theo tên hoặc email
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
@@ -87,13 +82,10 @@ class AdminController extends Controller
             });
         }
 
-        // Lọc theo vai trò
         if ($request->filled('role') && in_array($request->input('role'), ['user', 'admin'])) {
             $query->where('role', $request->input('role'));
         }
 
-        // ƯU TIÊN: Admin lên trên đầu, sau đó mới đến User
-        // Sau đó sắp xếp theo ngày tạo giảm dần trong từng nhóm
         $users = $query->orderByRaw("FIELD(role, 'admin', 'user')")
             ->orderBy('created_at', 'desc')
             ->paginate(20);
@@ -105,7 +97,6 @@ class AdminController extends Controller
 
     public function updateUserRole(Request $request, User $user)
     {
-        // ❌ Không cho tự đổi role của chính mình
         if ($user->id === Auth::id()) {
             return redirect()->route('admin.users')
                 ->with('error', 'You cannot change your own role!');
@@ -132,37 +123,30 @@ class AdminController extends Controller
     {
         $query = DeletedCrawl::with(['user', 'deletedBy'])->orderBy('deleted_at', 'desc');
 
-        // Lọc theo từ khóa
         if ($request->filled('keyword')) {
             $query->where('parameters->keyword', 'like', '%' . $request->keyword . '%');
         }
 
-        // Lọc theo địa điểm
         if ($request->filled('location')) {
             $query->where('parameters->location', 'like', '%' . $request->location . '%');
         }
 
-        // Lọc theo cấp bậc
         if ($request->filled('level')) {
             $query->where('parameters->level', 'like', '%' . $request->level . '%');
         }
 
-        // Lọc theo mức lương
         if ($request->filled('salary')) {
             $query->where('parameters->salary', 'like', '%' . $request->salary . '%');
         }
 
-        // Lọc theo yêu cầu (search_range)
         if ($request->filled('search_range')) {
             $query->where('parameters->search_range', 'like', '%' . $request->search_range . '%');
         }
 
-        // Lọc theo trạng thái
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        // Lọc theo ngày xóa
         if ($request->filled('from_date')) {
             $query->whereDate('deleted_at', '>=', $request->from_date);
         }
@@ -171,7 +155,6 @@ class AdminController extends Controller
             $query->whereDate('deleted_at', '<=', $request->to_date);
         }
 
-        // Lọc theo người xóa
         if ($request->filled('deleted_by')) {
             $query->whereHas('deletedBy', function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->deleted_by . '%');

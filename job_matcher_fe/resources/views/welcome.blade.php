@@ -25,7 +25,6 @@
             overflow: hidden;
         }
 
-        /* Background gradient di chuyển nhẹ nhàng */
         body::before {
             content: "";
             position: absolute;
@@ -63,7 +62,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Layout chính */
         .layout {
             display: grid;
             grid-template-columns: 1.4fr 1fr;
@@ -72,7 +70,6 @@
             z-index: 1;
         }
 
-        /* Left - Visual */
         .visual {
             padding: 80px;
             display: flex;
@@ -105,8 +102,6 @@
             opacity: 0.8;
             line-height: 1.7;
         }
-
-        /* Right - Form */
         .right {
             display: flex;
             align-items: center;
@@ -195,7 +190,6 @@
             height: 22px;
         }
 
-        /* Modal chung */
         .modal {
             position: fixed;
             inset: 0;
@@ -305,7 +299,6 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
         @media (max-width: 992px) {
             .layout {
                 grid-template-columns: 1fr;
@@ -327,7 +320,6 @@
 <body>
 
     <div class="layout">
-        <!-- Left Visual -->
         <div class="visual">
             <div class="visual-content">
                 <h1>
@@ -337,8 +329,6 @@
                 <p>Phân tích CV thông minh và gợi ý công việc phù hợp nhất bằng công nghệ AI hiện đại.</p>
             </div>
         </div>
-
-        <!-- Right - Welcome Buttons -->
         <div class="right">
             <div class="wrapper">
                 <div class="logo">JM</div>
@@ -355,7 +345,6 @@
         </div>
     </div>
 
-    <!-- LOGIN MODAL -->
     <div id="loginModal" class="modal">
         <div class="modal-box">
             <h3>Đăng nhập</h3>
@@ -393,7 +382,6 @@
         </div>
     </div>
 
-    <!-- REGISTER MODAL -->
     <div id="registerModal" class="modal">
         <div class="modal-box">
             <h3>Đăng ký</h3>
@@ -424,7 +412,6 @@
         </div>
     </div>
 
-    <!-- FORGOT PASSWORD MODAL -->
     <div id="forgotPasswordModal" class="modal">
         <div class="modal-box">
             <h3>Quên mật khẩu</h3>

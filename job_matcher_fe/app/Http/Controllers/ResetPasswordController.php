@@ -27,7 +27,6 @@ class ResetPasswordController extends Controller
         $record = DB::table('password_reset_tokens')->where('token', $token)->first();
         abort_if(!$record, 404);
 
-        // hết hạn 30 phút
         if (Carbon::parse($record->created_at)->addMinutes(30)->isPast()) {
             DB::table('password_reset_tokens')->where('token',$token)->delete();
             return redirect()->route('password.request')->withErrors(['email'=>'Link đã hết hạn']);

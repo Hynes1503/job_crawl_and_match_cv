@@ -18,7 +18,6 @@
         <p class="stats opacity-85">Tổng cộng <strong>{{ $logs->total() }}</strong> bản ghi hoạt động</p>
     </div>
 
-    <!-- Form Bộ lọc -->
     <div class="mb-5">
         <form method="GET" action="{{ route('admin.logs.index') }}" class="row g-3 align-items-end">
             <div class="col-md-3">
@@ -91,7 +90,6 @@
                     @endphp
 
                     @if($showTodayHeader)
-                        <!-- Tiêu đề nhóm: Hôm nay -->
                         <tr>
                             <td colspan="6"
                                 style="text-align: center; padding: 16px; font-weight: 600; color: #00ffaa; font-size: 1.1rem; background: rgba(0, 255, 170, 0.08);">
@@ -102,7 +100,6 @@
                     @endif
 
                     @foreach($logs as $log)
-                        <!-- Đường phân cách gradient giữa các ngày (chỉ khi chuyển ngày) -->
                         @if(!$loop->first && !$log->created_at->isSameDay($logs[$loop->iteration - 1]->created_at))
                             <tr>
                                 <td colspan="6"
@@ -157,7 +154,6 @@
             </table>
         </div>
 
-        <!-- Phân trang -->
         <div class="mt-5">
             {{ $logs->appends(request()->query())->links() }}
         </div>
@@ -172,7 +168,6 @@
 
 @push('styles')
 <style>
-    /* Giữ nguyên toàn bộ style từ file cũ + thêm nhẹ cho today */
     @keyframes textGradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -259,7 +254,6 @@
         transform: translateY(-2px);
     }
 
-    /* Pagination & Custom Select giữ nguyên như trang Users */
     .pagination {
         display: flex;
         justify-content: center;
@@ -318,7 +312,6 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Animation fade-in từng dòng
         document.querySelectorAll('tbody tr:not([colspan])').forEach((row, index) => {
             row.style.opacity = '0';
             row.style.animation = `fadeIn 0.6s ease forwards`;
@@ -326,7 +319,6 @@
         });
     });
 
-    // Định nghĩa fadeIn (nếu chưa có trong layout chính)
     const style = document.createElement('style');
     style.textContent = `
         @keyframes fadeIn {

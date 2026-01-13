@@ -41,7 +41,6 @@
         }
     }
 
-    /* Toast Notification */
     .toast-notification {
         position: fixed;
         top: 24px;
@@ -262,7 +261,6 @@
         font-size: 1.3rem;
     }
 
-    /* Nút Preview TopCV */
     .topcv-preview {
         text-align: center;
         margin-bottom: 32px;
@@ -328,7 +326,6 @@
         </p>
     </div>
 
-    <!-- Nút mở TopCV IT Jobs trong tab mới -->
     <div class="topcv-preview mb-4" style="text-align: center;">
         <a href="https://www.topcv.vn/viec-lam-it" 
            target="_blank" 

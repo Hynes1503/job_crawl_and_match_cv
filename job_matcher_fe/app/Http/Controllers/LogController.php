@@ -11,7 +11,6 @@ class LogController extends Controller
     {
         $query = Log::with('user');
 
-        // Lọc theo người dùng (tên hoặc email)
         if ($request->filled('user')) {
             $search = $request->input('user');
             $query->whereHas('user', function ($q) use ($search) {
@@ -20,17 +19,14 @@ class LogController extends Controller
             });
         }
 
-        // Lọc theo hành động
         if ($request->filled('action')) {
             $query->where('action', $request->input('action'));
         }
 
-        // Lọc theo IP
         if ($request->filled('ip')) {
             $query->where('ip_address', 'like', '%' . $request->input('ip') . '%');
         }
 
-        // Lọc theo khoảng thời gian
         if ($request->filled('from_date')) {
             $query->whereDate('created_at', '>=', $request->input('from_date'));
         }
@@ -38,10 +34,8 @@ class LogController extends Controller
             $query->whereDate('created_at', '<=', $request->input('to_date'));
         }
 
-        // Sắp xếp mới nhất trước
         $logs = $query->orderBy('created_at', 'desc')->paginate(20);
 
-        // Giữ query string cho phân trang và form
         $logs->appends($request->query());
 
         return view('admin.logs.index', compact('logs'));

@@ -17,7 +17,6 @@
             </h1>
         </div>
 
-        <!-- Form lọc -->
         <div class="mb-5">
             <form method="GET" action="{{ route('admin.users') }}" class="row g-3 align-items-end">
                 <div class="col-md-5">
@@ -74,13 +73,11 @@
 
                         @foreach ($users as $user)
                             @if ($previousRole !== null && $previousRole !== $user->role)
-                                <!-- Đường ngăn cách gradient -->
                                 <tr>
                                     <td colspan="6"
                                         style="padding: 0; height: 8px; background: linear-gradient(to right, transparent, #00b4ff, transparent); opacity: 0.6;">
                                     </td>
                                 </tr>
-                                <!-- Tiêu đề nhóm mới -->
                                 <tr>
                                     <td colspan="6"
                                         style="text-align: center; padding: 16px; font-weight: 600; color: #00ffaa; font-size: 1.1rem; background: rgba(0, 255, 170, 0.08);">
@@ -89,7 +86,6 @@
                                     </td>
                                 </tr>
                             @elseif($loop->first)
-                                <!-- Tiêu đề nhóm đầu tiên -->
                                 <tr>
                                     <td colspan="6"
                                         style="text-align: center; padding: 16px; font-weight: 600; color: #00ffaa; font-size: 1.1rem; background: rgba(0, 255, 170, 0.08);">
@@ -154,7 +150,6 @@
                 </table>
             </div>
 
-            <!-- Phân trang -->
             <div class="mt-5">
                 {{ $users->appends(request()->query())->links() }}
             </div>
@@ -266,7 +261,6 @@
             background: rgba(0, 255, 150, .2);
         }
 
-        /* FIX SELECT - Chữ rõ ràng, đẹp hơn */
         .custom-select,
         .custom-select-sm {
             background: rgba(0, 0, 0, 0.5) !important;
@@ -290,7 +284,6 @@
             outline: none;
         }
 
-        /* Pagination */
         .pagination {
             display: flex;
             justify-content: center;

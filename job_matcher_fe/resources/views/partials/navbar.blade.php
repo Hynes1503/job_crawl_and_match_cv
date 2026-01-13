@@ -1,8 +1,16 @@
 <style>
     @keyframes textGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     @keyframes slideDown {
@@ -10,13 +18,14 @@
             opacity: 0;
             transform: translateY(-20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
 
-    /* Navbar */
+    /* ==================== NAVBAR STYLES ==================== */
     .navbar {
         position: fixed;
         top: 0;
@@ -244,9 +253,14 @@
         border: none;
         color: #ff6b6b;
         cursor: pointer;
+        font-size: 0.95rem;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
-    /* Mobile Toggle */
+    /* Mobile Toggle Button */
     .mobile-toggle {
         display: none;
         background: rgba(0, 180, 255, 0.15);
@@ -267,7 +281,7 @@
         border-color: rgba(0, 180, 255, 0.5);
     }
 
-    /* Mobile Menu */
+    
     @media (max-width: 992px) {
         .navbar {
             height: 70px;
@@ -308,7 +322,7 @@
         }
 
         .navbar-menu.active {
-            max-height: 500px;
+            max-height: 600px;
         }
 
         .nav-link {
@@ -317,7 +331,6 @@
             justify-content: flex-start;
         }
 
-        /* Mobile User Dropdown */
         .user-dropdown {
             width: 100%;
         }
@@ -359,27 +372,32 @@
         .brand-text {
             font-size: 1.2rem;
         }
+
+        .support-modal {
+            margin: 16px;
+            max-width: 92%;
+        }
     }
 </style>
 
 <nav class="navbar">
     <div class="navbar-container">
-        <!-- Logo -->
         <a href="{{ route('dashboard') }}" class="navbar-brand">
             <div class="brand-icon"><i class="fa-solid fa-rocket"></i></div>
             <span class="brand-text">Job Matcher AI</span>
         </a>
 
-        <!-- Desktop & Mobile Menu -->
-        <ul class="navbar-menu" id="navbarMenu">
+       <ul class="navbar-menu" id="navbarMenu">
             <li class="nav-item">
-                <a href="{{ route('user.dashboard') }}" class="nav-link {{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('user.dashboard') }}"
+                    class="nav-link {{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('crawl.form') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <a href="{{ route('crawl.form') }}"
+                    class="nav-link {{ request()->routeIs('crawl.form') ? 'active' : '' }}">
                     <i class="fas fa-search"></i>
                     <span>Crawl</span>
                 </a>
@@ -391,30 +409,34 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('crawl.history') }}" class="nav-link {{ request()->routeIs('crawl.history') ? 'active' : '' }}">
+                <a href="{{ route('crawl.history') }}"
+                    class="nav-link {{ request()->routeIs('crawl.history') ? 'active' : '' }}">
                     <i class="fas fa-history"></i>
                     <span>Lịch sử</span>
                 </a>
             </li>
-
-            <!-- Mobile User Dropdown (sẽ được clone từ desktop) -->
-            <li class="nav-item user-dropdown-mobile" style="display: none;" id="mobileUserDropdown">
-                <!-- Clone từ desktop sẽ được xử lý bằng JS -->
+            <li class="nav-item">
+                <a href="{{ route('support.index') }}"
+                    class="nav-link {{ request()->routeIs('support.index') ? 'active' : '' }}">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>Ticket</span>
+                </a>
+            </li>
+            <li class="nav-item user-dropdown-mobile" id="mobileUserDropdown" style="display: none;">
             </li>
         </ul>
 
-        <!-- Desktop User Dropdown -->
         <div class="user-dropdown" id="desktopUserDropdown">
             @auth
                 <div class="user-toggle" id="userToggle">
                     <div class="user-avatar">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        {{ strtoupper(substr(auth()->user()->name ?? '', 0, 1)) }}
                     </div>
-                    <span class="user-name">{{ auth()->user()->name }}</span>
+                    <span class="user-name">{{ auth()->user()->name ?? 'User' }}</span>
                 </div>
 
                 <div class="dropdown-menu" id="userDropdownMenu">
-                    @if(strtolower(auth()->user()->role) === 'admin')
+                    @if (auth()->check() && strtolower(auth()->user()->role ?? '') === 'admin')
                         <a href="{{ route('admin.dashboard') }}" class="dropdown-item admin">
                             <i class="fas fa-user-shield"></i>
                             <span>Admin Dashboard</span>
@@ -422,9 +444,15 @@
                         <div class="dropdown-divider"></div>
                     @endif
 
+                    <a href="javascript:void(0)" class="dropdown-item" onclick="openSupportModal()">
+                        <i class="fas fa-bug"></i>
+                        <span>Phản ánh / Báo lỗi</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="dropdown-item logout-btn">
+                        <button type="submit" class="logout-btn">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Đăng xuất</span>
                         </button>
@@ -433,95 +461,96 @@
             @endauth
         </div>
 
-        <!-- Mobile Toggle -->
         <button class="mobile-toggle" id="mobileToggle">
             <i class="fas fa-bars"></i>
         </button>
     </div>
 </nav>
 
+
+@include('partials.support-modal')
+
 <script>
-    // Mobile menu toggle
     const mobileToggle = document.getElementById('mobileToggle');
     const navbarMenu = document.getElementById('navbarMenu');
-    const toggleIcon = mobileToggle.querySelector('i');
+    const toggleIcon = mobileToggle?.querySelector('i');
     const mobileUserDropdown = document.getElementById('mobileUserDropdown');
 
-    mobileToggle.addEventListener('click', function() {
-        navbarMenu.classList.toggle('active');
-        
-        if (navbarMenu.classList.contains('active')) {
-            toggleIcon.classList.remove('fa-bars');
-            toggleIcon.classList.add('fa-times');
-            
-            // Clone desktop user dropdown cho mobile
-            if (document.getElementById('desktopUserDropdown')) {
-                const clone = document.getElementById('desktopUserDropdown').cloneNode(true);
-                clone.id = 'mobileUserDropdownClone';
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            navbarMenu.classList.toggle('active');
+
+            if (navbarMenu.classList.contains('active')) {
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-times');
+
+                const desktopDropdown = document.getElementById('desktopUserDropdown');
+                if (desktopDropdown) {
+                    const clone = desktopDropdown.cloneNode(true);
+                    clone.id = 'mobileUserDropdownClone';
+                    mobileUserDropdown.innerHTML = '';
+                    mobileUserDropdown.appendChild(clone);
+                    mobileUserDropdown.style.display = 'block';
+
+                    const clonedToggle = clone.querySelector('#userToggle');
+                    if (clonedToggle) {
+                        clonedToggle.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            clone.classList.toggle('active');
+                        });
+                    }
+                }
+            } else {
+                toggleIcon.classList.remove('fa-times');
+                toggleIcon.classList.add('fa-bars');
                 mobileUserDropdown.innerHTML = '';
-                mobileUserDropdown.appendChild(clone);
-                mobileUserDropdown.style.display = 'block';
+                mobileUserDropdown.style.display = 'none';
             }
-        } else {
-            toggleIcon.classList.remove('fa-times');
-            toggleIcon.classList.add('fa-bars');
-            mobileUserDropdown.innerHTML = '';
-            mobileUserDropdown.style.display = 'none';
-        }
-    });
+        });
+    }
 
-    // Desktop dropdown toggle
     const userToggle = document.getElementById('userToggle');
-    const userDropdownMenu = document.getElementById('userDropdownMenu');
-
-    if (userToggle && userDropdownMenu) {
+    if (userToggle) {
         userToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             document.getElementById('desktopUserDropdown').classList.toggle('active');
         });
     }
 
-    // Close dropdown when click outside
     document.addEventListener('click', function(e) {
         const navbar = document.querySelector('.navbar');
-        if (!navbar.contains(e.target)) {
-            // Close mobile menu
+        if (!navbar?.contains(e.target)) {
             if (navbarMenu.classList.contains('active')) {
                 navbarMenu.classList.remove('active');
-                toggleIcon.classList.remove('fa-times');
-                toggleIcon.classList.add('fa-bars');
+                toggleIcon?.classList.remove('fa-times');
+                toggleIcon?.classList.add('fa-bars');
                 mobileUserDropdown.innerHTML = '';
                 mobileUserDropdown.style.display = 'none';
             }
-            
-            // Close desktop dropdown
-            if (document.getElementById('desktopUserDropdown')?.classList.contains('active')) {
-                document.getElementById('desktopUserDropdown').classList.remove('active');
-            }
+            document.getElementById('desktopUserDropdown')?.classList.remove('active');
         }
     });
 
-    // Close mobile menu when clicking on a link
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 992) {
                 navbarMenu.classList.remove('active');
-                toggleIcon.classList.remove('fa-times');
-                toggleIcon.classList.add('fa-bars');
+                toggleIcon?.classList.remove('fa-times');
+                toggleIcon?.classList.add('fa-bars');
                 mobileUserDropdown.innerHTML = '';
                 mobileUserDropdown.style.display = 'none';
             }
         });
     });
 
-    // Handle resize
     window.addEventListener('resize', function() {
         if (window.innerWidth > 992) {
             navbarMenu.classList.remove('active');
-            toggleIcon.classList.remove('fa-times');
-            toggleIcon.classList.add('fa-bars');
+            toggleIcon?.classList.remove('fa-times');
+            toggleIcon?.classList.add('fa-bars');
             mobileUserDropdown.innerHTML = '';
             mobileUserDropdown.style.display = 'none';
         }
     });
+
 </script>

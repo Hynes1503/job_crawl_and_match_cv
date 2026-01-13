@@ -190,7 +190,6 @@
             text-decoration: underline;
         }
 
-        /* Modal ẩn/hiện */
         .modal {
             display: none;
             position: fixed;
@@ -217,7 +216,6 @@
 </head>
 <body>
 
-    <!-- LOGIN MODAL -->
     <div id="loginModal" class="modal active">
         <div class="auth-container">
             <div class="logo">
@@ -258,7 +256,6 @@
         </div>
     </div>
 
-    <!-- REGISTER MODAL -->
     <div id="registerModal" class="modal">
         <div class="auth-container">
             <div class="logo">

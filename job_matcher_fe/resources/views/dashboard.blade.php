@@ -20,7 +20,6 @@
             50% { box-shadow: 0 0 40px rgba(0, 180, 255, 0.6); }
         }
 
-        /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, rgba(0, 180, 255, 0.1), rgba(0, 255, 170, 0.05));
             border: 1px solid rgba(0, 180, 255, 0.3);
@@ -66,15 +65,12 @@
             margin-bottom: 0;
         }
 
-        /* Main Grid Layout */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 32px;
             margin-bottom: 40px;
         }
-
-        /* Stats Overview Card */
         .stats-card {
             background: rgba(15, 15, 25, 0.7);
             backdrop-filter: blur(16px);
@@ -140,16 +136,12 @@
             opacity: 0.7;
             font-weight: 500;
         }
-
-        /* Color variants */
         .stat-primary { color: #00b4ff; }
         .stat-warning { color: #ffdd00; }
         .stat-success { color: #00ffaa; }
         .stat-danger { color: #ff6b6b; }
         .stat-purple { color: #b084ff; }
         .stat-orange { color: #ff9a56; }
-
-        /* Quick Actions Panel */
         .actions-panel {
             background: rgba(15, 15, 25, 0.7);
             backdrop-filter: blur(16px);
@@ -385,7 +377,6 @@
             color: #000;
         }
 
-        /* Responsive */
         @media (max-width: 1200px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -415,7 +406,6 @@
 @endpush
 
 @section('content')
-    <!-- Hero Section -->
     <div class="hero-section">
         <div class="hero-content">
             <h1>Xin chào, {{ auth()->user()->name }}!</h1>
@@ -423,9 +413,7 @@
         </div>
     </div>
 
-    <!-- Main Dashboard Grid -->
     <div class="dashboard-grid">
-        <!-- Stats Overview -->
         <div class="stats-card">
             <div class="stats-header">
                 <i class="fas fa-chart-line"></i>
@@ -482,7 +470,6 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
         <div class="actions-panel">
             <div class="actions-header">
                 <i class="fas fa-bolt"></i>
@@ -520,8 +507,6 @@
             </a>
         </div>
     </div>
-
-    <!-- Recent Activity -->
     <div class="activity-section">
         <div class="activity-header">
             <div class="activity-title">
@@ -590,7 +575,7 @@
                 <h3>Chưa Có Hoạt Động</h3>
                 <p>Bạn chưa thực hiện lần crawl nào. Hãy bắt đầu ngay!</p>
                 <a href="{{ route('dashboard') }}" class="cta-btn">
-                    <i class="fas fa-rocket mr-2"></i> Bắt Đầu Ngay
+                 Bắt Đầu Crawl Ngay
                 </a>
             </div>
         @endif

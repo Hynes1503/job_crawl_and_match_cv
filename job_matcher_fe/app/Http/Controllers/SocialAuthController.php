@@ -48,7 +48,6 @@ class SocialAuthController extends Controller
 
         Auth::login($user);
 
-        // Ghi log đăng nhập qua social
         Log::create([
             'user_id' => $user->id,
             'action' => 'login_social',

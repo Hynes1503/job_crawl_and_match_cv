@@ -21,7 +21,6 @@
             margin-bottom: 32px;
         }
 
-        /* Toast Notification */
         @keyframes slideIn {
             from { transform: translateX(400px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
@@ -126,7 +125,6 @@
             background: linear-gradient(90deg, #ff5080, #ff8a00);
         }
 
-        /* Filter Form */
         .filter-section {
             background: rgba(0, 0, 0, .35);
             backdrop-filter: blur(12px);
@@ -316,7 +314,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Modal styles */
         .overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.8); z-index: 9000;
@@ -368,7 +365,6 @@
             </div>
         </div>
 
-        <!-- Form Bộ lọc -->
         <div class="filter-section">
             <form method="GET" action="{{ route('admin.deleted.crawls') }}" class="row g-3 align-items-end">
                 <div class="col-md-2">
@@ -536,7 +532,6 @@
         @endif
     </div>
 
-    <!-- Modal xem chi tiết -->
     <div class="overlay" id="overlay" onclick="closeModal()"></div>
     <div class="main-modal" id="mainModal">
         <div class="modal-header">
@@ -572,7 +567,6 @@
 
         let currentRunId = null;
 
-        // Toast functions
         function closeToast() {
             const toast = document.getElementById('toastNotification');
             if (toast) {
@@ -581,7 +575,6 @@
             }
         }
 
-        // Auto hide toast after 4 seconds
         document.addEventListener('DOMContentLoaded', () => {
             const toast = document.getElementById('toastNotification');
             if (toast) {
@@ -599,10 +592,8 @@
 
             document.getElementById('modalTitle').textContent = `Crawl Đã Xóa #${runId} - ${jobs.length} công việc`;
 
-            // Tab JSON
             document.getElementById('jsonContent').textContent = JSON.stringify(jobs, null, 2);
 
-            // Tab Kết quả
             if (results.length > 0) {
                 renderMatchResults(results);
                 document.getElementById('noResultsMessage').style.display = 'none';

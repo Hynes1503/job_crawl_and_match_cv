@@ -25,7 +25,6 @@ class XPathController extends Controller
             'version'        => 'required|string|max:20',
         ]);
 
-        // Thêm is_active vào validated data
         $validated['is_active'] = $request->has('is_active');
 
         $siteSelector->update($validated);

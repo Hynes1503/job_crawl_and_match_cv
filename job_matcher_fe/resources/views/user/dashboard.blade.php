@@ -5,19 +5,41 @@
 @push('styles')
     <style>
         @keyframes textGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 180, 255, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(0, 180, 255, 0.6); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(0, 180, 255, 0.6);
+            }
         }
 
         /* Hero Section */
@@ -66,7 +88,6 @@
             margin-bottom: 0;
         }
 
-        /* Main Grid Layout */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -74,7 +95,6 @@
             margin-bottom: 40px;
         }
 
-        /* Stats Overview Card */
         .stats-card {
             background: rgba(15, 15, 25, 0.7);
             backdrop-filter: blur(16px);
@@ -141,15 +161,30 @@
             font-weight: 500;
         }
 
-        /* Color variants */
-        .stat-primary { color: #00b4ff; }
-        .stat-warning { color: #ffdd00; }
-        .stat-success { color: #00ffaa; }
-        .stat-danger { color: #ff6b6b; }
-        .stat-purple { color: #b084ff; }
-        .stat-orange { color: #ff9a56; }
+        .stat-primary {
+            color: #00b4ff;
+        }
 
-        /* Quick Actions Panel */
+        .stat-warning {
+            color: #ffdd00;
+        }
+
+        .stat-success {
+            color: #00ffaa;
+        }
+
+        .stat-danger {
+            color: #ff6b6b;
+        }
+
+        .stat-purple {
+            color: #b084ff;
+        }
+
+        .stat-orange {
+            color: #ff9a56;
+        }
+
         .actions-panel {
             background: rgba(15, 15, 25, 0.7);
             backdrop-filter: blur(16px);
@@ -222,7 +257,7 @@
             margin: 0;
         }
 
-        /* Recent Activity Section */
+
         .activity-section {
             background: rgba(15, 15, 25, 0.7);
             backdrop-filter: blur(16px);
@@ -274,7 +309,6 @@
             border-color: rgba(0, 180, 255, 0.5);
         }
 
-        /* Modern Table */
         .modern-table {
             width: 100%;
             border-collapse: separate;
@@ -332,9 +366,23 @@
             letter-spacing: 0.3px;
         }
 
-        .badge-success { background: rgba(0, 255, 150, 0.15); color: #00ffaa; border: 1px solid rgba(0, 255, 150, 0.3); }
-        .badge-warning { background: rgba(255, 200, 0, 0.15); color: #ffdd00; border: 1px solid rgba(255, 200, 0, 0.3); }
-        .badge-danger { background: rgba(255, 100, 100, 0.15); color: #ff6b6b; border: 1px solid rgba(255, 100, 100, 0.3); }
+        .badge-success {
+            background: rgba(0, 255, 150, 0.15);
+            color: #00ffaa;
+            border: 1px solid rgba(0, 255, 150, 0.3);
+        }
+
+        .badge-warning {
+            background: rgba(255, 200, 0, 0.15);
+            color: #ffdd00;
+            border: 1px solid rgba(255, 200, 0, 0.3);
+        }
+
+        .badge-danger {
+            background: rgba(255, 100, 100, 0.15);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 100, 100, 0.3);
+        }
 
         .highlight-number {
             font-weight: 800;
@@ -385,11 +433,11 @@
             color: #000;
         }
 
-        /* Responsive */
         @media (max-width: 1200px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
+
             .mini-stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -399,12 +447,15 @@
             .hero-content h1 {
                 font-size: 2.2rem;
             }
+
             .hero-content p {
                 font-size: 1.1rem;
             }
+
             .mini-stats-grid {
                 grid-template-columns: 1fr;
             }
+
             .activity-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -415,7 +466,6 @@
 @endpush
 
 @section('content')
-    <!-- Hero Section -->
     <div class="hero-section">
         <div class="hero-content">
             <h1>Xin chào, {{ auth()->user()->name }}!</h1>
@@ -423,9 +473,7 @@
         </div>
     </div>
 
-    <!-- Main Dashboard Grid -->
     <div class="dashboard-grid">
-        <!-- Stats Overview -->
         <div class="stats-card">
             <div class="stats-header">
                 <i class="fas fa-chart-line"></i>
@@ -482,7 +530,7 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
+
         <div class="actions-panel">
             <div class="actions-header">
                 <i class="fas fa-bolt"></i>
@@ -521,21 +569,21 @@
         </div>
     </div>
 
-    <!-- Recent Activity -->
+
     <div class="activity-section">
         <div class="activity-header">
             <div class="activity-title">
                 <i class="fas fa-clock"></i>
                 <h2>Hoạt Động Gần Đây</h2>
             </div>
-            @if($recentCrawls->count() > 0)
+            @if ($recentCrawls->count() > 0)
                 <a href="{{ route('crawl.history') }}" class="view-all-btn">
                     Xem Tất Cả <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             @endif
         </div>
 
-        @if($recentCrawls->count() > 0)
+        @if ($recentCrawls->count() > 0)
             <table class="modern-table">
                 <thead>
                     <tr>
@@ -547,7 +595,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($recentCrawls as $run)
+                    @foreach ($recentCrawls as $run)
                         <tr>
                             <td>
                                 <i class="far fa-calendar-alt mr-2 stat-primary"></i>
@@ -566,7 +614,7 @@
                                 </span>
                             </td>
                             <td>
-                                @if($run->status == 'completed')
+                                @if ($run->status == 'completed')
                                     <span class="badge badge-success">
                                         <i class="fas fa-check mr-1"></i> Thành công
                                     </span>
@@ -590,7 +638,7 @@
                 <h3>Chưa Có Hoạt Động</h3>
                 <p>Bạn chưa thực hiện lần crawl nào. Hãy bắt đầu ngay!</p>
                 <a href="{{ route('dashboard') }}" class="cta-btn">
-                    <i class="fas fa-rocket mr-2"></i> Bắt Đầu Ngay
+                    Bắt Đầu Crawl Ngay
                 </a>
             </div>
         @endif

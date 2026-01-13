@@ -11,7 +11,6 @@
                     <i class="fas fa-users"></i> Users
                 </a>
             </li>
-            <!-- Thêm menu khác nếu cần -->
         </ul>
     </div>
 </nav>

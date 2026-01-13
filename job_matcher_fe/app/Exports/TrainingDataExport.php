@@ -15,17 +15,13 @@ class TrainingDataExport
     public function __construct(CrawlRun $crawlRun)
     {
         $this->crawlRun = $crawlRun;
-        $this->excel = app('excel'); // Lấy instance Excel từ container
+        $this->excel = app('excel');
     }
 
-    /**
-     * Trả về mảng dữ liệu để export
-     */
     public function getData()
     {
         $data = [];
 
-        // Header
         $data[] = [
             'STT',
             'CV ID',
@@ -50,7 +46,6 @@ class TrainingDataExport
         $details = $this->crawlRun->detail ?? [];
         $results = $this->crawlRun->result ?? [];
 
-        // Map score theo URL
         $scoreMap = [];
         foreach ($results as $result) {
             if (isset($result['url'])) {
@@ -91,10 +86,6 @@ class TrainingDataExport
 
         return $data;
     }
-
-    /**
-     * Phương thức export - được gọi bởi Excel::download()
-     */
     public function download($filename)
     {
         return $this->excel->create($filename, function($excel) {

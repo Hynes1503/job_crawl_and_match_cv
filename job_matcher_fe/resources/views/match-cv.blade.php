@@ -26,7 +26,6 @@
             }
         }
 
-        /* Main Container */
         .crawl-container {
             min-height: 100vh;
             display: flex;
@@ -35,7 +34,6 @@
             padding: 40px 20px;
         }
 
-        /* Hero Card */
         .crawl-card {
             width: 100%;
             max-width: 700px;
@@ -65,8 +63,6 @@
             position: relative;
             z-index: 1;
         }
-
-        /* Header */
         .crawl-header {
             text-align: center;
             margin-bottom: 40px;
@@ -104,7 +100,6 @@
             line-height: 1.6;
         }
 
-        /* Form Styles */
         .form-group {
             margin-bottom: 24px;
         }
@@ -164,7 +159,6 @@
             padding: 10px;
         }
 
-        /* Filters Grid */
         .filters-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -172,7 +166,6 @@
             margin-bottom: 24px;
         }
 
-        /* Range Slider */
         .slider-group {
             margin: 32px 0;
         }
@@ -241,8 +234,6 @@
             border: none;
             box-shadow: 0 0 20px rgba(0, 180, 255, 0.6);
         }
-
-        /* Progress Bar */
         .slider-track {
             height: 4px;
             background: rgba(0, 180, 255, 0.3);
@@ -258,7 +249,6 @@
             border-radius: 4px;
         }
 
-        /* Submit Button */
         .submit-btn {
             width: 100%;
             background: linear-gradient(135deg, #00b4ff, #00ffaa);
@@ -291,7 +281,6 @@
             font-size: 1.5rem;
         }
 
-        /* Status Messages */
         .status-alert {
             margin-top: 24px;
             padding: 18px 24px;
@@ -321,7 +310,6 @@
             color: #ff6b6b;
         }
 
-        /* Info Box */
         .info-box {
             background: rgba(0, 180, 255, 0.08);
             border: 1px solid rgba(0, 180, 255, 0.2);
@@ -346,7 +334,6 @@
             line-height: 1.6;
         }
 
-        /* Responsive */
         @media (max-width: 992px) {
             .filters-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -418,7 +405,6 @@
                 <form action="{{ route('crawl.jobs') }}" method="POST">
                     @csrf
 
-                    <!-- Keyword -->
                     <div class="form-group">
                         <label for="keyword" class="form-label">
                             <i class="fas fa-search"></i>
@@ -429,7 +415,6 @@
                             value="{{ old('keyword') }}">
                     </div>
 
-                    <!-- Filters Grid -->
                     <div class="filters-grid">
                         <div class="form-group">
                             <label for="location" class="form-label">
@@ -540,7 +525,6 @@
                         </div>
                     </div>
 
-                    <!-- Range Slider -->
                     <div class="slider-group">
                         <div class="slider-header">
                             <span class="slider-label">
@@ -558,20 +542,17 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-rocket"></i>
                         Bắt Đầu Crawl Ngay
                     </button>
                 </form>
 
-                <!-- Info Box -->
                 <div class="info-box">
                     <i class="fas fa-info-circle"></i>
                     <p>Dữ liệu sẽ được crawl từ TopCV. Thời gian xử lý phụ thuộc vào số lượng công việc.</p>
                 </div>
 
-                <!-- Status Messages -->
                 @if (session('success'))
                     <div class="status-alert alert-success">
                         <i class="fas fa-check-circle"></i>
@@ -598,7 +579,6 @@
             document.getElementById('sliderFill').style.width = percentage + '%';
         }
 
-        // Initialize slider fill on page load
         document.addEventListener('DOMContentLoaded', function() {
             const slider = document.querySelector('.range-slider');
             updateSliderValue(slider.value);

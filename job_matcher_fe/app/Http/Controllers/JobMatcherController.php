@@ -20,17 +20,12 @@ use Carbon\Carbon;
 
 class JobMatcherController extends Controller
 {
-    protected $apiBaseUrl = 'http://localhost:8080';
-
-    /**
-     * Trích xuất tóm tắt CV bằng Gemini API
-     */
+    protected $apiBaseUrl = 'http://localhost:8000';
 
     public function dashboard()
     {
         $user = Auth::user();
 
-        // Thống kê tổng quan
         $stats = [
             'total_cvs' => $user->cvs()->count(),
             'total_crawls' => $user->crawlRuns()->count(),
@@ -40,25 +35,21 @@ class JobMatcherController extends Controller
             'total_jobs_found' => $user->crawlRuns()->sum('jobs_crawled'),
         ];
 
-        // Danh sách CV gần đây (5 CV mới nhất)
         $recentCvs = $user->cvs()
             ->latest()
             ->take(5)
             ->get();
 
-        // Lịch sử crawl gần đây (10 lần gần nhất)
         $recentCrawls = $user->crawlRuns()
             ->latest()
             ->take(5)
             ->get();
 
-        // Thống kê theo nguồn
         $crawlsBySource = $user->crawlRuns()
             ->selectRaw('source, count(*) as total, sum(jobs_crawled) as jobs')
             ->groupBy('source')
             ->get();
 
-        // Thống kê theo trạng thái
         $crawlsByStatus = $user->crawlRuns()
             ->selectRaw('status, count(*) as total')
             ->groupBy('status')
@@ -140,10 +131,6 @@ PROMPT;
             return 'Lỗi kết nối API trích xuất CV';
         }
     }
-
-    /**
-     * Hiển thị form matching CV (dùng dữ liệu mới nhất)
-     */
     public function exportTrainingData($runId)
     {
         $crawlRun = CrawlRun::findOrFail($runId);
@@ -152,7 +139,6 @@ PROMPT;
             abort(403);
         }
 
-        // === Lấy thông tin CV ===
         $cvUsed = $crawlRun->cv_used ?? [];
         $cvId = $cvUsed['cv_id'] ?? null;
 
@@ -161,12 +147,10 @@ PROMPT;
         if ($cvId) {
             $cv = Cv::find($cvId);
             if ($cv && $cv->text_content) {
-                // Gọi Gemini để trích xuất tóm tắt
                 $cvTextSummary = $this->extractCvSummary($cv->text_content);
             }
         }
 
-        // === Chuẩn bị dữ liệu job ===
         $details = $crawlRun->detail ?? [];
         $results = $crawlRun->result ?? [];
 
@@ -203,7 +187,7 @@ PROMPT;
             $rows[] = [
                 $index++,
                 $cvId ?? '',
-                $cvTextSummary, // ← Đã được tóm tắt bằng AI
+                $cvTextSummary,
                 $salary,
                 $experience,
                 $job['location'] ?? '',
@@ -211,11 +195,10 @@ PROMPT;
             ];
         }
 
-        // === Tạo file CSV với UTF-8 BOM ===
         $filename = 'Training_Data_Run_' . $crawlRun->id . '_' . now()->format('Y_m_d_His') . '.csv';
 
         $handle = fopen('php://temp', 'r+');
-        fwrite($handle, "\xEF\xBB\xBF"); // BOM UTF-8
+        fwrite($handle, "\xEF\xBB\xBF");
 
         foreach ($rows as $row) {
             fputcsv($handle, $row);
@@ -247,9 +230,6 @@ PROMPT;
         return view('match-cv', compact('jobsCount'));
     }
 
-    /**
-     * Xử lý matching CV với dữ liệu mới nhất
-     */
     public function processMatch(Request $request)
     {
         $request->validate([
@@ -313,7 +293,7 @@ PROMPT;
                 ->withInput()
                 ->with('error', 'Không thể kết nối đến AI Engine. Vui lòng kiểm tra server FastAPI đang chạy.');
         }
-        // Ghi log sau khi matching thành công
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'match_cv',
@@ -322,9 +302,6 @@ PROMPT;
         ]);
     }
 
-    /**
-     * Matching CV với một lần crawl cụ thể (từ lịch sử)
-     */
     public function matchWithRun(Request $request, $runId)
     {
         $request->validate([
@@ -342,13 +319,11 @@ PROMPT;
                 ->with('error', 'Lần crawl này không có dữ liệu hợp lệ để matching.');
         }
 
-        // Biến chung: Cv model cuối cùng được sử dụng để matching
         $usedCv = null;
         $cvContent = null;
         $cvName = null;
 
         try {
-            // Xử lý CV: dùng CV cũ HOẶC upload CV mới → lưu thành Cv
             if ($request->filled('existing_cv')) {
                 $usedCv = Cv::findOrFail($request->existing_cv);
 
@@ -359,18 +334,14 @@ PROMPT;
                 $cvContent = Storage::disk('public')->get($usedCv->file_path);
                 $cvName    = $usedCv->original_name;
             } else {
-                // Upload CV mới
                 $cvFile = $request->file('cv_file');
 
-                // Tạo tên file unique để tránh trùng
                 $extension = $cvFile->getClientOriginalExtension();
                 $filename  = 'cv_' . Auth::id() . '_' . date('Y_m_d_His') . '_' . uniqid() . '.' . $extension;
                 $filePath  = 'cvs/' . $filename;
 
-                // Lưu file vào storage/public/cvs/
                 Storage::disk('public')->put($filePath, file_get_contents($cvFile->path()));
 
-                // Tạo bản ghi Cv mới trong DB
                 $usedCv = Cv::create([
                     'user_id'   => Auth::id(),
                     'file_path' => $filePath,
@@ -385,7 +356,6 @@ PROMPT;
                 $textContent = CvTextExtractor::extract($cvContent, $extension);
                 $usedCv->update(['text_content' => $textContent]);
             }
-            // Bây giờ chắc chắn có $usedCv (Cv model), $cvContent và $cvName
 
             $response = Http::timeout(60)->attach(
                 'cv_file',
@@ -400,10 +370,6 @@ PROMPT;
 
             if ($response->failed()) {
                 $error = $response->json('detail') ?? $response->body();
-
-                // Nếu là CV mới upload, có thể xóa file và bản ghi nếu muốn (tùy chọn)
-                // if (!$request->filled('existing_cv')) { $usedCv->delete(); Storage::disk('public')->delete($usedCv->file_path); }
-
                 return redirect()->back()
                     ->withInput()
                     ->with('error', 'Lỗi matching: ' . $error);
@@ -448,18 +414,16 @@ PROMPT;
             }, $topResults);
 
 
-            // Lưu kết quả + thông tin CV đã dùng
             $crawlRun->update([
                 'result' => $formattedResults,
                 'cv_used' => [
                     'cv_id'         => $usedCv->id,
                     'original_name' => $usedCv->original_name,
-                    'url'           => $usedCv->url, // accessor getUrlAttribute()
+                    'url'           => $usedCv->url,
                     'uploaded_at'   => $usedCv->created_at->toDateTimeString(),
                 ],
             ]);
 
-            // Ghi log activity
             ActivityLog::create([
                 'user_id'     => Auth::id(),
                 'action'      => 'match_cv_with_run',
@@ -484,9 +448,6 @@ PROMPT;
         }
     }
 
-    /**
-     * Gọi API crawl jobs + lưu lịch sử vào DB
-     */
     public function crawlJobs(Request $request)
     {
         $userId = auth()->id();
@@ -501,7 +462,6 @@ PROMPT;
 
         set_time_limit(0);
 
-        // Tạo bản ghi trước để theo dõi
         $crawlRun = CrawlRun::create([
             'user_id'       => $userId,
             'group_id'      => null,
@@ -525,7 +485,6 @@ PROMPT;
                 ]);
 
             if ($response->successful()) {
-                // FastAPI chỉ trả về thông báo, không có jobs → gọi /jobs để lấy cleaned data
                 $jobsResponse = Http::timeout(30)->get("{$this->apiBaseUrl}/jobs");
 
                 $cleanedJobs = [];
@@ -537,14 +496,12 @@ PROMPT;
                     $jobsCount = $data['jobs_count'] ?? count($cleanedJobs);
                 }
 
-                // Cập nhật thành công
                 $crawlRun->update([
                     'status'       => 'completed',
                     'jobs_crawled' => $jobsCount,
                     'detail'       => $cleanedJobs,
                 ]);
 
-                // Ghi log sau khi crawl thành công
                 ActivityLog::create([
                     'user_id' => $userId,
                     'action' => 'crawl_jobs',
@@ -555,7 +512,6 @@ PROMPT;
                 return redirect()->back()->with('success', "Crawl thành công! Đã thu thập {$jobsCount} công việc.");
             }
 
-            // Nếu crawl thất bại
             $errorDetail = $response->json('detail') ?? $response->body();
             $crawlRun->update([
                 'status'        => 'failed',
@@ -575,9 +531,6 @@ PROMPT;
         }
     }
 
-    /**
-     * Hiển thị form crawl
-     */
     public function showCrawlForm()
     {
         $jobsCount = 0;
@@ -594,20 +547,65 @@ PROMPT;
         return view('match-cv', compact('jobsCount'));
     }
 
-    /**
-     * Hiển thị lịch sử crawl
-     */
-    public function crawlHistory()
+    public function crawlHistory(Request $request)
     {
         if (!auth()->check()) {
             return redirect()->route('login')
                 ->with('error', 'Bạn cần đăng nhập để xem lịch sử crawl.');
         }
-        $userCvs = auth()->user()->cvs()->latest()->get();
-        $crawlRuns = auth()->user()
+
+        $query = auth()->user()
             ->crawlRuns()
-            ->orderByDesc('created_at')
-            ->paginate(20);
+            ->orderByDesc('created_at');
+
+        if ($request->filled('keyword')) {
+            $keyword = strtolower($request->keyword);
+            $query->where(function ($q) use ($keyword) {
+                $q->whereRaw('LOWER(JSON_UNQUOTE(JSON_EXTRACT(parameters, "$.keyword"))) LIKE ?', ["%{$keyword}%"]);
+            });
+        }
+
+        if ($request->filled('location')) {
+            $query->whereRaw('JSON_UNQUOTE(JSON_EXTRACT(parameters, "$.location")) = ?', [$request->location]);
+        }
+
+        if ($request->filled('level')) {
+            $query->whereRaw('JSON_UNQUOTE(JSON_EXTRACT(parameters, "$.level")) = ?', [$request->level]);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('min_jobs')) {
+            $query->where('jobs_crawled', '>=', (int) $request->min_jobs);
+        }
+
+        if ($request->filled('date_range')) {
+            $now = now();
+
+            switch ($request->date_range) {
+                case 'today':
+                    $query->whereDate('created_at', $now->toDateString());
+                    break;
+
+                case 'week':
+                    $query->where('created_at', '>=', $now->copy()->subDays(7));
+                    break;
+
+                case 'month':
+                    $query->where('created_at', '>=', $now->copy()->subDays(30));
+                    break;
+
+                case '3months':
+                    $query->where('created_at', '>=', $now->copy()->subMonths(3));
+                    break;
+            }
+        }
+
+        $crawlRuns = $query->paginate(20)->appends($request->query());
+
+        $userCvs = auth()->user()->cvs()->latest()->get();
 
         $jobsCount = 0;
         try {
@@ -618,6 +616,7 @@ PROMPT;
         } catch (\Exception $e) {
             Log::warning('Jobs count API unreachable: ' . $e->getMessage());
         }
+
         $crawlData = $crawlRuns->mapWithKeys(function ($run) {
             return [
                 $run->id => [
@@ -637,12 +636,10 @@ PROMPT;
 
     public function destroy(CrawlRun $crawlRun)
     {
-        // Bảo vệ: chỉ cho phép người dùng xóa crawl run của chính mình
         if ($crawlRun->user_id !== Auth::id()) {
             abort(403, 'Bạn không có quyền xóa lần crawl này.');
         }
 
-        // Sao chép dữ liệu vào bảng deleted_crawls trước khi xóa
         DeletedCrawl::create([
             'user_id' => $crawlRun->user_id,
             'group_id' => $crawlRun->group_id,
@@ -658,11 +655,9 @@ PROMPT;
             'created_at' => $crawlRun->created_at,
             'updated_at' => $crawlRun->updated_at,
         ]);
-
-        // Xóa record từ crawl_runs
+        
         $crawlRun->delete();
 
-        // Ghi log sau khi xóa crawl run
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'delete_crawl_run',

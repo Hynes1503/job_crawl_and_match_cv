@@ -71,12 +71,12 @@ class SiteSelector(Base):
     __tablename__ = "site_selectors"
 
     id = Column(Integer, primary_key=True, index=True)
-    site = Column(String(50), nullable=False, index=True)              # ví dụ: "topcv"
-    page_type = Column(String(50), nullable=False)                     # search_form, job_list, job_detail
-    element_key = Column(String(100), nullable=False)                  # tên key để code gọi
-    selector_type = Column(String(20), default="xpath")                # xpath, css, id, class
-    selector_value = Column(Text, nullable=False)                      # giá trị selector thực tế
-    description = Column(Text, nullable=True)                          # mô tả chức năng
+    site = Column(String(50), nullable=False, index=True)              
+    page_type = Column(String(50), nullable=False)                     
+    element_key = Column(String(100), nullable=False)                 
+    selector_type = Column(String(20), default="xpath")                
+    selector_value = Column(Text, nullable=False)                      
+    description = Column(Text, nullable=True)   
     is_active = Column(Boolean, default=True)
     version = Column(Integer, default=1)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -84,7 +84,6 @@ class SiteSelector(Base):
 
     __table_args__ = (UniqueConstraint('site', 'page_type', 'element_key', name='uq_site_page_element'),)
 
-# Tạo tất cả các bảng
 Base.metadata.create_all(bind=engine)
 
 # ==================== DEPENDENCY ====================
@@ -118,7 +117,7 @@ def get_selector(db: Session, site: str, page_type: str, element_key: str) -> tu
         return By.CSS_SELECTOR, record.selector_value
     elif selector_type == "class":
         return By.CLASS_NAME, record.selector_value
-    else:  # xpath hoặc mặc định
+    else:
         return By.XPATH, record.selector_value
 
 # ==================== CÁC MODEL RESPONSE ====================
@@ -243,7 +242,7 @@ def safe_click_js(driver, by, selector, timeout: int = 10) -> bool:
 
 def crawl_topcv(keyword: str = None, location: str = None, level: str = None, salary: str = None, search_range: int = 20) -> list:
     driver = None
-    db = next(get_db())  # lấy session mới
+    db = next(get_db())
     all_results = []
     try:
         driver = create_driver(headless=False)
@@ -252,7 +251,6 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
         driver.get("https://www.topcv.vn/viec-lam-it")
         time.sleep(4)
 
-        # === Tìm kiếm form ===
         if keyword:
             by, sel = get_selector(db, "topcv", "search_form", "keyword_input")
             kw_input = wait.until(EC.element_to_be_clickable((by, sel)))
@@ -296,7 +294,6 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
         crawled_count = 0
         current_position = 1
 
-        # Lấy selector cho job card container và title link
         by_container, sel_container = get_selector(db, "topcv", "job_list", "job_card_container")
         by_title, sel_title_relative = get_selector(db, "topcv", "job_list", "job_title_link")
 
@@ -318,7 +315,6 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
                 driver.switch_to.window(driver.window_handles[-1])
                 time.sleep(3)
 
-                # Click các nút mở rộng (nếu có)
                 try:
                     by_chk, sel_chk = get_selector(db, "topcv", "job_detail", "checkbox_agree")
                     safe_click_js(driver, by_chk, sel_chk, timeout=3)
@@ -330,7 +326,6 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
                 except:
                     pass
 
-                # Lấy thông tin chi tiết
                 job_data = {
                     "title": safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "title")),
                     "salary_raw": safe_get_text(driver, *get_selector(db, "topcv", "job_detail", "salary")),
@@ -349,7 +344,6 @@ def crawl_topcv(keyword: str = None, location: str = None, level: str = None, sa
                 current_position += 1
 
             except TimeoutException:
-                # Chuyển trang
                 try:
                     by_next, sel_next = get_selector(db, "topcv", "job_list", "next_page_button")
                     next_btn = wait.until(EC.element_to_be_clickable((by_next, sel_next)))
@@ -640,7 +634,6 @@ async def match_with_jobs(
 
         results.sort(key=lambda x: x["score"], reverse=True)
 
-        # Lưu kết quả vào DB
         crawl_run = db.query(CrawlRun).filter(CrawlRun.id == run_id).first()
         if not crawl_run:
             raise HTTPException(status_code=404, detail=f"Không tìm thấy crawl run với id = {run_id}")

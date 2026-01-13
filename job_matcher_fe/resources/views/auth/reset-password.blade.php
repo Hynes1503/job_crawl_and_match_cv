@@ -27,7 +27,6 @@
             overflow: hidden;
         }
 
-        /* Background gradient di chuyển nhẹ nhàng */
         body::before {
             content: "";
             position: absolute;
@@ -69,7 +68,6 @@
             min-height: 100vh;
         }
 
-        /* Panel chính giữa màn hình */
         .reset-panel {
             width: 100%;
             max-width: 480px;
@@ -104,7 +102,6 @@
             line-height: 1.6;
         }
 
-        /* Form group */
         .form-group {
             margin-bottom: 24px;
             text-align: left;
@@ -146,7 +143,7 @@
             cursor: not-allowed;
         }
 
-        /* Alert danger */
+
         .alert-danger {
             background: rgba(255, 100, 100, 0.15);
             border: 1px solid rgba(255, 100, 100, 0.4);
@@ -158,7 +155,6 @@
             margin-bottom: 28px;
         }
 
-        /* Nút đổi mật khẩu */
         .btn-reset {
             background: linear-gradient(135deg, #00b4ff, #00ffaa);
             color: #000000;
@@ -186,7 +182,6 @@
             transform: translateY(-1px);
         }
 
-        /* Responsive */
         @media (max-width: 576px) {
             .reset-panel {
                 padding: 40px 24px;
@@ -219,10 +214,6 @@
                 <p class="panel-desc">Vui lòng nhập mật khẩu mới cho tài khoản của bạn</p>
             </div>
 
-            <!-- Thông báo lỗi -->
-            <!-- Trong thực tế, phần này sẽ được render bởi Blade nếu có lỗi -->
-            <!-- Ví dụ placeholder -->
-            <!--
             @if ($errors->any())
                 <div class="alert alert-danger mb-4">
                     @foreach ($errors->all() as $err)
@@ -230,35 +221,25 @@
                     @endforeach
                 </div>
             @endif
-            -->
 
-            <!-- Form đặt lại mật khẩu -->
             <form method="POST" action="#">
-                <!-- CSRF token sẽ được thêm bởi Laravel -->
-                <!-- <input type="hidden" name="_token" value="..."> -->
-
-                <!-- Email ẩn (theo token) -->
                 <input type="hidden" name="email" value="user@example.com">
 
-                <!-- Hiển thị email (disabled) -->
                 <div class="form-group mb-4">
                     <label class="form-label">Tài khoản</label>
                     <input type="text" class="form-control" value="user@example.com" disabled>
                 </div>
 
-                <!-- Mật khẩu mới -->
                 <div class="form-group mb-4">
                     <label class="form-label">Mật khẩu mới</label>
                     <input type="password" name="password" class="form-control" placeholder="Ít nhất 6 ký tự" required minlength="6">
                 </div>
 
-                <!-- Nhập lại mật khẩu -->
                 <div class="form-group mb-5">
                     <label class="form-label">Nhập lại mật khẩu</label>
                     <input type="password" name="password_confirmation" class="form-control" placeholder="Xác nhận mật khẩu mới" required>
                 </div>
 
-                <!-- Nút submit -->
                 <button type="submit" class="btn-reset">
                     <i class="fas fa-key"></i> Đổi Mật Khẩu
                 </button>
