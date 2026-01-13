@@ -35,7 +35,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background:
+            background: 
                 radial-gradient(ellipse at 20% 30%, rgba(0, 180, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 70%, rgba(0, 255, 170, 0.12) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 50%, rgba(0, 100, 255, 0.08) 0%, transparent 60%);
@@ -45,18 +45,14 @@
         }
 
         @keyframes movingGradient {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translate(0, 0) scale(1);
                 opacity: 1;
             }
-
             33% {
                 transform: translate(-5%, 5%) scale(1.05);
                 opacity: 0.9;
             }
-
             66% {
                 transform: translate(5%, -5%) scale(0.95);
                 opacity: 0.8;
@@ -84,7 +80,6 @@
             margin: 0 auto;
             padding: 32px 24px 80px;
         }
-
         @media (max-width: 1200px) {
             .main-content {
                 max-width: 100%;
@@ -140,140 +135,13 @@
             background: rgba(0, 180, 255, 0.3);
             color: #ffffff;
         }
-
-        .toast-container {
-            position: fixed;
-            top: 90px;
-            right: 24px;
-            z-index: 10000;
-            max-width: 420px;
-            pointer-events: auto;
-        }
-
-        .toast-notification {
-            display: flex;
-            align-items: center;
-            background: rgba(20, 20, 35, 0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 14px;
-            border: 1px solid rgba(0, 180, 255, 0.18);
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .toast-notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .toast-icon {
-            font-size: 1.6rem;
-            margin-right: 14px;
-            flex-shrink: 0;
-        }
-
-        .toast-success .toast-icon {
-            color: #00ffaa;
-        }
-
-        .toast-error .toast-icon {
-            color: #ff5e5e;
-        }
-
-        .toast-warning .toast-icon {
-            color: #ffcc00;
-        }
-
-        .toast-content {
-            flex: 1;
-        }
-
-        .toast-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin-bottom: 4px;
-        }
-
-        .toast-message {
-            font-size: 0.95rem;
-            opacity: 0.92;
-            line-height: 1.4;
-        }
-
-        .toast-close {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.3rem;
-            cursor: pointer;
-            padding: 4px;
-            margin-left: 12px;
-            transition: all 0.2s;
-        }
-
-        .toast-close:hover {
-            color: white;
-            transform: rotate(90deg);
-        }
-
-        /* Animation khi đóng */
-        .toast-notification.hiding {
-            opacity: 0;
-            transform: translateX(120%);
-        }
-
-        @media (max-width: 768px) {
-            .toast-container {
-                right: 16px;
-                left: 16px;
-                max-width: none;
-            }
-        }
     </style>
 </head>
 
 <body>
 
     @include('partials.navbar')
-    <div class="toast-container" id="toastContainer">
-        @if (session('success'))
-            <div class="toast-notification toast-success" data-auto-close="true">
-                <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
-                <div class="toast-content">
-                    <div class="toast-title">Thành công!</div>
-                    <div class="toast-message">{{ session('success') }}</div>
-                </div>
-                <button class="toast-close"><i class="fas fa-times"></i></button>
-            </div>
-        @endif
 
-        @if (session('error'))
-            <div class="toast-notification toast-error" data-auto-close="true">
-                <div class="toast-icon"><i class="fas fa-exclamation-circle"></i></div>
-                <div class="toast-content">
-                    <div class="toast-title">Lỗi!</div>
-                    <div class="toast-message">{{ session('error') }}</div>
-                </div>
-                <button class="toast-close"><i class="fas fa-times"></i></button>
-            </div>
-        @endif
-
-        @if (session('warning'))
-            <div class="toast-notification toast-warning" data-auto-close="true">
-                <div class="toast-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                <div class="toast-content">
-                    <div class="toast-title">Cảnh báo</div>
-                    <div class="toast-message">{{ session('warning') }}</div>
-                </div>
-                <button class="toast-close"><i class="fas fa-times"></i></button>
-            </div>
-        @endif
-    </div>
     <main class="main-content">
         @yield('content')
     </main>
@@ -284,7 +152,7 @@
 
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -303,7 +171,7 @@
                     const originalText = submitBtn.innerHTML;
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
-
+                    
                     setTimeout(() => {
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalText;
