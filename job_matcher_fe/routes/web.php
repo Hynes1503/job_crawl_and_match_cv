@@ -35,7 +35,6 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showForm'])->name('password.reset');
 Route::post('/reset-password/{token}', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-
 Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -45,7 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::prefix('cv')->group(function () {
         Route::get('/', [CvController::class, 'index'])->name('cv.form');
         Route::post('/', [CvController::class, 'store'])->name('cv.store');
-        Route::delete('/{cv}', [CvController::class, 'destroy'])->name('cv.destroy');
+
+        Route::middleware('owns:App\\Models\\Cv,cv')->group(function () {
+            Route::delete('/{cv}', [CvController::class, 'destroy'])->name('cv.destroy');
+        });
     });
 
     Route::prefix('match-cv')->group(function () {
@@ -57,31 +59,33 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [JobMatcherController::class, 'showCrawlForm'])->name('crawl.form');
         Route::post('/jobs', [JobMatcherController::class, 'crawlJobs'])->name('crawl.jobs');
         Route::get('/history', [JobMatcherController::class, 'crawlHistory'])->name('crawl.history');
-        
-        Route::middleware('web')->group(function () {
+
+        Route::middleware('owns:App\\Models\\CrawlRun,crawlRun')->group(function () {
             Route::post('/match-with-run/{runId}', [JobMatcherController::class, 'matchWithRun'])
                 ->name('match.with.run');
+
+            Route::get('/runs/{runId}/export-training', [JobMatcherController::class, 'exportTrainingData'])
+                ->name('crawl-runs.export-training');
+
+            Route::delete('/runs/{crawlRun}', [JobMatcherController::class, 'destroy'])
+                ->name('crawl-runs.destroy');
         });
-
-        Route::get('/runs/{runId}/export-training', [JobMatcherController::class, 'exportTrainingData'])
-            ->name('crawl-runs.export-training');
-
-        Route::delete('/runs/{crawlRun}', [JobMatcherController::class, 'destroy'])
-            ->name('crawl-runs.destroy');
     });
 
     Route::prefix('support')->group(function () {
         Route::get('/', [SupportController::class, 'index'])->name('support.index');
         Route::get('/create', [SupportController::class, 'create'])->name('support.create');
         Route::post('/', [SupportController::class, 'store'])->name('support.store');
-        Route::get('/{ticket}', [SupportController::class, 'show'])->name('support.show');
-        Route::post('/{ticket}/reply', [SupportController::class, 'reply'])->name('support.reply');
+
+        Route::middleware('owns:App\\Models\\Ticket,ticket')->group(function () {
+            Route::get('/{ticket}', [SupportController::class, 'show'])->name('support.show');
+            Route::post('/{ticket}/reply', [SupportController::class, 'reply'])->name('support.reply');
+        });
     });
 
     Route::middleware('role:user')->group(function () {
         Route::get('/user', [UserController::class, 'index'])->name('user.dashboard');
     });
-
 
     Route::middleware('restrict.admin')->prefix('admin')->group(function () {
 
